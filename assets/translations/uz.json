@@ -132,7 +132,9 @@
   "user_not_found": "Foydalanuvchi topilmadi",
   "failed_to_send_otp": "OTP kodini yuborib bo‘lmadi",
   "user_already_exist": "Foydalanuvchi allaqachon mavjud",
-  "invalid_otp": "Noto‘g‘ri OTP"
+  "invalid_otp": "Noto‘g‘ri OTP",
+  "create_list": "Ro'yhat yaratish"
+
 
 
 

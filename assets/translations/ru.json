@@ -101,19 +101,13 @@
   "no_history": "Истории пока нет",
   "total": "Итого",
   "date": "Дата",
-
-
   "success_sent": "Успешно отправлено!",
   "invalid_login": "Логин или пароль неверный",
   "login_success": "Вы успешно вошли в систему",
   "user_not_found": "Пользователь не найден",
   "failed_to_send_otp": "Не удалось отправить OTP",
   "user_already_exist": "Пользователь уже существует",
-  "invalid_otp": "Неверный OTP"
-
-
-
-
-
+  "invalid_otp": "Неверный OTP",
+  "create_list": "Создать список"
 }
 

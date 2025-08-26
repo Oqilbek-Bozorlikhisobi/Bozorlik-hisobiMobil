@@ -134,7 +134,8 @@
   "user_not_found": "User not found",
   "failed_to_send_otp": "Failed to send OTP",
   "user_already_exist": "User already exist",
-  "invalid_otp": "Invalid OTP"
+  "invalid_otp": "Invalid OTP",
+  "create_list": "Create list"
 
 
 

@@ -23,7 +23,7 @@ class NoMarketWidget extends StatelessWidget {
             Icon(Icons.shopping_cart_outlined, size: 28),
             Spacer(),
             CustomButton(
-              text: "create_shopping_list".tr(),
+              text: "create_list".tr(),
               onTap: () {
                 CartCreateModal.show(context);
               },
