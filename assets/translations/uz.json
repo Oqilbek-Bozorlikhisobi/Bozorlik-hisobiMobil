@@ -1,0 +1,147 @@
+{
+  "enter_phone": "Telefon raqamingizni kiriting",
+  "verify_sms": "Telefon raqamingizni SMS orqali tasdiqlashingiz kerak",
+  "please_enter_phone": "Iltimos, telefon raqamini kiriting",
+  "phone": "Telefon",
+  "please_enter_password": "Iltimos, parolni kiriting",
+  "enter_password": "Parolni kiriting",
+  "password": "Parol",
+  "passwords_not_match": "Parollar mos kelmadi",
+  "reenter_password": "Parolni qayta kiriting",
+  "enter_additional_info": "Qo‘shimcha ma’lumotlarni kiriting",
+  "tell_more": "Iltimos, o‘zingiz haqingizda ko‘proq ma’lumot bering",
+  "please_enter_fullname": "Iltimos, to‘liq ismingizni kiriting",
+  "enter_fullname": "To‘liq ismingizni kiriting",
+  "full_name": "To‘liq ism",
+  "please_select_gender": "Iltimos, jinsni tanlang",
+  "select_gender": "Jinsni tanlang",
+  "gender": "Jins",
+  "male": "Erkak",
+  "female": "Ayol",
+  "please_select_region": "Iltimos, mintaqani tanlang",
+  "select_region": "Mintaqani tanlang",
+  "region": "Mintaqa",
+  "enter_code": "Tasdiqlash kodini kiriting",
+  "verify_phone": "Telefon raqamingizni tasdiqlang",
+  "please_enter_code": "Iltimos, kodni kiriting",
+  "enter_code_only": "Kod kiriting",
+  "next": "Keyingi",
+  "failed_send_otp": "Kod yuborilmadi",
+
+
+  "log_in": "Kirish",
+  "please_enter_login_info": "Iltimos, login ma'lumotlarini kiriting",
+  "forgot_password": "Parolni unutdingizmi?",
+  "no_account_yet": "Hali hisobingiz yo‘qmi?",
+
+
+  "cart": "Savat",
+  "cart_empty": "Savatingiz bo'sh",
+  "start_adding_products": "Bozorlik ro'yxatingizga mahsulot qo'shishni boshlang",
+  "view_products": "Mahsulotlarni ko'rish",
+  "add_product": "Mahsulot qo'shish",
+  "complete_shopping": "Bozorlikni yakunlash 🎉",
+
+  "received": "Olindi",
+  "buy": "Sotib olish",
+  "share_shopping": "Bozorlikni ulashish",
+  "enter_user_phone": "Foydalanuvchining telefon raqamini kiriting",
+  "enter_phone_number": "Telefon raqamini kiriting",
+  "share": "Ulashish",
+  "price": "Narx",
+  "enter_price": "Narxni kiriting",
+  "add_to_cart": "Savatga",
+
+
+
+  "categories": "Kategoriyalar",
+  "search_products_categories": "Mahsulotlar va turkumlar izlash",
+  "create_shopping_list": "Bozorlik ro'yxatingizni yarating",
+  "name_shopping_list": "Boshlash uchun bozorlik ro'yxatingizga nom bering",
+  "shopping_list_name": "Bozorlik ro'yxati nomi",
+  "shopping_list_example": "masalan, Haftalik oziq-ovqat",
+  "create": "Yaratish",
+
+
+
+  "history": "Tarix",
+  "amount": "Miqdor",
+  "currency": "so'm",
+
+
+
+  "welcome": "Hush kelibsiz",
+  "select_category": "Turkum tanlang",
+  "select_category_to_add": "Ro'yxatingizga mahsulot qo'shish uchun turkumni tanlang",
+  "no_active_list": "Faol bozorlik ro'yhati yo'q",
+  "shopping": "Bozorlik",
+
+
+
+  "select_app_language": "Ilova tilini tanlang",
+  "change_language_anytime": "Tilni istalgan paytda sozlamalarda o'zgartirish mumkin",
+
+
+  "main": "Asosiy",
+  "settings": "Sozlamalar",
+  "search": "Qidirish",
+  "product_type_optional": "Mahsulot turi/navi (ixtiyoriy)",
+  "examples": "(Premium, organik, 1L)",
+  "amount_example": "masalan, 1.5",
+  "product_name": "Mahsulot nomi",
+  "product_name_example": "(Kartoshka, Suv, Chiroq)",
+
+
+  "language": "Ilova tili",
+  "about_us": "Biz haqimizda",
+  "logout": "Tizimdan chiqish",
+  "version": "Versiya",
+  "change_phone_number": "Telefon raqamini o'zgartirish",
+  "enter_new_number": "Iltimos, yangi raqamingizni kiriting",
+  "questions_suggestions": "Savol va takliflar",
+  "send": "Yuborish",
+  "tell_us_improvement": "Nimani yaxshilash mumkinligini bizga ayting?",
+  "give_feedback": "Fikr bildirish",
+  "delete": "O‘chirish",
+  "resend_in": "{} soniyadan keyin qayta yuborish",
+  "resend": "Qayta yuborish",
+  "others": "Boshqalar",
+  "active_lists": "Faol ro'yhatlar",
+  "something_went_wrong": "Nimadir noto‘g‘ri ketdi!",
+
+  "enter_market_name": "Bozor nomini yozing va bozorlikni yakunlang",
+  "market_name": "Bozor nomi",
+  "market_name_example": "(masalan, Chorsu)",
+  "finish": "Yakunlash",
+  "didnt_receive_code": "Kod kelmadimi?",
+
+  "server_error": "Server xatolik: {}",
+  "internet_error": "Internet aloqasi yo'q",
+  "unexpected_error": "Kutilmagan xatolik",
+
+  "measurement_unit": "O'lchov birligi",
+  "piece": "dona",
+  "required_field": "Majburiy maydon",
+  "no_history": "Tarix hozircha yo'q",
+  "total": "Jami",
+  "date": "Sana",
+
+  "success_sent": "Muvaffaqiyatli yuborildi!",
+  "invalid_login": "Login yoki parol noto'g'ri",
+  "login_success": "Tizimga muvaffaqiyatli kirdingiz",
+  "user_not_found": "Foydalanuvchi topilmadi",
+  "failed_to_send_otp": "OTP kodini yuborib bo‘lmadi",
+  "user_already_exist": "Foydalanuvchi allaqachon mavjud",
+  "invalid_otp": "Noto‘g‘ri OTP"
+
+
+
+
+
+
+
+
+
+
+
+}

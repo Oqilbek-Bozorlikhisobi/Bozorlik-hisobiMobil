@@ -1,0 +1,145 @@
+{
+  "enter_phone": "Enter your phone number",
+  "verify_sms": "You must verify your phone number via SMS",
+  "please_enter_phone": "Please enter phone number",
+  "phone": "Phone",
+  "please_enter_password": "Please enter password",
+  "enter_password": "Enter password",
+  "password": "Password",
+  "passwords_not_match": "Passwords do not match",
+  "reenter_password": "Re-enter password",
+  "enter_additional_info": "Enter additional informations",
+  "tell_more": "Please tell us more about you",
+  "please_enter_fullname": "Please enter full name",
+  "enter_fullname": "Enter full name",
+  "full_name": "Full name",
+  "please_select_gender": "Please select gender",
+  "select_gender": "Select gender",
+  "gender": "Gender",
+  "male": "Male",
+  "female": "Female",
+  "please_select_region": "Please select region",
+  "select_region": "Select region",
+  "region": "Region",
+  "enter_code": "Enter confirmation code",
+  "verify_phone": "Please verify your phone number",
+  "please_enter_code": "Please enter code",
+  "enter_code_only": "Enter code",
+  "next": "Next",
+  "failed_send_otp": "Failed to send OTP",
+
+
+
+  "log_in": "Log in",
+  "please_enter_login_info": "Please enter login information",
+  "forgot_password": "Forgot password?",
+  "no_account_yet": "Don't have an account yet?",
+
+
+
+  "cart": "Cart",
+  "cart_empty": "Your cart is empty",
+  "start_adding_products": "Start adding products to your shopping list",
+  "view_products": "View products",
+  "add_product": "Add product",
+  "complete_shopping": "Complete shopping 🎉",
+
+  "received": "Received",
+  "buy": "Buy",
+  "share_shopping": "Share shopping",
+  "enter_user_phone": "Enter user's phone number",
+  "enter_phone_number": "Enter phone number",
+  "share": "Share",
+  "price": "Price",
+  "enter_price": "Enter price",
+  "add_to_cart": "Add to cart",
+
+
+
+  "categories": "Categories",
+  "search_products_categories": "Search products and categories",
+  "create_shopping_list": "Create your shopping list",
+  "name_shopping_list": "Give your shopping list a name to start",
+  "shopping_list_name": "Shopping list name, e.g. Weekly groceries",
+  "shopping_list_example": "e.g. Weekly groceries",
+  "create": "Create",
+
+
+  "history": "History",
+  "amount": "Amount",
+  "currency": "UZS",
+
+
+
+  "welcome": "Welcome",
+  "select_category": "Select category",
+  "select_category_to_add": "Select a category to add products to your list",
+  "no_active_list": "No active shopping list",
+  "shopping": "Shopping",
+
+
+  "select_app_language": "Select app language",
+  "change_language_anytime": "You can change the language anytime in settings",
+
+
+  "main": "Main",
+  "settings": "Settings",
+  "search": "Search",
+  "product_type_optional": "Product type/variety (optional)",
+  "examples": "(Premium, organic, 1L)",
+  "amount_example": "e.g. 1.5",
+  "product_name": "Product name",
+  "product_name_example": "(Potato, Water, Lamp)",
+
+
+
+  "language": "Language",
+  "about_us": "About us",
+  "logout": "Logout",
+  "version": "Version",
+  "change_phone_number": "Change phone number",
+  "enter_new_number": "Please enter your new number",
+  "questions_suggestions": "Questions and suggestions",
+  "send": "Send",
+  "tell_us_improvement": "Tell us what can be improved?",
+  "give_feedback": "Give feedback",
+  "delete": "Delete",
+  "resend_in": "Resend in {}s",
+  "resend": "Resend",
+  "others": "Others",
+  "active_lists": "Active lists",
+  "something_went_wrong": "Something went wrong!",
+
+  "enter_market_name": "Enter market name and finish shopping",
+  "market_name": "Market name",
+  "market_name_example": "(e.g., Chorsu)",
+  "finish": "Finish",
+  "didnt_receive_code": "Didn't receive the code?",
+
+
+  "server_error": "Server error: {}",
+  "internet_error": "No internet connection",
+  "unexpected_error": "Unexpected error",
+
+  "measurement_unit": "Measurement unit",
+  "piece": "piece",
+  "required_field": "Required field",
+  "no_history": "No history yet",
+  "total": "Total",
+  "date": "Date",
+
+  "success_sent": "Successfully sent!",
+  "invalid_login": "Login or password is incorrect",
+  "login_success": "You have successfully logged in",
+  "user_not_found": "User not found",
+  "failed_to_send_otp": "Failed to send OTP",
+  "user_already_exist": "User already exist",
+  "invalid_otp": "Invalid OTP"
+
+
+
+
+
+
+
+}
