@@ -1,4 +1,4 @@
-package com.example.bozorlik
+package uz.bozorlik.app
 
 import io.flutter.embedding.android.FlutterActivity
 
