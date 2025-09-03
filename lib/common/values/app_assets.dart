@@ -14,12 +14,12 @@ class AppIcons {
 }
 
 class AppImages {
-  static const String banner1uz = "assets/png/banner1_uz.jpeg";
-  static const String banner2uz = "assets/png/banner2_uz.jpeg";
-  static const String banner1ru = "assets/png/banner1_ru.jpeg";
-  static const String banner2ru = "assets/png/banner2_ru.jpeg";
-  static const String banner1en = "assets/png/banner1_en.jpeg";
-  static const String banner2en = "assets/png/banner2_en.jpeg";
+  static const String banner1uz = "assets/png/banner1_uz.png";
+  static const String banner2uz = "assets/png/banner2_uz.png";
+  static const String banner1ru = "assets/png/banner1_ru.png";
+  static const String banner2ru = "assets/png/banner2_ru.png";
+  static const String banner1en = "assets/png/banner1_en.png";
+  static const String banner2en = "assets/png/banner2_en.png";
   static const String banner3uz = "assets/png/banner3_uz.jpeg";
   static const String banner3ru = "assets/png/banner3_ru.jpeg";
   static const String banner3en = "assets/png/banner3_en.jpeg";
