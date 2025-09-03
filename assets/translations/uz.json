@@ -133,7 +133,11 @@
   "failed_to_send_otp": "OTP kodini yuborib bo‘lmadi",
   "user_already_exist": "Foydalanuvchi allaqachon mavjud",
   "invalid_otp": "Noto‘g‘ri OTP",
-  "create_list": "Ro'yhat yaratish"
+  "create_list": "Ro'yhat yaratish",
+  "delete_account": "Hisobni o'chirish",
+  "delete_account_confirm": "Hisobingizni o‘chirmoqchi ekanligingizga ishonchingiz komilmi? Bu amalni ortga qaytarib bo‘lmaydi.",
+  "cancel": "Bekor qilish"
+
 
 
 

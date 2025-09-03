@@ -139,6 +139,50 @@ class SettingsPage extends HookConsumerWidget {
                 },
               ),
               10.vertical,
+              CustomOutlinedButton(
+                borderColor: Colors.transparent,
+                textColor: Colors.redAccent,
+                text: "delete_account".tr(),
+                onTap: () {
+                  isLoading.value = true;
+                  try {
+                    showCupertinoModalPopup(
+                      context: context,
+                      builder: (context) {
+                        return CupertinoActionSheet(
+                          title: Text("delete_account".tr()),
+                          message: Text("delete_account_confirm".tr()),
+                          actions: [
+                            CupertinoActionSheetAction(
+                              isDestructiveAction: true,
+                              onPressed: () async {
+                                Navigator.pop(context); // close popup
+                                await ref
+                                    .read(loginNotifierProvider.notifier)
+                                    .deleteAccount();
+                                if (context.mounted) {
+                                  context.go(AppRoutes.login);
+                                }
+                              },
+                              child: Text("delete_account".tr()),
+                            ),
+                            CupertinoActionSheetAction(
+                              onPressed: () {
+                                Navigator.pop(context); // just close
+                              },
+                              child: Text("cancel".tr()),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  } catch (e) {
+                    debugPrint("Error: $e");
+                  }
+                  isLoading.value = false;
+                },
+              ),
+              10.vertical,
             ],
           ),
         ),

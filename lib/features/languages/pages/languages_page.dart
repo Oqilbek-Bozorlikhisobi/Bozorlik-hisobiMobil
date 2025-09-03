@@ -33,7 +33,7 @@ class LanguagesPage extends ConsumerWidget {
             children: [
               Spacer(flex: 2),
               Center(
-                child: SvgPicture.asset(AppIcons.logo, height: 150, width: 150),
+                child: Image.asset(AppImages.logo, height: 150, width: 150),
               ),
               20.vertical,
               Text(

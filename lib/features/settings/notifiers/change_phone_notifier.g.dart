@@ -7,7 +7,7 @@ part of 'change_phone_notifier.dart';
 // **************************************************************************
 
 String _$changePhoneNotifierHash() =>
-    r'cf5b086f902a29db3244f42ef5269967ff564c25';
+    r'3503d4bab516dd492c370ff81db5b1b6518336e9';
 
 /// See also [ChangePhoneNotifier].
 @ProviderFor(ChangePhoneNotifier)

@@ -87,7 +87,9 @@ class _CustomPaginationWidgetState<T>
     _pagingController.addPageRequestListener((pageKey) async {
       try {
         final items = await widget.getItems(pageKey);
-        final hasMore = items.page != items.pages;
+        final hasMore =
+            (items.page != items.pages) &&
+            ((items.page ?? 0) < (items.pages ?? 0));
 
         final List<DataItem<T>> list =
             (items.items ?? []).map((e) => DataItem<T>(e)).toList();

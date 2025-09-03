@@ -135,7 +135,10 @@
   "failed_to_send_otp": "Failed to send OTP",
   "user_already_exist": "User already exist",
   "invalid_otp": "Invalid OTP",
-  "create_list": "Create list"
+  "create_list": "Create list",
+  "delete_account": "Delete account",
+  "delete_account_confirm": "Are you sure you want to delete your account? This action cannot be undone.",
+  "cancel": "Cancel"
 
 
 

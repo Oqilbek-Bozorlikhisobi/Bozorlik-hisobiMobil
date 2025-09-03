@@ -33,4 +33,13 @@ class LoginNotifier extends _$LoginNotifier {
     await cache.setString("language", lang ?? "");
     await cache.setBool("onboarded", onboarded ?? false);
   }
+
+  Future<void> deleteAccount() async {
+    final lang = cache.getString("language");
+    final onboarded = cache.getBool("onboarded");
+    await authRepository.deleteAccount();
+    await cache.clear();
+    await cache.setString("language", lang ?? "");
+    await cache.setBool("onboarded", onboarded ?? false);
+  }
 }

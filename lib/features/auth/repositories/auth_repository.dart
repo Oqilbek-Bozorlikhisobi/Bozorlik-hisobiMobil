@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../app/router.dart';
 import '../../../common/helpers/request_helper.dart';
 import '../../../db/cache.dart';
+import '../../settings/repositories/profile_repository.dart';
 import '../models/otp_state.dart';
 import '../models/register_state.dart';
 
@@ -107,6 +108,12 @@ class AuthRepository {
       state.toJson(),
     );
 
+    return response;
+  }
+
+  Future<dynamic> deleteAccount() async {
+    final userId = ProfileRepository().id;
+    final response = await requestHelper.deleteWithAuth("/user/$userId");
     return response;
   }
 }

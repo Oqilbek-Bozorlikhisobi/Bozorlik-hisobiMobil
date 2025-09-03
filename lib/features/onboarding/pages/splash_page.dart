@@ -25,7 +25,7 @@ class SplashPage extends HookConsumerWidget {
     }, [0]);
     return Scaffold(
       body: Center(
-        child: SvgPicture.asset(AppIcons.logo, height: 200, width: 200),
+        child: Image.asset(AppImages.logo, height: 200, width: 200),
       ),
     );
   }

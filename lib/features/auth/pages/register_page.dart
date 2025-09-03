@@ -345,6 +345,9 @@ class RegisterPage extends HookConsumerWidget {
                       final key = await registerNotifier.post();
                       otpKey.value = key;
                       isLoading.value = false;
+                      ref
+                          .read(registerOtpNotifierProvider.notifier)
+                          .startResendTimer();
                       pageController.animateToPage(
                         2,
                         duration: Duration(milliseconds: 500),
