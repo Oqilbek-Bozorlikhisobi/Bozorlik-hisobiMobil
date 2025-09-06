@@ -1,4 +1,5 @@
 import 'package:bozorlik/app/router.dart';
+import 'package:bozorlik/app/theme.dart';
 import 'package:bozorlik/common/extension/for_context.dart';
 import 'package:bozorlik/common/extension/number_extension.dart';
 import 'package:bozorlik/common/widgets/custom_network_image.dart';
@@ -93,10 +94,15 @@ class ProductAdd extends ConsumerWidget {
             child: Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: CupertinoColors.systemGroupedBackground,
+                // border: Border.all(color: AppColors.primaryColor, width: 4),
+                color: Color(0xFF85dc3c),
                 borderRadius: BorderRadius.circular(16),
               ),
-              child: Icon(CupertinoIcons.add, size: 50),
+              child: Icon(
+                CupertinoIcons.cart_badge_plus,
+                size: 50,
+                color: CupertinoColors.white,
+              ),
             ),
           ),
           4.vertical,
