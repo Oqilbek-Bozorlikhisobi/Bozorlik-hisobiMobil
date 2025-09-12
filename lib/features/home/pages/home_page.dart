@@ -1,5 +1,6 @@
 import 'package:bozorlik/app/router.dart';
 import 'package:bozorlik/common/extension/number_extension.dart';
+import 'package:bozorlik/common/extension/widget_extantion.dart';
 import 'package:bozorlik/common/values/app_assets.dart';
 import 'package:bozorlik/common/widgets/custom_text_field.dart';
 import 'package:bozorlik/features/cart/notifiers/all_carts_notifier.dart';
@@ -22,7 +23,6 @@ class HomePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     final focusNode = useFocusNode();
     return Scaffold(
       appBar: AppBar(title: Text('welcome'.tr())),
@@ -31,7 +31,7 @@ class HomePage extends HookConsumerWidget {
           if (
           // cart.isLoading == false ||
           //     cart.valueOrNull?.name == null ||
-              true) ...[
+          true) ...[
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12),
               child: NoMarketWidget(),
@@ -53,38 +53,42 @@ class HomePage extends HookConsumerWidget {
           ),
           16.vertical,
           const BannersWidget(),
+          ProductAdd(
+            aspectRatio: 2,
+            textSize: 14,
+          ).paddingSymmetric(horizontal: 12),
 
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12),
-            child: Text(
-              "select_category".tr(),
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
-            ),
-          ),
-          6.vertical,
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12),
-            child: Text(
-              "select_category_to_add".tr(),
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
-            ),
-          ),
-          12.vertical,
-          CustomPaginationWidget(
-            customWidget: ProductAdd(),
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-            itemBuilder: (item) {
-              return CategoryWidget(model: item);
-            },
-            getItems: (page) async {
-              return await ref.read(
-                categoriesNotifierProvider(page: page).future,
-              );
-            },
-            isListView: false,
-          ),
+          // Padding(
+          //   padding: EdgeInsets.symmetric(horizontal: 12),
+          //   child: Text(
+          //     "select_category".tr(),
+          //     style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
+          //   ),
+          // ),
+          // 6.vertical,
+          // Padding(
+          //   padding: EdgeInsets.symmetric(horizontal: 12),
+          //   child: Text(
+          //     "select_category_to_add".tr(),
+          //     style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+          //   ),
+          // ),
+          // 12.vertical,
+          // CustomPaginationWidget(
+          //   customWidget: ProductAdd(),
+          //   physics: NeverScrollableScrollPhysics(),
+          //   shrinkWrap: true,
+          //   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+          //   itemBuilder: (item) {
+          //     return CategoryWidget(model: item);
+          //   },
+          //   getItems: (page) async {
+          //     return await ref.read(
+          //       categoriesNotifierProvider(page: page).future,
+          //     );
+          //   },
+          //   isListView: false,
+          // ),
         ],
       ),
     );

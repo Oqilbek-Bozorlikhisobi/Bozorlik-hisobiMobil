@@ -8,6 +8,7 @@ import 'package:bozorlik/common/widgets/custom_scaffold_loading.dart';
 import 'package:bozorlik/common/widgets/loading_widget.dart';
 import 'package:bozorlik/features/cart/widgets/cart_item_widget.dart';
 import 'package:bozorlik/features/cart/widgets/cart_location_modal.dart';
+import 'package:bozorlik/features/cart/widgets/cart_name_modal.dart';
 import 'package:bozorlik/features/cart/widgets/cart_share_modal.dart';
 import 'package:bozorlik/features/main/notifiers/index_notifier.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -96,6 +97,21 @@ class CartPage extends ConsumerWidget {
                           ),
                         ],
                         Spacer(),
+                        GestureDetector(
+                          behavior: HitTestBehavior.deferToChild,
+                          onTap: () {
+                            // if (cartModel == null) return;
+                            Navigator.of(context).pop();
+                            CartNameModal.show(context, cartModel!);
+                          },
+
+                          child: Icon(
+                            Icons.edit,
+                            color: AppColors.primaryColor,
+                            size: 20,
+                          ),
+                        ),
+                        4.horizontal,
                         GestureDetector(
                           behavior: HitTestBehavior.deferToChild,
                           onTap: () {

@@ -77,7 +77,7 @@ class ProductBuyModal extends HookConsumerWidget {
               20.vertical,
               CustomButton(
                 isLoading: isLoading.value,
-                text: "add_to_cart".tr(),
+                text: "buy".tr(),
                 onTap: () async {
                   isLoading.value = true;
                   try {

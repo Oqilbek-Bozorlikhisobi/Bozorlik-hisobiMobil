@@ -137,7 +137,13 @@
   "delete_account": "Hisobni o'chirish",
   "delete_account_confirm": "Hisobingizni o‘chirmoqchi ekanligingizga ishonchingiz komilmi? Bu amalni ortga qaytarib bo‘lmaydi.",
   "cancel": "Bekor qilish",
-  "product_count": "Mahsulotlar soni"
+  "product_count": "Mahsulotlar soni",
+
+  "update_shopping_list_name": "Bozorlik nomini yangilang",
+  "enter_new_name": "Yangi nomni kiriting",
+  "for_manufacturers_wholesalers": "Ishlab chiqaruvchi va ulgurji savdo qiluvchilar uchun"
+
+
 
 
 

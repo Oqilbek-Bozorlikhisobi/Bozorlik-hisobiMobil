@@ -41,10 +41,12 @@ class CartRepository {
 
   Future<dynamic> changeLocation({
     required String cartId,
-    required String location,
+    required String? location,
+    required String name,
   }) async {
     final response = await requestHelper.patchWithAuth("/market/$cartId", {
       "location": location,
+      "name": name,
     });
 
     return response;
@@ -75,21 +77,36 @@ class CartRepository {
   }
 
   Future<dynamic> deleteCart({required String cartId}) async {
-    final response = await requestHelper.deleteWithAuth(
-      "/market/$cartId",
-    );
+    final response = await requestHelper.deleteWithAuth("/market/$cartId");
   }
 
-  Future<dynamic> finishCart({required String cartId, String? location}) async {
+  Future<dynamic> finishCart({
+    required String cartId,
+    String? location,
+    required String name,
+  }) async {
     if (location != null) {
-      final locationResponse = await cartRepository.changeLocation(
+      final locationResponse = await updateCart(
         cartId: cartId,
+        name: name,
         location: location,
       );
     }
     final response = await requestHelper.postWithAuth("/history", {
       "marketId": cartId,
     });
+  }
+
+  Future<dynamic> updateCart({
+    required String cartId,
+    required String? location,
+    required String name,
+  }) async {
+    final locationResponse = await cartRepository.changeLocation(
+      cartId: cartId,
+      name: name,
+      location: location,
+    );
   }
 
   Future<CartModel> createCartByHistory({required String historyId}) async {

@@ -139,7 +139,13 @@
   "delete_account": "Delete account",
   "delete_account_confirm": "Are you sure you want to delete your account? This action cannot be undone.",
   "cancel": "Cancel",
-  "product_count": "Product count"
+  "product_count": "Product count",
+
+  "update_shopping_list_name": "Update shopping list name",
+  "enter_new_name": "Enter new name",
+  "for_manufacturers_wholesalers": "For manufacturers and wholesalers"
+
+
 
 
 

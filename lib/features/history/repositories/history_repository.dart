@@ -39,22 +39,6 @@ Future<void> generateAndOpenPdf(
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     Image(MemoryImage(logoBytes), height: 40, width: 40),
-                //     // shopping cart emoji fallback
-                //     SizedBox(width: 8),
-                //     Text(
-                //       "BOZOR APP",
-                //       style: TextStyle(
-                //         font: boldFont,
-                //         fontSize: 24,
-                //         fontWeight: FontWeight.bold,
-                //       ),
-                //     ),
-                //   ],
-                // ),
                 Center(
                   child: Image(MemoryImage(logoBytes), height: 120, width: 120),
                 ),
@@ -78,8 +62,9 @@ Future<void> generateAndOpenPdf(
                 SizedBox(height: 12),
 
                 // 🛍 Items
-                ...(cart.marketLists ?? []).map(
-                  (item) => Container(
+                ...(cart.marketLists ?? []).map((item) {
+                  final price = (item.quantity ?? 1) * item.price!;
+                  return Container(
                     padding: const EdgeInsets.only(bottom: 8),
                     margin: const EdgeInsets.symmetric(vertical: 6),
                     decoration: BoxDecoration(
@@ -128,7 +113,7 @@ Future<void> generateAndOpenPdf(
                             ),
                             SizedBox(height: 2),
                             Text(
-                              "${item.quantity ?? 0} ${item.unit?.name ?? ""}",
+                              "${item.quantity ?? 0} ${item.unit?.name ?? ""} x ${item.price?.toStringAsFixed(1)} ${"currency".tr()}",
                               style: TextStyle(
                                 font: font,
                                 fontSize: 14,
@@ -141,7 +126,7 @@ Future<void> generateAndOpenPdf(
                         Spacer(),
 
                         Text(
-                          "${item.price?.toStringAsFixed(2) ?? "0"} ${"currency".tr()}",
+                          "${price.toStringAsFixed(2) ?? "0"} ${"currency".tr()}",
                           style: TextStyle(
                             font: boldFont,
                             fontSize: 18,
@@ -150,8 +135,8 @@ Future<void> generateAndOpenPdf(
                         ),
                       ],
                     ),
-                  ),
-                ),
+                  );
+                }),
 
                 Divider(color: PdfColors.grey200),
                 SizedBox(height: 8),
@@ -212,6 +197,27 @@ Future<void> generateAndOpenPdf(
                     Text(
                       DateTime.tryParse(cart.createdAt ?? "")?.formatDate() ??
                           "",
+                      style: TextStyle(
+                        font: boldFont,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "${"market_name".tr()}:",
+                      style: TextStyle(
+                        font: boldFont,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      cart.location,
                       style: TextStyle(
                         font: boldFont,
                         fontSize: 18,

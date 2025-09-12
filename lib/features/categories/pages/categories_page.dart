@@ -23,6 +23,7 @@ class CategoriesPage extends HookConsumerWidget {
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 12),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomTextField(
               focusNode: focusNode,
@@ -35,9 +36,19 @@ class CategoriesPage extends HookConsumerWidget {
               prefixIcon: AppIcons.search,
             ),
             12.vertical,
+
+            Text(
+              "for_manufacturers_wholesalers".tr(),
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
+            ),
+            // 6.vertical,
+            // Text(
+            //   "select_category_to_add".tr(),
+            //   style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+            // ),
+            12.vertical,
             Expanded(
               child: CustomPaginationWidget(
-                customWidget: ProductAdd(),
                 itemBuilder: (item) {
                   return CategoryWidget(model: item);
                 },

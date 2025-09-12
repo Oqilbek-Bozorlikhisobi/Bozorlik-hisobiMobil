@@ -81,16 +81,17 @@ class CartNotifier extends _$CartNotifier {
     final response = await cartRepository.finishCart(
       cartId: state.value!.id!,
       location: location,
+      name: state.value!.name!,
     );
     ref.invalidate(allCartsNotifierProvider);
   }
+
+
 
   Future<void> deleteProduct({required String productId}) async {
     final response = await cartRepository.deleteProduct(productId: productId);
     ref.invalidate(allCartsNotifierProvider);
   }
-
-
 
   Future<void> createCartByHistory({required String historyId}) async {
     state = const AsyncLoading();

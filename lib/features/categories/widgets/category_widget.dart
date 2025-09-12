@@ -69,7 +69,10 @@ class CategoryWidget extends ConsumerWidget {
 }
 
 class ProductAdd extends ConsumerWidget {
-  const ProductAdd({super.key});
+  const ProductAdd({super.key, this.aspectRatio = 1, this.textSize = 12});
+
+  final double aspectRatio;
+  final double textSize;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -90,7 +93,7 @@ class ProductAdd extends ConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           AspectRatio(
-            aspectRatio: 1,
+            aspectRatio: aspectRatio,
             child: Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
@@ -108,7 +111,7 @@ class ProductAdd extends ConsumerWidget {
           4.vertical,
           Text(
             "product_name".tr(),
-            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+            style: TextStyle(fontSize: textSize, fontWeight: FontWeight.w600),
             maxLines: 1,
             textAlign: TextAlign.center,
           ),

@@ -61,7 +61,10 @@ class HistoryCartItem extends HookConsumerWidget {
                 ),
               ),
               Text(
-                DateTime.tryParse(cart.createdAt ?? "")?.formatDate() ?? "",
+                [
+                  cart.location,
+                  DateTime.tryParse(cart.createdAt ?? "")?.formatDate() ?? "",
+                ].join(" - "),
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 12,
@@ -143,6 +146,7 @@ class HistoryCartItem extends HookConsumerWidget {
                 itemBuilder: (context, index) {
                   final item = cart.marketLists![index];
                   final product = item.product;
+                  final price = (item.quantity ?? 1) * item.price!;
                   return Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -177,9 +181,16 @@ class HistoryCartItem extends HookConsumerWidget {
                               ),
                               overflow: TextOverflow.ellipsis,
                             ),
-                            const SizedBox(height: 4),
+                            const SizedBox(height: 2),
                             Text(
                               "${"amount".tr()}: ${item.quantity} ${item.unit?.name ?? ""}",
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.grey.shade600,
+                              ),
+                            ),
+                            Text(
+                              "${"price".tr()}: ${item.price} ${"currency".tr()}",
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Colors.grey.shade600,
@@ -195,7 +206,7 @@ class HistoryCartItem extends HookConsumerWidget {
                         ),
                       ),
                       Text(
-                        "${item.price?.toStringAsFixed(2) ?? "0"} ${"currency".tr()}",
+                        "${price.toStringAsFixed(2)} ${"currency".tr()}",
                         style: const TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 16,
