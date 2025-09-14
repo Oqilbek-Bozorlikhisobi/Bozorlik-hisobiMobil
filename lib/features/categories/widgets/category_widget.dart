@@ -103,7 +103,7 @@ class ProductAdd extends ConsumerWidget {
               ),
               child: Icon(
                 CupertinoIcons.cart_badge_plus,
-                size: 50,
+                size: MediaQuery.sizeOf(context).shortestSide > 600 ? MediaQuery.sizeOf(context).shortestSide * 0.1 : 50,
                 color: CupertinoColors.white,
               ),
             ),
