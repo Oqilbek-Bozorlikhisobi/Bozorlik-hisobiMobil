@@ -9,6 +9,8 @@ class AppIcons {
   static const String back = "assets/svg/back.svg";
   static const String empty = "assets/svg/empty.svg";
   static const String noInternet = "assets/svg/no_internet.svg";
+  static const String user = "assets/svg/user.svg";
+  static const String mail = "assets/svg/mail.svg";
 
   AppIcons._();
 }
@@ -25,6 +27,7 @@ class AppImages {
   static const String banner3en = "assets/png/banner3_en.jpeg";
   static const String box = "assets/png/box.png";
   static const String logo = "assets/png/logo.png";
+  static const String user = "assets/png/user.png";
 
   AppImages._();
 }

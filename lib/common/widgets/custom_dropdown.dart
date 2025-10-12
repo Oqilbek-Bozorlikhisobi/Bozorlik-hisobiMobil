@@ -54,7 +54,7 @@ class CustomDropdown extends StatelessWidget {
             autovalidateMode: AutovalidateMode.onUserInteraction,
             decoration: InputDecoration(
               filled: true,
-              fillColor: CupertinoColors.systemGroupedBackground,
+              fillColor: AppColors.white,
               isDense: true,
               contentPadding: EdgeInsets.symmetric(horizontal: 12),
               border: OutlineInputBorder(

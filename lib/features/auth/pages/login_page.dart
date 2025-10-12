@@ -1,3 +1,4 @@
+import 'package:bozorlik/app/theme.dart';
 import 'package:bozorlik/common/extension/number_extension.dart';
 import 'package:bozorlik/common/extension/widget_extantion.dart';
 import 'package:bozorlik/common/widgets/custom_phone_field.dart';
@@ -37,10 +38,7 @@ class LoginPage extends HookConsumerWidget {
           }
         },
         error: (e, s) {
-          showCustomToast(
-            title: "invalid_login".tr(),
-            type: ToastificationType.error,
-          );
+          showCustomToast(title: "invalid_login".tr(), type: ToastificationType.error);
         },
         loading: () {},
       );
@@ -48,75 +46,84 @@ class LoginPage extends HookConsumerWidget {
     return CustomScaffoldLoading(
       isLoading: loginNotifier.isLoading,
       child: Scaffold(
-        appBar: AppBar(),
+        backgroundColor: AppColors.backGround,
+        appBar: AppBar(
+          backgroundColor: AppColors.backGround,
+          title: Text("log_in_appbar".tr(), style: Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 20,fontWeight: FontWeight.w600)),
+        ),
         body: SafeArea(
-          child: Form(
-            key: formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // 16.vertical,
-                // SvgPicture.asset(AppIcons.logo, height: 112, width: 112),
-                12.vertical,
-                Text(
-                  "log_in".tr(),
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                8.vertical,
-                Text("please_enter_login_info".tr()),
-                32.vertical,
-                CustomPhoneField(
-                  labelText: "phone".tr(),
-                  onChange: (value) {
-                    phone.value = value;
-                  },
-                  validatorText: "required_field".tr(),
-                  controller: phoneController,
-                  textCapitalization: TextCapitalization.none,
-                ),
-                12.vertical,
-                CustomTextField(
-                  controller: passwordController,
-                  labelText: "password".tr(),
-                  validatorText: "required_field".tr(),
-                  textCapitalization: TextCapitalization.none,
-                  hintText: "password".tr(),
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    onPressed: () {
-                      context.push(AppRoutes.forgotPassword);
-                    },
-                    child: Text("forgot_password".tr()),
-                  ),
-                ),
-                Spacer(),
-                Center(
-                  child: TextButton(
-                    onPressed: () {
-                      context.push(AppRoutes.register);
-                    },
-                    child: Text("no_account_yet".tr()),
-                  ),
-                ),
-                6.vertical,
-                CustomButton(
-                  text: "log_in".tr(),
-                  onTap: () {
-                    if (formKey.currentState?.validate() == false) return;
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 16),
+            decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(16)),
+            child: Form(
+              key: formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // 16.vertical,
+                  // SvgPicture.asset(AppIcons.logo, height: 112, width: 112),
+                  // 12.vertical,
+                  // Text(
+                  //   "log_in".tr(),
+                  //   style: Theme.of(context).textTheme.titleLarge,
+                  // ),
+                  // 8.vertical,
+                  // Text("please_enter_login_info".tr()),
+                  32.vertical,
+                  CustomPhoneField(
 
-                    ref
-                        .read(loginNotifierProvider.notifier)
-                        .login(
-                          phone: phone.value,
-                          password: passwordController.text,
-                        );
-                  },
-                ),
-                12.vertical,
-              ],
-            ).paddingSymmetric(horizontal: 12),
+                    labelText: "phone".tr(),
+                    onChange: (value) {
+                      phone.value = value;
+                    },
+                    validatorText: "required_field".tr(),
+                    controller: phoneController,
+                    textCapitalization: TextCapitalization.none,
+                  ),
+                  24.vertical,
+                  CustomTextField(
+                    textInputType: TextInputType.visiblePassword,
+                    isObscure: true,
+
+                    controller: passwordController,
+                    labelText: "password".tr(),
+                    validatorText: "required_field".tr(),
+                    textCapitalization: TextCapitalization.none,
+                    hintText: "enter_password".tr(),
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: TextButton(
+                      onPressed: () {
+                        context.push(AppRoutes.forgotPassword);
+                      },
+                      child: Text("forgot_password".tr()),
+                    ),
+                  ),
+                  // Spacer(),
+
+                  Center(
+                    child: TextButton(
+                      onPressed: () {
+                        context.push(AppRoutes.register);
+                      },
+                      child: Text("no_account_yet".tr()),
+                    ),
+                  ),
+                  6.vertical,
+                  CustomButton(
+                    text: "log_in".tr(),
+                    onTap: () {
+                      if (formKey.currentState?.validate() == false) return;
+
+                      ref.read(loginNotifierProvider.notifier).login(phone: phone.value, password: passwordController.text);
+                    },
+                  ),
+                  12.vertical,
+                ],
+              ).paddingSymmetric(horizontal: 12),
+            ),
           ),
         ),
       ),

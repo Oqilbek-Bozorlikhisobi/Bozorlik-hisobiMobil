@@ -81,7 +81,7 @@ class _CustomPhoneFieldState extends State<CustomPhoneField> {
             widget.labelText!,
             style: Theme.of(
               context,
-            ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
+            ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w400,fontSize: 14),
           ),
           8.vertical,
         ],
@@ -115,7 +115,7 @@ class _CustomPhoneFieldState extends State<CustomPhoneField> {
           decoration: InputDecoration(
             prefixIcon: const Text(
               "+998",
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400,),
             ).paddingOnly(top: 14, bottom: 14, left: 12),
             suffixIcon:
                 widget.suffixIcon == null
@@ -126,7 +126,7 @@ class _CustomPhoneFieldState extends State<CustomPhoneField> {
                     ),
             filled: true,
             fillColor:
-                widget.fillColor ?? CupertinoColors.systemGroupedBackground,
+                widget.fillColor ?? AppColors.white,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(

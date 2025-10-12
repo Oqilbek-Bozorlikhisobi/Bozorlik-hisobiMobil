@@ -11,16 +11,18 @@
   "enter_additional_info": "Enter additional informations",
   "tell_more": "Please tell us more about you",
   "please_enter_fullname": "Please enter full name",
-  "enter_fullname": "Enter full name",
+  "enter_fullname": "*Enter full name",
   "full_name": "Full name",
   "please_select_gender": "Please select gender",
   "select_gender": "Select gender",
   "gender": "Gender",
+  "your_gender": "Your gender",
+
   "male": "Male",
   "female": "Female",
   "please_select_region": "Please select region",
-  "select_region": "Select region",
-  "region": "Region",
+  "select_region": "Your address",
+  "region": "Select your address",
   "enter_code": "Enter confirmation code",
   "verify_phone": "Please verify your phone number",
   "please_enter_code": "Please enter code",
@@ -28,12 +30,17 @@
   "next": "Next",
   "failed_send_otp": "Failed to send OTP",
 
+  "register": "Sign up",
+  "yes_account": "Do you have an account?",
+  "your_self": "Please tell us about yourself",
+
 
 
   "log_in": "Log in",
   "please_enter_login_info": "Please enter login information",
   "forgot_password": "Forgot password?",
   "no_account_yet": "Don't have an account yet?",
+  "number_send": " enter the verification code sent to your number",
 
 
 
@@ -105,7 +112,7 @@
   "give_feedback": "Give feedback",
   "delete": "Delete",
   "resend_in": "Resend in {}s",
-  "resend": "Resend",
+  "resend": "Resend the code",
   "others": "Others",
   "active_lists": "Active lists",
   "something_went_wrong": "Something went wrong!",

@@ -3,9 +3,14 @@ import 'package:flutter/material.dart';
 class AppColors {
   AppColors._();
 
-  static const primaryColor = Color(0xFF47c77d);
+  // static const primaryColor = Color(0xFF47c77d);
+  static const primaryColor = Color.fromRGBO(6, 178, 182, 1);
   static const primaryColorOpacity = Color(0xFFedf9f2);
+  static const white =Color.fromRGBO(255,255,255,1);
+  static const backGround =Color.fromRGBO(249,249,249,1);
   static const grayNormal = Color(0xFF8491A5);
+  static const grey =Color.fromRGBO(230,230,230,1);
+  static const greyText =Color.fromRGBO(190,190,190,1);
   static const textPrimary = Color(0xFF191919);
   static const red600 = Color(0xFFDC2626);
 }
@@ -68,7 +73,6 @@ final lightTheme = ThemeData(
   ),
   appBarTheme: AppBarTheme(
     centerTitle: false,
-
     surfaceTintColor: Colors.white,
 
     titleTextStyle: TextStyle(

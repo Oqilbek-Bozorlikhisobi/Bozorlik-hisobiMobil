@@ -83,8 +83,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   void didUpdateWidget(covariant CustomTextField oldWidget) {
     super.didUpdateWidget(oldWidget);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (widget.initialValue != oldWidget.initialValue &&
-          widget.controller == null) {
+      if (widget.initialValue != oldWidget.initialValue && widget.controller == null) {
         innerController.text = widget.initialValue ?? "";
       }
     });
@@ -92,8 +91,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   void initState() {
-    innerController =
-        widget.controller ?? TextEditingController(text: widget.initialValue);
+    innerController = widget.controller ?? TextEditingController(text: widget.initialValue);
     _obscureText = widget.isObscure;
     super.initState();
   }
@@ -117,12 +115,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       mainAxisSize: MainAxisSize.min,
       children: [
         if (widget.labelText != null && widget.labelText!.isNotEmpty) ...[
-          Text(
-            widget.labelText!,
-            style: Theme.of(
-              context,
-            ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
-          ),
+          Text(widget.labelText!, style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w400, fontSize: 14)),
           8.vertical,
         ],
         TextFormField(
@@ -131,8 +124,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           validator:
               widget.validator ??
               (_) {
-                if (innerController.text.isEmpty == true &&
-                    widget.validatorText != null) {
+                if (innerController.text.isEmpty == true && widget.validatorText != null) {
                   return widget.validatorText;
                 }
                 return null;
@@ -155,13 +147,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             suffixIcon:
                 widget.isObscure
                     ? IconButton(
-                      icon: Icon(
-                        _obscureText
-                            ? CupertinoIcons.eye_slash
-                            : CupertinoIcons.eye,
-                        size: 20,
-                        color: CupertinoColors.systemGrey,
-                      ),
+                      icon: Icon(_obscureText ? CupertinoIcons.eye_slash : CupertinoIcons.eye, size: 20, color: CupertinoColors.systemGrey),
                       padding: EdgeInsets.zero,
                       constraints: BoxConstraints(),
                       onPressed: () {
@@ -170,8 +156,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                         });
                       },
                     )
-                    : (widget.isDeletable == true &&
-                        innerController.text.isNotEmpty)
+                    : (widget.isDeletable == true && innerController.text.isNotEmpty)
                     ? GestureDetector(
                       child: Icon(CupertinoIcons.clear),
                       onTap: () {
@@ -185,59 +170,35 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
             prefixIcon:
                 widget.prefixIcon != null
-                    ? SvgPicture.asset(
-                      widget.prefixIcon!,
-                      height: 18,
-                      width: 18,
-                    ).paddingOnly(top: 12, bottom: 12)
+                    ? SvgPicture.asset(widget.prefixIcon!, height: 18, width: 18).paddingOnly(top: 12, bottom: 12)
                     : widget.prefixWidget,
             filled: true,
-            fillColor: CupertinoColors.systemGroupedBackground,
+            fillColor: widget.fillColor ?? AppColors.white,
+
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(
-                color: CupertinoColors.systemGroupedBackground,
-                width: 2,
-              ),
+              borderSide: BorderSide(color: CupertinoColors.systemGroupedBackground, width: 2),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(
-                color: widget.borderColor ?? AppColors.primaryColor,
-                width: 2,
-              ),
+              borderSide: BorderSide(color: widget.borderColor ?? AppColors.primaryColor, width: 2),
             ),
             focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(
-                color: CupertinoColors.destructiveRed,
-                width: 2,
-              ),
+              borderSide: BorderSide(color: CupertinoColors.destructiveRed, width: 2),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(
-                color: CupertinoColors.destructiveRed,
-                width: 2,
-              ),
+              borderSide: BorderSide(color: CupertinoColors.destructiveRed, width: 2),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(
-                color:
-                    widget.borderColor ??
-                    CupertinoColors.systemGroupedBackground,
-                width: 2,
-              ),
+              borderSide: BorderSide(color: widget.borderColor ?? CupertinoColors.systemGroupedBackground, width: 2),
             ),
             isDense: true,
             errorStyle: TextStyle(fontSize: 12),
             hintText: widget.hintText,
-            hintStyle: TextStyle(
-              color: Theme.of(context).hintColor,
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-            ),
+            hintStyle: TextStyle(color: Theme.of(context).hintColor, fontSize: 14, fontWeight: FontWeight.w400),
             labelStyle: Theme.of(context).textTheme.bodyMedium,
           ),
         ),
