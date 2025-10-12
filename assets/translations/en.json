@@ -30,6 +30,8 @@
   "next": "Next",
   "failed_send_otp": "Failed to send OTP",
 
+  "additional_info": "Additional information",
+
   "register": "Sign up",
   "yes_account": "Do you have an account?",
   "your_self": "Please tell us about yourself",

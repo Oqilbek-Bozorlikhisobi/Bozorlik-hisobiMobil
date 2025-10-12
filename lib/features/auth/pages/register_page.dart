@@ -576,7 +576,16 @@ class RegisterPage extends HookConsumerWidget {
       backgroundColor: AppColors.backGround,
       appBar: AppBar(
         backgroundColor: AppColors.backGround,
-        title: Text("register".tr(), style: ThemeData().textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600, fontSize: 20)),
+        title: Text(
+          currentPage.value == 0
+              ? "register".tr()
+              : currentPage.value == 1
+              ? "additional_info".tr()
+              : currentPage.value == 2
+              ? "enter_code".tr()
+              : "",
+          style: ThemeData().textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600, fontSize: 20),
+        ),
         leading: IconButton(
           onPressed: () {
             if (currentPage.value == 2) {
