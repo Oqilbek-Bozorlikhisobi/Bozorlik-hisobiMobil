@@ -1,4 +1,12 @@
 {
+
+  "onboarding_title1": "Bozorlikni endi tartibli qilamiz",
+  "onboarding1": "Kerakli mahsulotlarni unutmang!\nRo‘yxatingizni BozorApp bilan tuzing.",
+  "onboarding_title2": "Oila bilan bozorlik qilish yanada oson ",
+  "onboarding2": "Ro‘yxatni bo‘lishing, har kim o‘z mahsulotini qo‘shsin - hammasi bir joyda.",
+  "onboarding_title3": "Bozorlikni rejalashtiring,\nvaqt va mablag‘ni tejang",
+  "onboarding3": "Qanday mahsulotlar olish kerakligini bilib boring. BozorApp - barakali xarid!",
+
   "enter_phone": "Telefon raqamingizni kiriting",
   "verify_sms": "Telefon raqamingizni SMS orqali tasdiqlashingiz kerak",
   "please_enter_phone": "Iltimos, telefon raqamini kiriting",

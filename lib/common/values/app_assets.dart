@@ -28,6 +28,9 @@ class AppImages {
   static const String box = "assets/png/box.png";
   static const String logo = "assets/png/logo.png";
   static const String user = "assets/png/user.png";
+  static const String notification = "assets/png/notification.png";
+  static const String family = "assets/png/family.png";
+  static const String timer = "assets/png/timer.png";
 
   AppImages._();
 }
