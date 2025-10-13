@@ -35,26 +35,17 @@ class MainPage extends HookConsumerWidget {
       body: PageView(
         physics: const NeverScrollableScrollPhysics(),
         controller: controller,
-        children: [
-          HomePage(),
-          CategoriesPage(),
-          CartPage(),
-          HistoryPage(),
-          SettingsPage(),
-        ],
+        children: [HomePage(), CategoriesPage(), CartPage(), HistoryPage(), SettingsPage()],
       ),
 
       bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-          hoverColor: Colors.transparent,
-        ),
+
+            splashColor: Colors.transparent, highlightColor: Colors.transparent, hoverColor: Colors.transparent),
         child: Container(
           decoration: BoxDecoration(
-            boxShadow: <BoxShadow>[
-              BoxShadow(color: Colors.black12, blurRadius: 5),
-            ],
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16)),
+            boxShadow: <BoxShadow>[BoxShadow(color: Colors.black12, blurRadius: 5)],
           ),
           child: BottomNavigationBar(
             backgroundColor: Colors.white,
@@ -72,32 +63,16 @@ class MainPage extends HookConsumerWidget {
               ref.read(indexNotifierProvider.notifier).changeIndex(index);
             },
             items: [
-              buildBottomNavigationBarItem(
-                iconPath: AppIcons.home,
-                label: "main".tr(),
-                isActive: currentIndex == 0,
-              ),
-              buildBottomNavigationBarItem(
-                iconPath: AppIcons.main,
-                label: "categories".tr(),
-                isActive: currentIndex == 1,
-              ),
+              buildBottomNavigationBarItem(iconPath: AppIcons.home, label: "main".tr(), isActive: currentIndex == 0),
+              buildBottomNavigationBarItem(iconPath: AppIcons.main, label: "categories".tr(), isActive: currentIndex == 1),
               buildBottomNavigationBarItem(
                 iconPath: AppIcons.cart,
                 label: "cart".tr(),
                 badgeCount: cart.valueOrNull?.marketLists?.length ?? 0,
                 isActive: currentIndex == 2,
               ),
-              buildBottomNavigationBarItem(
-                iconPath: AppIcons.history,
-                label: "history".tr(),
-                isActive: currentIndex == 3,
-              ),
-              buildBottomNavigationBarItem(
-                iconPath: AppIcons.settings,
-                label: "settings".tr(),
-                isActive: currentIndex == 4,
-              ),
+              buildBottomNavigationBarItem(iconPath: AppIcons.history, label: "history".tr(), isActive: currentIndex == 3),
+              buildBottomNavigationBarItem(iconPath: AppIcons.settings, label: "settings".tr(), isActive: currentIndex == 4),
               // buildBottomNavigationBarItem(
               //   iconPath: AppIcons.main,
               //   label: "Sozlamalar",
@@ -110,23 +85,12 @@ class MainPage extends HookConsumerWidget {
     );
   }
 
-  BottomNavigationBarItem buildBottomNavigationBarItem({
-    required String iconPath,
-    required String label,
-    required bool isActive,
-    int? badgeCount,
-  }) {
+  BottomNavigationBarItem buildBottomNavigationBarItem({required String iconPath, required String label, required bool isActive, int? badgeCount}) {
     {
       return BottomNavigationBarItem(
         icon: Container(
           padding: EdgeInsets.symmetric(vertical: 4, horizontal: 12),
-          decoration:
-              isActive
-                  ? BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: AppColors.primaryColorOpacity,
-                  )
-                  : null,
+          decoration: isActive ? BoxDecoration(borderRadius: BorderRadius.circular(10), color: AppColors.primaryColorOpacity) : null,
           child: Badge(
             isLabelVisible: badgeCount != null && badgeCount > 0,
             label: Text(badgeCount.toString()),
@@ -134,13 +98,7 @@ class MainPage extends HookConsumerWidget {
               iconPath,
               height: 24,
               width: 24,
-              colorFilter:
-                  isActive
-                      ? ColorFilter.mode(
-                        AppColors.primaryColor,
-                        BlendMode.srcIn,
-                      )
-                      : null,
+              colorFilter: isActive ? ColorFilter.mode(AppColors.primaryColor, BlendMode.srcIn) : null,
             ),
           ),
         ),

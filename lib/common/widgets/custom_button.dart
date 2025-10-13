@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../app/theme.dart';
 
@@ -25,6 +24,8 @@ class CustomButton extends StatelessWidget {
     this.height,
     this.disabled = false,
     this.boxShadow,
+    this.rightIcon,
+    this.iconGap,
   });
 
   final String text;
@@ -34,6 +35,7 @@ class CustomButton extends StatelessWidget {
   final double? fontSize;
   final FontWeight? fontW;
   final Widget? leftIcon;
+  final Widget? rightIcon;
   final Color? bgColor;
   final Color? iconC;
   final Color? borderColor;
@@ -41,6 +43,7 @@ class CustomButton extends StatelessWidget {
   final bool isLoading;
   final double? height;
   final double? width;
+  final double? iconGap;
 
   final Widget? rightW;
   final bool disabled;
@@ -48,10 +51,7 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final effectiveBgColor =
-        disabled
-            ? CupertinoColors.systemGrey.withAlpha(100)
-            : (bgColor ?? AppColors.primaryColor);
+    final effectiveBgColor = disabled ? CupertinoColors.systemGrey.withAlpha(100) : (bgColor ?? AppColors.primaryColor);
 
     return SizedBox(
       width: width,
@@ -67,32 +67,23 @@ class CustomButton extends StatelessWidget {
         ),
         child: CupertinoButton(
           pressedOpacity: 0.7,
-          padding:
-              width == null
-                  ? EdgeInsets.symmetric(horizontal: 12)
-                  : EdgeInsets.zero,
+          padding: width == null ? EdgeInsets.symmetric(horizontal: 12) : EdgeInsets.zero,
           onPressed: disabled ? null : onTap,
           borderRadius: radius ?? BorderRadius.circular(10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (leftIcon != null) ...[
-                leftIcon!,
-                if (text.isNotEmpty) const SizedBox(width: 8),
-              ],
+              if (leftIcon != null) ...[leftIcon!, if (text.isNotEmpty) const SizedBox(width: 8)],
               if (isLoading)
                 const CupertinoActivityIndicator(color: CupertinoColors.white)
               else
                 Text(
                   text,
-                  style: TextStyle(
-                    fontWeight: fontW ?? FontWeight.w600,
-                    color: textColor ?? CupertinoColors.white,
-                    fontSize: fontSize ?? 16,
-                  ),
+                  style: TextStyle(fontWeight: fontW ?? FontWeight.w600, color: textColor ?? CupertinoColors.white, fontSize: fontSize ?? 16),
                 ),
               if (rightW != null) ...[const SizedBox(width: 8), rightW!],
+              if (rightIcon != null) ...[rightIcon!, if (text.isNotEmpty) const SizedBox(width: 8)],
             ],
           ),
         ),
@@ -130,8 +121,8 @@ class CustomOutlinedButton extends StatelessWidget {
   final Widget? leftIcon;
   final Widget? rightW;
 
-  final Color? bgColor;       // background color (default transparent)
-  final Color? borderColor;   // border outline color
+  final Color? bgColor; // background color (default transparent)
+  final Color? borderColor; // border outline color
   final Color? textColor;
   final Color? iconC;
 
@@ -143,10 +134,8 @@ class CustomOutlinedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final effectiveBorderColor =
-    disabled ? CupertinoColors.systemGrey.withAlpha(100) : (borderColor ?? AppColors.primaryColor);
-    final effectiveTextColor =
-    disabled ? CupertinoColors.systemGrey : (textColor ?? AppColors.primaryColor);
+    final effectiveBorderColor = disabled ? CupertinoColors.systemGrey.withAlpha(100) : (borderColor ?? AppColors.primaryColor);
+    final effectiveTextColor = disabled ? CupertinoColors.systemGrey : (textColor ?? AppColors.primaryColor);
 
     return SizedBox(
       width: width,
@@ -168,21 +157,11 @@ class CustomOutlinedButton extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (leftIcon != null) ...[
-                leftIcon!,
-                if (text.isNotEmpty) const SizedBox(width: 8),
-              ],
+              if (leftIcon != null) ...[leftIcon!, if (text.isNotEmpty) const SizedBox(width: 8)],
               if (isLoading)
                 const CupertinoActivityIndicator()
               else
-                Text(
-                  text,
-                  style: TextStyle(
-                    fontWeight: fontW ?? FontWeight.w600,
-                    color: effectiveTextColor,
-                    fontSize: fontSize ?? 16,
-                  ),
-                ),
+                Text(text, style: TextStyle(fontWeight: fontW ?? FontWeight.w600, color: effectiveTextColor, fontSize: fontSize ?? 16)),
               if (rightW != null) ...[const SizedBox(width: 8), rightW!],
             ],
           ),

@@ -1,12 +1,10 @@
 {
-
   "onboarding_title1": "Bozorlikni endi tartibli qilamiz",
   "onboarding1": "Kerakli mahsulotlarni unutmang!\nRo‘yxatingizni BozorApp bilan tuzing.",
   "onboarding_title2": "Oila bilan bozorlik qilish yanada oson ",
   "onboarding2": "Ro‘yxatni bo‘lishing, har kim o‘z mahsulotini qo‘shsin - hammasi bir joyda.",
   "onboarding_title3": "Bozorlikni rejalashtiring,\nvaqt va mablag‘ni tejang",
   "onboarding3": "Qanday mahsulotlar olish kerakligini bilib boring. BozorApp - barakali xarid!",
-
   "enter_phone": "Telefon raqamingizni kiriting",
   "verify_sms": "Telefon raqamingizni SMS orqali tasdiqlashingiz kerak",
   "please_enter_phone": "Iltimos, telefon raqamini kiriting",
@@ -36,12 +34,10 @@
   "enter_code_only": "Kod kiriting",
   "next": "Keyingi",
   "failed_send_otp": "Kod yuborilmadi",
-
   "register": "Ro’yxatdan o’tish",
   "yes_account": "Sizning hisobingiz mavjudmi?",
   "your_self": "Iltimos o’zingiz haqingizda ma’lumot bering",
-
-
+  "new_market": "Yangi bozorlik",
   "log_in": "Davom etish",
   "log_in_appbar": "Kirish",
   "please_enter_login_info": "Iltimos, login ma'lumotlarini kiriting",
@@ -49,15 +45,13 @@
   "no_account_yet": "Hali hisobingiz yo‘qmi?",
   "number_send": " raqamingizga yuborilgan tasdiqlash kodini kiriting",
   "additional_info": "Qo'shimcha ma'lumotlar",
-
-
+  "department": "Bo'limlar",
   "cart": "Savat",
   "cart_empty": "Savatingiz bo'sh",
   "start_adding_products": "Bozorlik ro'yxatingizga mahsulot qo'shishni boshlang",
   "view_products": "Mahsulotlarni ko'rish",
   "add_product": "Mahsulot qo'shish",
   "complete_shopping": "Bozorlikni yakunlash 🎉",
-
   "received": "Olindi",
   "buy": "Sotib olish",
   "share_shopping": "Bozorlikni ulashish",
@@ -67,9 +61,6 @@
   "price": "Narx",
   "enter_price": "Narxni kiriting",
   "add_to_cart": "Savatga",
-
-
-
   "categories": "Kategoriyalar",
   "search_products_categories": "Mahsulotlar va turkumlar izlash",
   "create_shopping_list": "Bozorlik ro'yxatingizni yarating",
@@ -77,27 +68,18 @@
   "shopping_list_name": "Bozorlik ro'yxati nomi",
   "shopping_list_example": "masalan, Haftalik oziq-ovqat",
   "create": "Yaratish",
-
-
-
   "history": "Tarix",
   "amount": "Miqdor",
   "currency": "so'm",
-
-
-
   "welcome": "Hush kelibsiz",
   "select_category": "Turkum tanlang",
   "select_category_to_add": "Ro'yxatingizga mahsulot qo'shish uchun turkumni tanlang",
   "no_active_list": "Faol bozorlik ro'yhati yo'q",
   "shopping": "Bozorlik",
-
-
-
+  "shoppings": "Bozorliklar",
+  "required": "Maydonlarni to'ldiring",
   "select_app_language": "Ilova tilini tanlang",
   "change_language_anytime": "Tilni istalgan paytda sozlamalarda o'zgartirish mumkin",
-
-
   "main": "Asosiy",
   "settings": "Sozlamalar",
   "search": "Qidirish",
@@ -106,8 +88,6 @@
   "amount_example": "masalan, 1.5",
   "product_name": "Mahsulot nomi",
   "product_name_example": "(Kartoshka, Suv, Chiroq)",
-
-
   "language": "Ilova tili",
   "about_us": "Biz haqimizda",
   "logout": "Tizimdan chiqish",
@@ -124,24 +104,20 @@
   "others": "Boshqalar",
   "active_lists": "Faol ro'yhatlar",
   "something_went_wrong": "Nimadir noto‘g‘ri ketdi!",
-
   "enter_market_name": "Bozor nomini yozing va bozorlikni yakunlang",
   "market_name": "Bozor nomi",
   "market_name_example": "(masalan, Chorsu)",
   "finish": "Yakunlash",
   "didnt_receive_code": "Kod kelmadimi?",
-
   "server_error": "Server xatolik: {}",
   "internet_error": "Internet aloqasi yo'q",
   "unexpected_error": "Kutilmagan xatolik",
-
   "measurement_unit": "O'lchov birligi",
   "piece": "dona",
   "required_field": "Majburiy maydon",
   "no_history": "Tarix hozircha yo'q",
   "total": "Jami",
   "date": "Sana",
-
   "success_sent": "Muvaffaqiyatli yuborildi!",
   "invalid_login": "Login yoki parol noto'g'ri",
   "login_success": "Tizimga muvaffaqiyatli kirdingiz",
@@ -154,24 +130,7 @@
   "delete_account_confirm": "Hisobingizni o‘chirmoqchi ekanligingizga ishonchingiz komilmi? Bu amalni ortga qaytarib bo‘lmaydi.",
   "cancel": "Bekor qilish",
   "product_count": "Mahsulotlar soni",
-
   "update_shopping_list_name": "Bozorlik nomini yangilang",
   "enter_new_name": "Yangi nomni kiriting",
   "for_manufacturers_wholesalers": "Ishlab chiqaruvchi va ulgurji savdo qiluvchilar uchun"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

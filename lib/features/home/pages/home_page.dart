@@ -1,22 +1,20 @@
 import 'package:bozorlik/app/router.dart';
+import 'package:bozorlik/app/theme.dart';
 import 'package:bozorlik/common/extension/number_extension.dart';
-import 'package:bozorlik/common/extension/widget_extantion.dart';
 import 'package:bozorlik/common/values/app_assets.dart';
-import 'package:bozorlik/common/widgets/custom_text_field.dart';
-import 'package:bozorlik/features/cart/notifiers/all_carts_notifier.dart';
-import 'package:bozorlik/features/categories/models/category_model.dart';
+import 'package:bozorlik/common/widgets/custom_button.dart';
 import 'package:bozorlik/features/home/widgets/banners_widget.dart';
-import 'package:bozorlik/features/home/widgets/no_market_widget.dart';
+import 'package:bozorlik/features/home/widgets/create_market_bottomsheet.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../common/widgets/custom_pagination_widget.dart';
-import '../../cart/notifiers/cart_notifier.dart';
-import '../../categories/notifiers/categories_notifier.dart';
-import '../../categories/widgets/category_widget.dart';
+import '../../categories/widgets/cart_create_modal.dart';
+import '../widgets/department_card.dart';
+import '../widgets/shoppings_card.dart';
 
 class HomePage extends HookConsumerWidget {
   const HomePage({super.key});
@@ -25,70 +23,60 @@ class HomePage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final focusNode = useFocusNode();
     return Scaffold(
-      appBar: AppBar(title: Text('welcome'.tr())),
+      backgroundColor: AppColors.backGround,
+
+      appBar: AppBar(
+        backgroundColor: AppColors.backGround,
+        leading: Transform.scale(
+          scale: 0.7,
+          child: GestureDetector(
+            onTap: () {
+              focusNode.unfocus();
+              context.push(AppRoutes.search);
+            },
+            child: Container(
+              decoration: BoxDecoration(shape: BoxShape.circle, color: AppColors.white),
+              child: Transform.scale(scale: 0.5, child: SvgPicture.asset(AppIcons.search)),
+            ),
+          ),
+        ),
+        actions: [
+          GestureDetector(
+            onTap: () {
+              focusNode.unfocus();
+              context.push(AppRoutes.search);
+            },
+            child: Container(
+              decoration: BoxDecoration(shape: BoxShape.circle, color: AppColors.white),
+              child: Padding(padding: EdgeInsets.all(8.0), child: SvgPicture.asset(AppIcons.notification)),
+            ),
+          ),
+          SizedBox(width: 16),
+        ],
+      ),
       body: ListView(
         children: [
-          if (
-          // cart.isLoading == false ||
-          //     cart.valueOrNull?.name == null ||
-          true) ...[
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: NoMarketWidget(),
-            ),
-            16.vertical,
-          ],
+          16.vertical,
+          const BannersWidget(),
+          DepartmentCard(),
+          4.vertical,
+          Shoppings(),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: CustomTextField(
-              focusNode: focusNode,
-              readOnly: true,
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: CustomButton(
+              rightW: SizedBox(),
+              text: "new_market".tr(),
               onTap: () {
-                focusNode.unfocus();
-                context.push(AppRoutes.search);
+                showCreateMarketCart(context);
+
               },
-              hintText: "search_products_categories".tr(),
-              prefixIcon: AppIcons.search,
+              rightIcon: Container(
+                decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(5)),
+                child: Icon(Icons.add, color: AppColors.primaryColor),
+              ),
             ),
           ),
           16.vertical,
-          const BannersWidget(),
-          ProductAdd(
-            aspectRatio: 2,
-            textSize: 14,
-          ).paddingSymmetric(horizontal: 12),
-
-          // Padding(
-          //   padding: EdgeInsets.symmetric(horizontal: 12),
-          //   child: Text(
-          //     "select_category".tr(),
-          //     style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
-          //   ),
-          // ),
-          // 6.vertical,
-          // Padding(
-          //   padding: EdgeInsets.symmetric(horizontal: 12),
-          //   child: Text(
-          //     "select_category_to_add".tr(),
-          //     style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
-          //   ),
-          // ),
-          // 12.vertical,
-          // CustomPaginationWidget(
-          //   customWidget: ProductAdd(),
-          //   physics: NeverScrollableScrollPhysics(),
-          //   shrinkWrap: true,
-          //   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-          //   itemBuilder: (item) {
-          //     return CategoryWidget(model: item);
-          //   },
-          //   getItems: (page) async {
-          //     return await ref.read(
-          //       categoriesNotifierProvider(page: page).future,
-          //     );
-          //   },
-          //   isListView: false,
-          // ),
         ],
       ),
     );

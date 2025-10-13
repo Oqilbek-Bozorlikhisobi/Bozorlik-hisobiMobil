@@ -6,12 +6,14 @@ import 'package:flutter/foundation.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:logger/logger.dart';
 import 'package:bozorlik/app/router.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:toastification/toastification.dart';
 
 import '../../db/cache.dart';
 
 import '../../features/auth/repositories/auth_repository.dart';
 import '../exceptions/failure.dart';
+import 'interceptor.dart';
 
 bool isTokenExpired(String token) {
   return JwtDecoder.isExpired(token);
@@ -24,7 +26,26 @@ class RequestHelper {
   Completer<void>? _refreshCompleter;
 
   RequestHelper() {
-    dio.interceptors.add(AppInterceptor());
+    dio.interceptors.addAll([
+      DioInterceptor(),
+      PrettyDioLogger(
+        requestHeader: true,
+        requestBody: true,
+        responseBody: true,
+        responseHeader: true,
+        error: true,
+        compact: true,
+        maxWidth: 90,
+        enabled: true,
+        filter: (options, args) {
+          // if (options.path.contains('/posts')) {
+          //   return false;
+          // }
+
+          return !args.isResponse || !args.hasUint8ListData;
+        },
+      ),
+    ]);
   }
 
   String? get _token {
@@ -406,34 +427,34 @@ class RequestHelper {
 
 final requestHelper = RequestHelper();
 
-class AppInterceptor extends Interceptor {
-  final logger = Logger();
-
-  void logLong(String text) {
-    const chunkSize = 800;
-    for (var i = 0; i < text.length; i += chunkSize) {
-      logger.d(
-        text.substring(
-          i,
-          i + chunkSize > text.length ? text.length : i + chunkSize,
-        ),
-      );
-    }
-  }
-
-  @override
-  void onResponse(Response response, ResponseInterceptorHandler handler) {
-    logLong("RESPONSE[${response.statusCode}] => PATH: ${response.realUri}");
-    logLong("DATA: ${response.data}");
-    super.onResponse(response, handler);
-  }
-
-  @override
-  void onError(DioError err, ErrorInterceptorHandler handler) {
-    logLong(
-      "ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}            DATA: ${err.response?.data ?? err.message}",
-    );
-
-    super.onError(err, handler);
-  }
-}
+// class AppInterceptor extends Interceptor {
+//   final logger = Logger();
+//
+//   void logLong(String text) {
+//     const chunkSize = 800;
+//     for (var i = 0; i < text.length; i += chunkSize) {
+//       logger.d(
+//         text.substring(
+//           i,
+//           i + chunkSize > text.length ? text.length : i + chunkSize,
+//         ),
+//       );
+//     }
+//   }
+//
+//   @override
+//   void onResponse(Response response, ResponseInterceptorHandler handler) {
+//     logLong("RESPONSE[${response.statusCode}] => PATH: ${response.realUri}");
+//     logLong("DATA: ${response.data}");
+//     super.onResponse(response, handler);
+//   }
+//
+//   @override
+//   void onError(DioError err, ErrorInterceptorHandler handler) {
+//     logLong(
+//       "ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}            DATA: ${err.response?.data ?? err.message}",
+//     );
+//
+//     super.onError(err, handler);
+//   }
+// }

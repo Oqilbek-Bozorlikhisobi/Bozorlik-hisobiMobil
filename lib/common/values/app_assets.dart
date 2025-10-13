@@ -11,6 +11,12 @@ class AppIcons {
   static const String noInternet = "assets/svg/no_internet.svg";
   static const String user = "assets/svg/user.svg";
   static const String mail = "assets/svg/mail.svg";
+  static const String notification = "assets/svg/notification.svg";
+  static const String familyDepartment = "assets/svg/family_department.svg";
+  static const String star = "assets/svg/star.svg";
+  static const String receipt = "assets/svg/receipt.svg";
+  static const String wallet = "assets/svg/wallet.svg";
+  static const String calendar = "assets/svg/calendar.svg";
 
   AppIcons._();
 }
