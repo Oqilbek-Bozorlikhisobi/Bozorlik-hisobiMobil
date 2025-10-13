@@ -17,6 +17,7 @@ class AppIcons {
   static const String receipt = "assets/svg/receipt.svg";
   static const String wallet = "assets/svg/wallet.svg";
   static const String calendar = "assets/svg/calendar.svg";
+  static const String down = "assets/svg/down.svg";
 
   AppIcons._();
 }

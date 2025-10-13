@@ -68,6 +68,7 @@
   "shopping_list_name": "Bozorlik ro'yxati nomi",
   "shopping_list_example": "masalan, Haftalik oziq-ovqat",
   "create": "Yaratish",
+  "new_market_create": "Yangi bozorlik yaratish",
   "history": "Tarix",
   "amount": "Miqdor",
   "currency": "so'm",
@@ -132,5 +133,9 @@
   "product_count": "Mahsulotlar soni",
   "update_shopping_list_name": "Bozorlik nomini yangilang",
   "enter_new_name": "Yangi nomni kiriting",
-  "for_manufacturers_wholesalers": "Ishlab chiqaruvchi va ulgurji savdo qiluvchilar uchun"
+  "for_manufacturers_wholesalers": "Ishlab chiqaruvchi va ulgurji savdo qiluvchilar uchun",
+
+  "shopping_name": "*Bozorlik nomi",
+  "shopping_type": "*Bozorlik qaysi bo’limga tegishli",
+  "family": "Oila"
 }

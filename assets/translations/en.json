@@ -10,6 +10,7 @@
   "department": "Departments",
   "shoppings": "Markets",
   "required": "Fill in the fields.",
+  "new_market_create": "Creating a new market",
 
   "enter_phone": "Enter your phone number",
   "verify_sms": "You must verify your phone number via SMS",
@@ -165,11 +166,12 @@
 
   "update_shopping_list_name": "Update shopping list name",
   "enter_new_name": "Enter new name",
-  "for_manufacturers_wholesalers": "For manufacturers and wholesalers"
+  "for_manufacturers_wholesalers": "For manufacturers and wholesalers",
 
+  "shopping_name": "*Market name",
+  "shopping_type": "*What section does the market belong to?",
 
-
-
+  "family": "Family"
 
 
 

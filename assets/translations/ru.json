@@ -12,6 +12,7 @@
   "shoppings": "Рынки",
 
   "required": "Заполните поля.",
+  "new_market_create": "Создание нового рынка",
 
   "enter_phone": "Введите свой номер телефона",
   "verify_sms": "Вы должны подтвердить свой номер телефона через SMS",
@@ -142,12 +143,14 @@
 
   "update_shopping_list_name": "Обновите название списка покупок",
   "enter_new_name": "Введите новое название",
-  "for_manufacturers_wholesalers": "Для производителей и оптовых продавцов"
+  "for_manufacturers_wholesalers": "Для производителей и оптовых продавцов",
 
 
+  "shopping_name": "*Название рынка",
 
+  "shopping_type": "*К какой секции относится рынок",
 
-
+"family": "Семья"
 
 }
 

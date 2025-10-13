@@ -48,7 +48,7 @@ class CustomTextField extends StatefulWidget {
   final String? labelText;
   final String? hintText;
   final String? prefixIcon;
-  final String? suffixIcon;
+  final Widget? suffixIcon;
   final bool isObscure;
   final bool readOnly;
   final TextInputAction? textInputAction;
@@ -165,7 +165,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
                       },
                     )
                     : widget.suffixIcon != null
-                    ? SvgPicture.asset(widget.suffixIcon!)
+                    // ? SvgPicture.asset(widget.suffixIcon!,)
+                    ? widget.suffixIcon
                     : null,
 
             prefixIcon:
