@@ -46,7 +46,7 @@
   "number_send": " raqamingizga yuborilgan tasdiqlash kodini kiriting",
   "additional_info": "Qo'shimcha ma'lumotlar",
   "department": "Bo'limlar",
-  "cart": "Savat",
+  "cart": "Bozorlik",
   "cart_empty": "Savatingiz bo'sh",
   "start_adding_products": "Bozorlik ro'yxatingizga mahsulot qo'shishni boshlang",
   "view_products": "Mahsulotlarni ko'rish",
@@ -61,7 +61,7 @@
   "price": "Narx",
   "enter_price": "Narxni kiriting",
   "add_to_cart": "Savatga",
-  "categories": "Kategoriyalar",
+  "categories": "Brendlar",
   "search_products_categories": "Mahsulotlar va turkumlar izlash",
   "create_shopping_list": "Bozorlik ro'yxatingizni yarating",
   "name_shopping_list": "Boshlash uchun bozorlik ro'yxatingizga nom bering",
@@ -137,5 +137,19 @@
 
   "shopping_name": "*Bozorlik nomi",
   "shopping_type": "*Bozorlik qaysi bo’limga tegishli",
-  "family": "Oila"
+  "family": "Oila",
+
+  "edit_profile": "Profilni tahrirlash",
+  "edit_password": "Parolni o'zgartirish",
+  "edit_phone": "Telefon raqamni o’zgartirish",
+  "design": "Ilova dizayni",
+  "app_rating": "Ilovani baholash",
+  "appeal": "Taklif va murojaat",
+  "info_app": "Ilova haqida",
+  "exit_app": "Ilovadan chiqish",
+  "delete_profile": "Profilni o’chirish",
+  "menu": "Menu",
+  "coming_soon": "Tez kunda"
+
+
 }

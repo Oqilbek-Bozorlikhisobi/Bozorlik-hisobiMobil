@@ -1,5 +1,9 @@
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-
+var maskFormatterPhone = MaskTextInputFormatter(
+  mask: '+998 (##) ###-##-##',
+  filter: {"#": RegExp(r'[0-9]')},
+  type: MaskAutoCompletionType.lazy,
+);
 var maskFormatter = MaskTextInputFormatter(
   mask: '+998 (##) ***-##-##',
   filter: {"#": RegExp(r'[0-9]')},

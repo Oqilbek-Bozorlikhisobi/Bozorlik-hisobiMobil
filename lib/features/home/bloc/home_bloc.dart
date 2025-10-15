@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:bozorlik/features/home/models/marketability.dart';
 import 'package:bozorlik/features/home/repositories/home_repository.dart';
 import 'package:bozorlik/utils/enums.dart';
 import 'package:dio/dio.dart';
@@ -23,6 +24,26 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         }
       } on DioException catch (e) {
         emit(state.copyWith(status: Status.error, errorMessage: e.toString()));
+      }
+    });
+
+    on<GetMarketabilityEvent>((event, emit) async {
+      emit(state.copyWith(statusMarket: Status.loading));
+
+      try {
+        final response = await repo.getMarketability();
+
+        final data = MarketabilityResponse.fromJson(response);
+        if (data.message == "ok") {
+          print("========================");
+          print("${data.data}");
+          print("========================");
+          emit(state.copyWith(statusMarket: Status.success, marketData: data.data));
+        } else {
+          emit(state.copyWith(statusMarket: Status.error, errorMessageMarket: data.message));
+        }
+      } on DioException catch (e) {
+        emit(state.copyWith(statusMarket: Status.error, errorMessageMarket: e.toString()));
       }
     });
   }

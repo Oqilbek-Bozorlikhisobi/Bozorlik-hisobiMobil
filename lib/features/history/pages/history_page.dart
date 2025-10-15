@@ -57,7 +57,7 @@ class HistoryPage extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset(AppIcons.empty, height: 200, width: 200),
+            SvgPicture.asset(AppIcons.emptyMarket, height: 200, width: 200),
             12.vertical,
             Text(
               "no_history".tr(),

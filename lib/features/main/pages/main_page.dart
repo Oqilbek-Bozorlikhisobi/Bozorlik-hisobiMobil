@@ -72,7 +72,7 @@ class MainPage extends HookConsumerWidget {
                 isActive: currentIndex == 2,
               ),
               buildBottomNavigationBarItem(iconPath: AppIcons.history, label: "history".tr(), isActive: currentIndex == 3),
-              buildBottomNavigationBarItem(iconPath: AppIcons.settings, label: "settings".tr(), isActive: currentIndex == 4),
+              buildBottomNavigationBarItem(iconPath: AppIcons.main, label: "menu".tr(), isActive: currentIndex == 4),
               // buildBottomNavigationBarItem(
               //   iconPath: AppIcons.main,
               //   label: "Sozlamalar",

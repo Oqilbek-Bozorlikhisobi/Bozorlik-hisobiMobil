@@ -4,6 +4,8 @@ import 'package:bozorlik/features/settings/repositories/profile_repository.dart'
 import '../../../common/helpers/request_helper.dart';
 
 class HomeRepository {
+  final userId = ProfileRepository().id;
+
   Future<List<BannerModel>> getBanners() async {
     final response = await requestHelper.getWithAuth("/bunner");
 
@@ -11,9 +13,14 @@ class HomeRepository {
   }
 
   Future<Map<String, dynamic>> createMarket({required String name}) async {
-    final userId = ProfileRepository().id;
 
     final response = await requestHelper.postWithAuth("/market", {"name": name, "userId": userId});
+
+    return response;
+  }
+
+  Future<Map<String, dynamic>> getMarketability() async {
+    final response = await requestHelper.getWithAuth("/market");
 
     return response;
   }

@@ -18,6 +18,19 @@ class AppIcons {
   static const String wallet = "assets/svg/wallet.svg";
   static const String calendar = "assets/svg/calendar.svg";
   static const String down = "assets/svg/down.svg";
+  static const String emptyMarket = "assets/svg/empty_market.svg";
+  static const String logoFill = "assets/svg/logo_fill.svg";
+  static const String edit = "assets/svg/edit.svg";
+  static const String arrowRight = "assets/svg/arror_right.svg";
+  static const String editPassword = "assets/svg/edit_password.svg";
+  static const String simcard = "assets/svg/simcard.svg";
+  static const String language = "assets/svg/language.svg";
+  static const String design = "assets/svg/design.svg";
+  static const String appRating = "assets/svg/app_rating.svg";
+  static const String appeal = "assets/svg/appeal.svg";
+  static const String info = "assets/svg/info.svg";
+  static const String exitApp = "assets/svg/exit_app.svg";
+  static const String delete = "assets/svg/delete.svg";
 
   AppIcons._();
 }
