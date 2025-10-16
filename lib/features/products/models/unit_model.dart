@@ -9,7 +9,7 @@ abstract class UnitModel with _$UnitModel {
     @JsonKey(name: 'id') String? id,
     @JsonKey(name: 'createdAt') String? createdAt,
     @JsonKey(name: 'updatedAt') String? updatedAt,
-    @JsonKey(name: 'name') String? name,
+    @JsonKey(name: 'nameUz') String? name,
   }) = _UnitModel;
 
   factory UnitModel.fromJson(Map<String, Object?> json) => _$UnitModelFromJson(json);

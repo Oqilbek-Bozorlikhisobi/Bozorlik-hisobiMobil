@@ -63,16 +63,16 @@ class MainPage extends HookConsumerWidget {
               ref.read(indexNotifierProvider.notifier).changeIndex(index);
             },
             items: [
-              buildBottomNavigationBarItem(iconPath: AppIcons.home, label: "main".tr(), isActive: currentIndex == 0),
-              buildBottomNavigationBarItem(iconPath: AppIcons.main, label: "categories".tr(), isActive: currentIndex == 1),
+              buildBottomNavigationBarItem(iconPath:currentIndex == 0?AppIcons.homeFilled: AppIcons.home, label: "main".tr(), isActive: currentIndex == 0),
+              buildBottomNavigationBarItem(iconPath:currentIndex == 1?AppIcons.mainFilled: AppIcons.main, label: "categories".tr(), isActive: currentIndex == 1),
               buildBottomNavigationBarItem(
-                iconPath: AppIcons.cart,
+                iconPath:currentIndex == 2?AppIcons.cartFilled: AppIcons.cart,
                 label: "cart".tr(),
                 badgeCount: cart.valueOrNull?.marketLists?.length ?? 0,
                 isActive: currentIndex == 2,
               ),
-              buildBottomNavigationBarItem(iconPath: AppIcons.history, label: "history".tr(), isActive: currentIndex == 3),
-              buildBottomNavigationBarItem(iconPath: AppIcons.main, label: "menu".tr(), isActive: currentIndex == 4),
+              buildBottomNavigationBarItem(iconPath:currentIndex == 3?AppIcons.historyFilled: AppIcons.history, label: "history".tr(), isActive: currentIndex == 3),
+              buildBottomNavigationBarItem(iconPath:currentIndex == 4?AppIcons.mainFilled: AppIcons.main, label: "menu".tr(), isActive: currentIndex == 4),
               // buildBottomNavigationBarItem(
               //   iconPath: AppIcons.main,
               //   label: "Sozlamalar",
@@ -90,7 +90,7 @@ class MainPage extends HookConsumerWidget {
       return BottomNavigationBarItem(
         icon: Container(
           padding: EdgeInsets.symmetric(vertical: 4, horizontal: 12),
-          decoration: isActive ? BoxDecoration(borderRadius: BorderRadius.circular(10), color: AppColors.primaryColorOpacity) : null,
+          decoration: isActive ? BoxDecoration(borderRadius: BorderRadius.circular(10), ) : null,
           child: Badge(
             isLabelVisible: badgeCount != null && badgeCount > 0,
             label: Text(badgeCount.toString()),

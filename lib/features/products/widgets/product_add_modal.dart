@@ -4,6 +4,7 @@ import 'package:bozorlik/common/widgets/custom_button.dart';
 import 'package:bozorlik/common/widgets/custom_dropdown.dart';
 import 'package:bozorlik/common/widgets/custom_network_image.dart';
 import 'package:bozorlik/common/widgets/custom_text_field.dart';
+import 'package:bozorlik/common/widgets/custom_toast.dart';
 import 'package:bozorlik/features/cart/notifiers/cart_notifier.dart';
 import 'package:bozorlik/features/products/models/product_model.dart';
 import 'package:bozorlik/features/products/models/unit_model.dart';
@@ -13,6 +14,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:toastification/toastification.dart';
 
 class ProductAddModal extends HookConsumerWidget {
   const ProductAddModal({super.key, required this.model});
@@ -21,7 +23,9 @@ class ProductAddModal extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final nameController = useTextEditingController();
     final descriptionController = useTextEditingController();
+    nameController.text = model?.titleUz ?? "";
     final amountController = useTextEditingController();
     final units = ref.watch(unitsNotifierProvider);
     final isLoading = useState(false);
@@ -39,121 +43,121 @@ class ProductAddModal extends HookConsumerWidget {
       return null;
     }, [0]);
     return Container(
-      decoration: BoxDecoration(
-        color: CupertinoColors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
-      ),
-      padding: EdgeInsets.only(
-        left: 8,
-        right: 8,
-        top: 12,
-        bottom: MediaQuery.of(context).viewInsets.bottom,
-      ),
+      decoration: BoxDecoration(color: CupertinoColors.white, borderRadius: BorderRadius.vertical(top: Radius.circular(12))),
+      padding: EdgeInsets.only(left: 8, right: 8, top: 12, bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Form(
         key: formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (model != null) ...[
-              ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: CustomCachedNetworkImage(
-                  imageUrl: model!.image ?? "",
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                  height: 300,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (model != null) ...[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(28.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: CustomCachedNetworkImage(imageUrl: model!.image ?? "", width: 200, fit: BoxFit.cover, height: 200),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              10.vertical,
-              Text(
-                context.localizedTitle(
-                      model!.titleUz,
-                      model!.titleRu,
-                      model!.titleEn,
-                    ) ??
-                    "-",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-              ),
-              10.vertical,
-            ],
-            if (model == null) ...[
+                // 10.vertical,
+                // Text(
+                //   context.localizedTitle(model!.titleUz, model!.titleRu, model!.titleEn) ?? "-",
+                //   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                // ),
+                10.vertical,
+              ],
+              // if (model == null) ...[
               CustomTextField(
+                isDeletable: true,
                 labelText: "product_name".tr(),
                 focusNode: nameFocusNode,
-                controller: descriptionController,
+                controller: nameController,
                 hintText: "product_name_example".tr(),
               ),
               10.vertical,
-            ],
-            Row(
-              children: [
-                Expanded(
-                  flex: 3,
-                  child: CustomTextField(
-                    focusNode: amountFocusNode,
-                    labelText: "amount".tr(),
-                    validatorText: "required_field".tr(),
-                    hintText: "amount_example".tr(),
-                    textInputType: TextInputType.numberWithOptions(),
-                    controller: amountController,
+              // ],
+              Row(
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: CustomTextField(
+                      focusNode: amountFocusNode,
+                      labelText: "amount".tr(),
+                      validatorText: "required_field".tr(),
+                      hintText: "amount_example".tr(),
+                      textInputType: TextInputType.numberWithOptions(),
+                      controller: amountController,
+                    ),
                   ),
-                ),
-                8.horizontal,
-                Expanded(
-                  flex: 2,
-                  child: CustomDropdown(
-                    height: 120,
-                    selectedValue: unit.value?.name,
-                    validatorText: "required_field".tr(),
-                    labelText: "measurement_unit".tr(),
-                    hintText: "piece".tr(),
-                    items: unitNotifier.getUnitNames(units.valueOrNull ?? []),
-                    onChanged: (String? value) {
-                      unit.value = unitNotifier.findUnitByName(
-                        name: value!,
-                        units: units.valueOrNull ?? [],
-                      );
-                    },
+                  8.horizontal,
+                  Expanded(
+                    flex: 2,
+                    child: CustomDropdown(
+                      height: 120,
+                      selectedValue: unit.value?.name,
+                      validatorText: "required_field".tr(),
+                      labelText: "measurement_unit".tr(),
+                      hintText: "piece".tr(),
+                      items: unitNotifier.getUnitNames(units.valueOrNull ?? []),
+                      onChanged: (String? value) {
+                        unit.value = unitNotifier.findUnitByName(name: value!, units: units.valueOrNull ?? []);
+                      },
+                    ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
 
-            20.vertical,
-            CustomButton(
-              isLoading: isLoading.value,
-              text: "add_to_cart".tr(),
-              onTap: () async {
-                if (!formKey.currentState!.validate()) return;
-                isLoading.value = true;
-                try {
-                  await ref
-                      .read(cartNotifierProvider.notifier)
-                      .addProductToCart(
-                        product: model,
-                        name: descriptionController.text,
-                        amount: double.tryParse(amountController.text) ?? 0,
-                        unitId: unit.value?.id ?? "",
-                      );
-                } catch (e, s) {}
-                isLoading.value = false;
-                if (context.mounted) {
-                  Navigator.pop(context);
-                }
-              },
-            ),
-            30.vertical,
-          ],
+              10.vertical,
+              CustomTextField(
+                isDeletable: true,
+                labelText: "description".tr(),
+                controller: descriptionController,
+                hintText: "...",
+              ),
+              20.vertical,
+              CustomButton(
+                isLoading: isLoading.value,
+                text: "add_to_cart".tr(),
+                onTap: () async {
+                  if (!formKey.currentState!.validate()) return;
+                  isLoading.value = true;
+                  try {
+                  var response=  await ref
+                        .read(cartNotifierProvider.notifier)
+                        .addProductToCart(
+                          product: model,
+                          description: descriptionController.text,
+                          name: nameController.text,
+                          amount: double.tryParse(amountController.text) ?? 0,
+                          unitId: unit.value?.id ?? "",
+                        );
+
+                  isLoading.value = false;
+                  if (context.mounted) {
+                    showCustomToast(title: "success_sent".tr(), type: ToastificationType.success);
+                    Navigator.pop(context);
+                  }
+                  } catch (e, s) {
+                    showCustomToast(title: e.toString(), type: ToastificationType.error);
+                    Navigator.pop(context);
+                  }
+                },
+              ),
+              30.vertical,
+            ],
+          ),
         ),
       ),
     );
   }
 
-  static Future show(
-    BuildContext context, {
-    required ProductModel? model,
-  }) async {
+  static Future show(BuildContext context, {required ProductModel? model}) async {
     return showModalBottomSheet(
       isScrollControlled: true,
       backgroundColor: Colors.transparent,

@@ -149,7 +149,9 @@
   "exit_app": "Ilovadan chiqish",
   "delete_profile": "Profilni o’chirish",
   "menu": "Menu",
-  "coming_soon": "Tez kunda"
-
+  "coming_soon": "Tez kunda",
+  "products": "mahsulotlari",
+  "add": "Qo'shish",
+  "description": "Izoh (majburiy emas)"
 
 }

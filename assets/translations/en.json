@@ -147,7 +147,13 @@
   "exit_app": "Exit the application",
   "delete_profile": "Delete profile",
   "menu": "Menu",
-  "coming_soon": "Soon"
+  "coming_soon": "Soon",
+  "products": "products",
+  "add": "Add",
+  "description": "Comment (optional)"
+
+
+
 
 
 

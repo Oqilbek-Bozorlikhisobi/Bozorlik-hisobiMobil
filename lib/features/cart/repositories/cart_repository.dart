@@ -123,12 +123,14 @@ class CartRepository {
     required String unitId,
     required ProductModel? product,
     required String? name,
+    required String? description,
     required double amount,
   }) async {
     final response = await requestHelper.postWithAuth("/market-list", {
       "marketId": cartId,
       "productId": product?.id,
       "productName": name,
+      "description": description,
       "quantity": amount,
       "unitId": unitId,
     });

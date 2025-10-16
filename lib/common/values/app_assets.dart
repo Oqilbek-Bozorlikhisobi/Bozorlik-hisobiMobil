@@ -1,10 +1,15 @@
 class AppIcons {
   static const String logo = "assets/svg/logo.svg";
+  static const String splash = "assets/svg/splash.svg";
   static const String main = "assets/svg/main.svg";
+  static const String mainFilled = "assets/svg/main_filled.svg";
   static const String home = "assets/svg/home.svg";
+  static const String homeFilled = "assets/svg/home_filled.svg";
   static const String cart = "assets/svg/cart.svg";
+  static const String cartFilled = "assets/svg/cart_filled.svg";
   static const String settings = "assets/svg/settings.svg";
   static const String history = "assets/svg/history.svg";
+  static const String historyFilled = "assets/svg/history_filled.svg";
   static const String search = "assets/svg/search.svg";
   static const String back = "assets/svg/back.svg";
   static const String empty = "assets/svg/empty.svg";

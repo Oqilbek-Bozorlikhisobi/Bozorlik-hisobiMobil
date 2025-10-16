@@ -10,7 +10,7 @@ _UnitModel _$UnitModelFromJson(Map<String, dynamic> json) => _UnitModel(
   id: json['id'] as String?,
   createdAt: json['createdAt'] as String?,
   updatedAt: json['updatedAt'] as String?,
-  name: json['name'] as String?,
+  name: json['nameUz'] as String?,
 );
 
 Map<String, dynamic> _$UnitModelToJson(_UnitModel instance) =>
@@ -18,5 +18,5 @@ Map<String, dynamic> _$UnitModelToJson(_UnitModel instance) =>
       'id': instance.id,
       'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,
-      'name': instance.name,
+      'nameUz': instance.name,
     };
