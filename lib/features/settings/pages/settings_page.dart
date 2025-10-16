@@ -1,25 +1,23 @@
-import 'package:bozorlik/app/app.dart';
 import 'package:bozorlik/app/theme.dart';
 import 'package:bozorlik/common/extension/number_extension.dart';
-import 'package:bozorlik/common/extension/widget_extantion.dart';
 import 'package:bozorlik/common/values/app_assets.dart';
 import 'package:bozorlik/common/values/app_infos.dart';
 import 'package:bozorlik/common/widgets/custom_error_widget.dart';
 import 'package:bozorlik/common/widgets/custom_scaffold_loading.dart';
 import 'package:bozorlik/features/settings/widgets/coming_soon_dialog.dart';
 import 'package:bozorlik/features/settings/widgets/feedback_modal.dart';
-import 'package:bozorlik/features/settings/widgets/settings_button.dart';
 import 'package:bozorlik/utils/mask.dart';
+import 'package:bozorlik/utils/theme/theme_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../app/router.dart';
-import '../../../common/widgets/custom_button.dart';
 import '../../../common/widgets/loading_widget.dart';
 import '../../auth/notifiers/login_notifier.dart';
 import '../notifiers/profile_notifier.dart';
@@ -109,10 +107,13 @@ class SettingsPage extends HookConsumerWidget {
                         },
                       ),
                       Divider(thickness: 0.5, color: AppColors.greyText.withValues(alpha: 0.5)),
-                      ProfileItem(svg: AppIcons.editPassword, title: 'edit_password'.tr(), onTap: () {
-                        showComingSoon(context: context);
-
-                      }),
+                      ProfileItem(
+                        svg: AppIcons.editPassword,
+                        title: 'edit_password'.tr(),
+                        onTap: () {
+                          showComingSoon(context: context);
+                        },
+                      ),
                       Divider(thickness: 0.5, color: AppColors.greyText.withValues(alpha: 0.5)),
                       ProfileItem(
                         svg: AppIcons.simcard,
@@ -140,8 +141,15 @@ class SettingsPage extends HookConsumerWidget {
                         },
                       ),
                       Divider(thickness: 0.5, color: AppColors.greyText.withValues(alpha: 0.5)),
-                      ProfileItem(svg: AppIcons.design, title: 'design'.tr(), onTap: () {                          showComingSoon(context: context);
-                      }),
+                      ProfileItem(
+                        svg: AppIcons.design,
+                        title: 'design'.tr(),
+                        onTap: () {
+                          // context.read<ThemeBloc>().add(ToggleThemeEvent());
+
+                          showComingSoon(context: context);
+                        },
+                      ),
                     ],
                   ),
                 ),
@@ -154,8 +162,13 @@ class SettingsPage extends HookConsumerWidget {
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 11),
                   child: Column(
                     children: [
-                      ProfileItem(svg: AppIcons.appRating, title: 'app_rating'.tr(), onTap: () {                          showComingSoon(context: context);
-                      }),
+                      ProfileItem(
+                        svg: AppIcons.appRating,
+                        title: 'app_rating'.tr(),
+                        onTap: () {
+                          showComingSoon(context: context);
+                        },
+                      ),
                       Divider(thickness: 0.5, color: AppColors.greyText.withValues(alpha: 0.5)),
                       ProfileItem(
                         svg: AppIcons.appeal,
