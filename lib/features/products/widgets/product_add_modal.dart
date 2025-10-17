@@ -1,3 +1,4 @@
+import 'package:bozorlik/app/theme.dart';
 import 'package:bozorlik/common/extension/for_context.dart';
 import 'package:bozorlik/common/extension/number_extension.dart';
 import 'package:bozorlik/common/widgets/custom_button.dart';
@@ -6,14 +7,17 @@ import 'package:bozorlik/common/widgets/custom_network_image.dart';
 import 'package:bozorlik/common/widgets/custom_text_field.dart';
 import 'package:bozorlik/common/widgets/custom_toast.dart';
 import 'package:bozorlik/features/cart/notifiers/cart_notifier.dart';
+import 'package:bozorlik/features/home/models/marketability.dart';
 import 'package:bozorlik/features/products/models/product_model.dart';
 import 'package:bozorlik/features/products/models/unit_model.dart';
 import 'package:bozorlik/features/products/notifiers/units_notifier.dart';
+import 'package:bozorlik/features/products/widgets/select_market_bottomsheet.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:toastification/toastification.dart';
 
 class ProductAddModal extends HookConsumerWidget {
@@ -34,6 +38,11 @@ class ProductAddModal extends HookConsumerWidget {
     final amountFocusNode = useFocusNode();
     final unit = useState<UnitModel?>(null);
     final unitNotifier = ref.watch(unitsNotifierProvider.notifier);
+
+    // BU YERDA O'ZGARTIRISH: useState ishlatamiz
+    final selectMarketName = useState<String?>(null);
+    final selectMarketId = useState<String?>(null);
+
     useEffect(() {
       if (model == null) {
         nameFocusNode.requestFocus();
@@ -42,115 +51,146 @@ class ProductAddModal extends HookConsumerWidget {
       }
       return null;
     }, [0]);
+
     return Container(
       decoration: BoxDecoration(color: CupertinoColors.white, borderRadius: BorderRadius.vertical(top: Radius.circular(12))),
       padding: EdgeInsets.only(left: 8, right: 8, top: 12, bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Form(
         key: formKey,
         child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (model != null) ...[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text("new_add_product".tr(), style: Theme.of(context).textTheme.titleMedium),
+                10.vertical,
+
+                CustomTextField(
+                  isDeletable: true,
+                  labelText: "product_name".tr(),
+                  focusNode: nameFocusNode,
+                  controller: nameController,
+                  hintText: "product_name_example".tr(),
+                ),
+                10.vertical,
+                10.vertical,
+                Text("select_market".tr(), style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w400, fontSize: 14)),
+                8.vertical,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(28.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
-                        child: CustomCachedNetworkImage(imageUrl: model!.image ?? "", width: 200, fit: BoxFit.cover, height: 200),
+                    GestureDetector(
+                      onTap: () {
+                        showCupertinoModalBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return ShowMarketBottomsheet(id: selectMarketId.value);
+                          },
+                        ).then((v) {
+                          if (v != null) {
+                            MarketabilityResponseData data = v;
+                            // BU YERDA O'ZGARTIRISH: .value orqali o'zgartiramiz
+                            selectMarketName.value = data.name;
+                            selectMarketId.value = data.id;
+                          }
+                        });
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                        decoration: BoxDecoration(
+                          color: AppColors.white,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(width: 2, color: CupertinoColors.systemGroupedBackground),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            // BU YERDA O'ZGARTIRISH: .value orqali o'qiymiz
+                            Text(selectMarketName.value ?? "select_market".tr(), style: TextStyle(fontSize: 16, color: Colors.black87)),
+                            Icon(Icons.keyboard_arrow_down, color: Colors.grey),
+                          ],
+                        ),
                       ),
                     ),
                   ],
                 ),
-                // 10.vertical,
-                // Text(
-                //   context.localizedTitle(model!.titleUz, model!.titleRu, model!.titleEn) ?? "-",
-                //   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-                // ),
                 10.vertical,
+
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 3,
+                      child: CustomTextField(
+                        focusNode: amountFocusNode,
+                        labelText: "amount".tr(),
+                        validatorText: "required_field".tr(),
+                        hintText: "amount_example".tr(),
+                        textInputType: TextInputType.numberWithOptions(),
+                        controller: amountController,
+                      ),
+                    ),
+                    8.horizontal,
+                    Expanded(
+                      flex: 2,
+                      child: CustomDropdown(
+                        height: 120,
+                        selectedValue: unit.value?.name,
+                        validatorText: "required_field".tr(),
+                        labelText: "measurement_unit".tr(),
+                        hintText: "piece".tr(),
+                        items: unitNotifier.getUnitNames(units.valueOrNull ?? []),
+                        onChanged: (String? value) {
+                          unit.value = unitNotifier.findUnitByName(name: value!, units: units.valueOrNull ?? []);
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+
+                10.vertical,
+                CustomTextField(isDeletable: true, labelText: "description".tr(), controller: descriptionController, hintText: "..."),
+                20.vertical,
+                CustomButton(
+                  isLoading: isLoading.value,
+                  text: "add_to_cart".tr(),
+                  onTap: () async {
+                    if (nameController.text.isEmpty) {
+                      showCustomToast(title: "Empty field", type: ToastificationType.error);
+                      return;
+                    }
+                    if (!formKey.currentState!.validate()) return;
+
+                    isLoading.value = true;
+                    try {
+
+
+                      var response = await ref
+                          .read(cartNotifierProvider.notifier)
+                          .addProductToCart(
+                            product: model,
+                            description: descriptionController.text,
+                            name: nameController.text,
+                            amount: double.tryParse(amountController.text) ?? 0,
+                            unitId: unit.value?.id ?? "",
+                            marketId:selectMarketId.value??"",
+                          );
+
+                      isLoading.value = false;
+                      if (context.mounted) {
+                        showCustomToast(title: "success_sent".tr(), type: ToastificationType.success);
+                        Navigator.pop(context);
+                      }
+                    } catch (e, s) {
+                      showCustomToast(title: e.toString(), type: ToastificationType.error);
+                      Navigator.pop(context);
+                    }
+                  },
+                ),
+                30.vertical,
               ],
-              // if (model == null) ...[
-              CustomTextField(
-                isDeletable: true,
-                labelText: "product_name".tr(),
-                focusNode: nameFocusNode,
-                controller: nameController,
-                hintText: "product_name_example".tr(),
-              ),
-              10.vertical,
-              // ],
-              Row(
-                children: [
-                  Expanded(
-                    flex: 3,
-                    child: CustomTextField(
-                      focusNode: amountFocusNode,
-                      labelText: "amount".tr(),
-                      validatorText: "required_field".tr(),
-                      hintText: "amount_example".tr(),
-                      textInputType: TextInputType.numberWithOptions(),
-                      controller: amountController,
-                    ),
-                  ),
-                  8.horizontal,
-                  Expanded(
-                    flex: 2,
-                    child: CustomDropdown(
-                      height: 120,
-                      selectedValue: unit.value?.name,
-                      validatorText: "required_field".tr(),
-                      labelText: "measurement_unit".tr(),
-                      hintText: "piece".tr(),
-                      items: unitNotifier.getUnitNames(units.valueOrNull ?? []),
-                      onChanged: (String? value) {
-                        unit.value = unitNotifier.findUnitByName(name: value!, units: units.valueOrNull ?? []);
-                      },
-                    ),
-                  ),
-                ],
-              ),
-
-              10.vertical,
-              CustomTextField(
-                isDeletable: true,
-                labelText: "description".tr(),
-                controller: descriptionController,
-                hintText: "...",
-              ),
-              20.vertical,
-              CustomButton(
-                isLoading: isLoading.value,
-                text: "add_to_cart".tr(),
-                onTap: () async {
-                  if (!formKey.currentState!.validate()) return;
-                  isLoading.value = true;
-                  try {
-                  var response=  await ref
-                        .read(cartNotifierProvider.notifier)
-                        .addProductToCart(
-                          product: model,
-                          description: descriptionController.text,
-                          name: nameController.text,
-                          amount: double.tryParse(amountController.text) ?? 0,
-                          unitId: unit.value?.id ?? "",
-                        );
-
-                  isLoading.value = false;
-                  if (context.mounted) {
-                    showCustomToast(title: "success_sent".tr(), type: ToastificationType.success);
-                    Navigator.pop(context);
-                  }
-                  } catch (e, s) {
-                    showCustomToast(title: e.toString(), type: ToastificationType.error);
-                    Navigator.pop(context);
-                  }
-                },
-              ),
-              30.vertical,
-            ],
+            ),
           ),
         ),
       ),

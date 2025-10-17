@@ -152,6 +152,9 @@
   "coming_soon": "Tez kunda",
   "products": "mahsulotlari",
   "add": "Qo'shish",
-  "description": "Izoh (majburiy emas)"
+  "description": "Izoh (majburiy emas)",
+  "select_market": "Bozorlikni tanlang",
+  "new_add_product":"Yangi mahsulot qo'shish",
+  "details": "Batafsil"
 
 }

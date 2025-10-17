@@ -92,8 +92,11 @@ class CartRepository {
         location: location,
       );
     }
+    final userId = ProfileRepository().id;
+
     final response = await requestHelper.postWithAuth("/history", {
       "marketId": cartId,
+      "userId":userId
     });
   }
 
@@ -123,11 +126,12 @@ class CartRepository {
     required String unitId,
     required ProductModel? product,
     required String? name,
+    required String? marketId,
     required String? description,
     required double amount,
   }) async {
     final response = await requestHelper.postWithAuth("/market-list", {
-      "marketId": cartId,
+      "marketId": marketId,
       "productId": product?.id,
       "productName": name,
       "description": description,

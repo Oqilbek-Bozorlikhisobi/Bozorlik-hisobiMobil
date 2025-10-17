@@ -242,9 +242,10 @@ Future<void> generateAndOpenPdf(
 class HistoryRepository {
   Future<List<CartModel>> getHistory() async {
     final userId = ProfileRepository().id;
-    final response = await requestHelper.getWithAuth("/history?userId=$userId");
+    // final response = await requestHelper.getWithAuth("/history?userId=$userId");
+    final response = await requestHelper.getWithAuth("/history");
     try {
-      return (response["data"] as List)
+      return (response["data"]["data"] as List)
           .map((e) => CartModel.fromJson(e))
           .toList();
     } catch (e, s) {

@@ -161,6 +161,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                       child: Icon(CupertinoIcons.clear),
                       onTap: () {
                         innerController.clear();
+                        widget.controller?.clear();
                         _debounceOnChanged("");
                       },
                     )

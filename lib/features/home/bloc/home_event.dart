@@ -7,3 +7,5 @@ class CreateMarketEvent extends HomeEvent{
   CreateMarketEvent({required this.name});
 }
 class GetMarketabilityEvent extends HomeEvent{}
+class GetDepartmentEvent extends HomeEvent{}
+class GetBannerEvent extends HomeEvent{}

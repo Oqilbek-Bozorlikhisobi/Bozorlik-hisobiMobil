@@ -24,6 +24,16 @@ class HomeRepository {
 
     return response;
   }
+  Future<Map<String, dynamic>> getDepartment() async {
+    final response = await requestHelper.getWithAuth("/market-type");
+
+    return response;
+  }
+  Future<Map<String, dynamic>> getBunner() async {
+    final response = await requestHelper.getWithAuth("/bunner");
+
+    return response;
+  }
 }
 
 final homeRepository = HomeRepository();

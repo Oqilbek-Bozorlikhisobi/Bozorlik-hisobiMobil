@@ -145,9 +145,9 @@ class SettingsPage extends HookConsumerWidget {
                         svg: AppIcons.design,
                         title: 'design'.tr(),
                         onTap: () {
-                          // context.read<ThemeBloc>().add(ToggleThemeEvent());
+                          context.read<ThemeBloc>().add(ToggleThemeEvent());
 
-                          showComingSoon(context: context);
+                          // showComingSoon(context: context);
                         },
                       ),
                     ],

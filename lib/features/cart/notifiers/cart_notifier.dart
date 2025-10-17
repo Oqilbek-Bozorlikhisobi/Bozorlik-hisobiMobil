@@ -54,6 +54,7 @@ class CartNotifier extends _$CartNotifier {
     required String? description,
     required double amount,
     required String unitId,
+    required String marketId,
   }) async {
     if (state.value == null) return;
 
@@ -64,6 +65,7 @@ class CartNotifier extends _$CartNotifier {
       amount: amount,
       cartId: state.value!.id!,
       unitId: unitId,
+      marketId: marketId,
     );
     ref.invalidate(allCartsNotifierProvider);
   }

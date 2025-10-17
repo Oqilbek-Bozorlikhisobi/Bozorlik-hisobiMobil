@@ -1,4 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:bozorlik/features/home/models/banner_response.dart';
+import 'package:bozorlik/features/home/models/department_response.dart';
 import 'package:bozorlik/features/home/models/marketability.dart';
 import 'package:bozorlik/features/home/repositories/home_repository.dart';
 import 'package:bozorlik/utils/enums.dart';
@@ -35,15 +37,52 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
         final data = MarketabilityResponse.fromJson(response);
         if (data.message == "ok") {
-          print("========================");
-          print("${data.data}");
-          print("========================");
           emit(state.copyWith(statusMarket: Status.success, marketData: data.data));
         } else {
           emit(state.copyWith(statusMarket: Status.error, errorMessageMarket: data.message));
         }
       } on DioException catch (e) {
         emit(state.copyWith(statusMarket: Status.error, errorMessageMarket: e.toString()));
+      }
+    });
+    on<GetDepartmentEvent>((event, emit) async {
+      emit(state.copyWith(statusDepartment: Status.loading));
+
+      try {
+        final response = await repo.getDepartment();
+
+        final data = DepartmentResponse.fromJson(response);
+        if (data.message == "ok") {
+          if (data.data?.items?.isNotEmpty ?? false) {
+            emit(state.copyWith(statusDepartment: Status.success, departmentData: data.data?.items));
+          } else {
+            emit(state.copyWith(statusDepartment: Status.empty));
+          }
+        } else {
+          emit(state.copyWith(statusDepartment: Status.error, errorMessageDepartment: data.message));
+        }
+      } on DioException catch (e) {
+        emit(state.copyWith(statusDepartment: Status.error, errorMessageDepartment: e.toString()));
+      }
+    });
+    on<GetBannerEvent>((event, emit) async {
+      emit(state.copyWith(statusBanner: Status.loading));
+
+      try {
+        final response = await repo.getBunner();
+
+        final data = BannerResponse.fromJson(response);
+        if (data.message == "ok") {
+          if (data.data?.items?.isNotEmpty ?? false) {
+            emit(state.copyWith(statusBanner: Status.success, banner: data.data?.items));
+          } else {
+            emit(state.copyWith(statusBanner: Status.empty));
+          }
+        } else {
+          emit(state.copyWith(statusBanner: Status.error, errorMessageBanner: data.message));
+        }
+      } on DioException catch (e) {
+        emit(state.copyWith(statusBanner: Status.error, errorMessageBanner: e.toString()));
       }
     });
   }

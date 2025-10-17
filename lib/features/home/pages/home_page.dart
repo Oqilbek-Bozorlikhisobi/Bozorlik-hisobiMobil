@@ -32,6 +32,9 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     bloc.add(GetMarketabilityEvent());
+    bloc.add(GetDepartmentEvent());
+    bloc.add(GetBannerEvent());
+
   }
 
   @override
@@ -58,7 +61,6 @@ class _HomePageState extends State<HomePage> {
                 scale: 0.7,
                 child: GestureDetector(
                   onTap: () {
-                    // focusNode.unfocus();
                     context.push(AppRoutes.search);
                   },
                   child: Container(
@@ -70,7 +72,6 @@ class _HomePageState extends State<HomePage> {
               actions: [
                 GestureDetector(
                   onTap: () {
-                    // focusNode.unfocus();
                     context.push(AppRoutes.search);
                   },
                   child: Container(
@@ -84,8 +85,8 @@ class _HomePageState extends State<HomePage> {
             body: ListView(
               children: [
                 16.vertical,
-                const BannersWidget(),
-                DepartmentCard(),
+                OnboardingBanner(bloc: bloc,),
+                DepartmentCard(bloc: bloc,),
                 4.vertical,
                 Shoppings(bloc: bloc,),
                 Padding(
