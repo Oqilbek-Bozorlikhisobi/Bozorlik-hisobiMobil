@@ -155,6 +155,10 @@
   "description": "Izoh (majburiy emas)",
   "select_market": "Bozorlikni tanlang",
   "new_add_product":"Yangi mahsulot qo'shish",
-  "details": "Batafsil"
-
+  "details": "Batafsil",
+  "infos": "Ma'lumotlar",
+  "market_department": "Bozorlik bo’limi:",
+  "market_summ": "Bozorlik summasi:",
+  "products_cart": "Mahsulotlar",
+  "buy_products": "Mahsulotlar sotib olindi:"
 }

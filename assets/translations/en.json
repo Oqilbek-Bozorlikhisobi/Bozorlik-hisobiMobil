@@ -153,7 +153,17 @@
   "description": "Comment (optional)",
   "select_market": "Select a market",
   "new_add_product":"Add new product",
-  "details": "More details"
+  "details": "More details",
+  "infos": "Information",
+  "market_department": "Marketing Department:",
+  "market_summ": "Market amount:",
+  "products_cart": "Products",
+  "buy_products": "Products purchased:"
+
+
+
+
+
 
 
 

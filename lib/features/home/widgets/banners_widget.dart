@@ -145,30 +145,6 @@ class OnboardingBanner extends StatefulWidget {
 class _OnboardingBannerState extends State<OnboardingBanner> {
   int _current = 0;
 
-  // final List<OnboardingItem> items = [
-  //   OnboardingItem(
-  //     title: 'BozorApp bilan\nvaqtingizni tejang',
-  //     description: 'Bozorlikni endi tartibli\nqilamiz',
-  //     buttonText: 'Batafsil',
-  //     backgroundColor: AppColors.primaryColor,
-  //     iconPath: 'https://backend.marketveb.uz/files/family.png', // clipboard va calculator ikonkalari
-  //   ),
-  //   OnboardingItem(
-  //     title: 'Tez va oson\nxarid qiling',
-  //     description: 'Mahsulotlarni bir joyda\ntoping',
-  //     buttonText: 'Davom etish',
-  //     backgroundColor: AppColors.primaryColor,
-  //     iconPath: 'https://backend.marketveb.uz/files/family.png',
-  //   ),
-  //   OnboardingItem(
-  //     title: 'Qulay to\'lov\ntizimi',
-  //     description: 'Xavfsiz va tez\nto\'lovlar',
-  //     buttonText: 'Boshlash',
-  //     backgroundColor: AppColors.primaryColor,
-  //     iconPath: 'https://backend.marketveb.uz/files/family.png',
-  //   ),
-  // ];
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeBloc, HomeState>(
@@ -230,7 +206,8 @@ class _OnboardingBannerState extends State<OnboardingBanner> {
                                     width: MediaQuery.of(context).size.width,
                                     child: Stack(
                                       children: [
-                                        Positioned.fill(child: SvgPicture.asset(AppIcons.splash, fit: BoxFit.fitWidth)),
+                                        // Positioned.fill(child: SvgPicture.asset(AppIcons.splash, fit: BoxFit.fitWidth)),
+                                        Positioned.fill(child: Opacity(opacity: 0.9, child: Image.network(item.image ?? "", fit: BoxFit.fitWidth))),
                                         Padding(
                                           padding: const EdgeInsets.all(20.0),
                                           child: Row(
@@ -244,57 +221,60 @@ class _OnboardingBannerState extends State<OnboardingBanner> {
                                                     Text(
                                                       maxLines: 2,
                                                       overflow: TextOverflow.ellipsis,
-                                                      item.nameUz??"",
+                                                      item.nameUz ?? "",
                                                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                                                         fontSize: 16,
                                                         fontWeight: FontWeight.w500,
                                                         color: AppColors.white,
                                                       ),
                                                     ),
-                                                    6.vertical,
-                                                    Text(
-                                                      maxLines: 2,
-                                                      overflow: TextOverflow.ellipsis,
-                                                      item.nameUz??"",
-                                                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                                        fontWeight: FontWeight.w400,
-                                                        fontSize: 12,
-                                                        color: Colors.white.withOpacity(0.9),
-                                                        height: 1.4,
-                                                      ),
-                                                    ),
+                                                    // 6.vertical,
+                                                    // Text(
+                                                    //   maxLines: 2,
+                                                    //   overflow: TextOverflow.ellipsis,
+                                                    //   item.nameUz??"",
+                                                    //   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                                    //     fontWeight: FontWeight.w400,
+                                                    //     fontSize: 12,
+                                                    //     color: Colors.white.withOpacity(0.9),
+                                                    //     height: 1.4,
+                                                    //   ),
+                                                    // ),
                                                     // const SizedBox(height: 5),
                                                     Spacer(),
-                                                    Container(
-                                                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                                                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8)),
-                                                      child: Text(
-                                                        overflow: TextOverflow.ellipsis,
-                                                        "details".tr(),
-                                                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                                          color: AppColors.primaryColor,
-                                                          fontWeight: FontWeight.w500,
-                                                          fontSize: 12,
+                                                    GestureDetector(
+                                                      onTap: () {},
+                                                      child: Container(
+                                                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                                        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8)),
+                                                        child: Text(
+                                                          overflow: TextOverflow.ellipsis,
+                                                          "details".tr(),
+                                                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                                            color: AppColors.primaryColor,
+                                                            fontWeight: FontWeight.w500,
+                                                            fontSize: 12,
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
                                                   ],
                                                 ),
                                               ),
-                                              5.horizontal,
-                                              Expanded(
-                                                flex: 4,
-                                                child: Stack(
-                                                  alignment: Alignment.center,
-                                                  children: [
-                                                    SizedBox(
-                                                      width: 140,
-                                                      height: 180,
-                                                      child: ClipRRect(borderRadius: BorderRadius.circular(16), child: Image.network(item.image??"")),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
+                                              // 5.horizontal,
+                                              // Expanded(
+                                              //   flex: 4,
+                                              //   child: Stack(
+                                              //     alignment: Alignment.center,
+                                              //     children: [
+                                              //       SizedBox(
+                                              //         width: 140,
+                                              //         height: 180,
+                                              //         child: ClipRRect(borderRadius: BorderRadius.circular(16), child: Image.network(item.image??"")),
+                                              //       ),
+                                              //     ],
+                                              //   ),
+                                              // ),
                                             ],
                                           ),
                                         ),
@@ -310,7 +290,7 @@ class _OnboardingBannerState extends State<OnboardingBanner> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children:
-                          (state.banner??[]).asMap().entries.map((entry) {
+                          (state.banner ?? []).asMap().entries.map((entry) {
                             return AnimatedContainer(
                               duration: const Duration(milliseconds: 300),
                               width: _current == entry.key ? 42 : 10,
@@ -334,17 +314,6 @@ class _OnboardingBannerState extends State<OnboardingBanner> {
   }
 }
 
-class OnboardingItem {
-  final String title;
-  final String description;
-  final String buttonText;
-  final Color backgroundColor;
-  final String iconPath;
-
-  OnboardingItem({required this.title, required this.description, required this.buttonText, required this.backgroundColor, required this.iconPath});
-}
-
-// Diagonal lines painter for background pattern
 class DiagonalLinesPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {

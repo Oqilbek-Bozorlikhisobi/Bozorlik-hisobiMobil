@@ -45,7 +45,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // final focusNode = useFocusNode();
     return BlocProvider.value(
       value: bloc,
       child: BlocConsumer<HomeBloc, HomeState>(

@@ -6,4 +6,10 @@ class CartRepository2 {
 
     return response;
   }
+
+  Future<Map<String, dynamic>> getInnerCartById({required String id}) async {
+    final response = await requestHelper.getWithAuth("/market/$id");
+
+    return response;
+  }
 }

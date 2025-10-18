@@ -171,6 +171,7 @@ class AppColors {
   static const greyText = Color.fromRGBO(190, 190, 190, 1);
   static const textPrimary = Color(0xFF191919);
   static const red600 = Color(0xFFDC2626);
+  static const red = Color.fromRGBO(211, 47, 47, 1);
   static const black = Colors.black;
 
   // Dark Theme Colors

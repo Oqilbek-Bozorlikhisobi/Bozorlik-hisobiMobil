@@ -153,7 +153,17 @@
   "description": "Комментарий (необязательно)",
   "select_market": "Выберите рынок",
   "new_add_product":"Добавить новый продукт",
-  "details": "Подробнее"
+  "details": "Подробнее",
+  "infos": "Информация",
+  "market_department": "Отдел маркетинга:",
+  "market_summ": "Объем рынка:",
+  "products_cart": "Продукты",
+  "buy_products": "Купленные товары:"
+
+
+
+
+
 
 
 }

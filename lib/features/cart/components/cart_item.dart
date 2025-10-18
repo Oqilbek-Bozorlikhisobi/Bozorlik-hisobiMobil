@@ -16,11 +16,11 @@ class CartItemNew extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 300,
-      margin: EdgeInsets.only(right: 12),
-      padding: EdgeInsets.all(12),
+      margin: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+      padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: AppColors.backGround,
-        borderRadius: BorderRadius.circular(12),
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(color: AppColors.grey.withValues(alpha: 0.2), width: 1),
       ),
       child: Row(

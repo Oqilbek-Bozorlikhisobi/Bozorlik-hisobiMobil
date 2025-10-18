@@ -5,6 +5,10 @@ import 'package:bozorlik/common/widgets/custom_button.dart';
 import 'package:bozorlik/common/widgets/custom_text_field.dart';
 import 'package:bozorlik/common/widgets/custom_toast.dart';
 import 'package:bozorlik/features/home/bloc/home_bloc.dart';
+import 'package:bozorlik/features/home/models/department_response.dart';
+import 'package:bozorlik/features/home/models/marketability.dart';
+import 'package:bozorlik/features/home/widgets/select_market_department_bottomsheet.dart';
+import 'package:bozorlik/features/products/widgets/select_market_bottomsheet.dart';
 import 'package:bozorlik/utils/enums.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
@@ -25,8 +29,13 @@ class CreateMarketBottomsheet extends StatefulWidget {
 
 class _CreateMarketBottomsheetState extends State<CreateMarketBottomsheet> {
   final nameController = TextEditingController();
+  final marketController = TextEditingController();
   final bloc = HomeBloc();
-
+  String? selectMarketName;
+  String? selectMarketId;
+  // BU YERDA O'ZGARTIRISH: useState ishlatamiz
+  // final selectMarketName = useState<String?>(null);
+  // final selectMarketId = useState<String?>(null);
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
@@ -73,9 +82,28 @@ class _CreateMarketBottomsheetState extends State<CreateMarketBottomsheet> {
                     readOnly: true,
                     suffixIcon: Transform.scale(scale: 0.6, child: SvgPicture.asset(AppIcons.down)),
                     isDeletable: false,
-                    onTap: (){},
+                    onTap: (){
+                      showCupertinoModalBottomSheet(
+                        context: context,
+                        builder: (context) {
+                          return ShowMarketDepartmentBottomsheet(id: selectMarketId);
+                        },
+                      ).then((v) {
+                        if (v != null) {
+                          DepartmentResponseDataItems data = v;
+                          // BU YERDA O'ZGARTIRISH: .value orqali o'zgartiramiz
+                          selectMarketName = data.titleUz;
+                          selectMarketId = data.id;
+                          marketController.text=data.titleUz??"";
+                          setState(() {
+
+                          });
+                        }
+                      });
+
+                    },
                     labelText: "shopping_type".tr(),
-                    controller: nameController,
+                    controller: marketController,
                     hintText: "family".tr(),
                   ),
 

@@ -36,6 +36,8 @@ class AppIcons {
   static const String info = "assets/svg/info.svg";
   static const String exitApp = "assets/svg/exit_app.svg";
   static const String delete = "assets/svg/delete.svg";
+  static const String cartItem = "assets/svg/cart_item.svg";
+  static const String information = "assets/svg/information.svg";
 
   AppIcons._();
 }
@@ -56,6 +58,8 @@ class AppImages {
   static const String notification = "assets/png/notification.png";
   static const String family = "assets/png/family.png";
   static const String timer = "assets/png/timer.png";
+  static const String cartItem = "assets/png/cart_item.png";
+
 
   AppImages._();
 }
