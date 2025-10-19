@@ -65,6 +65,7 @@ class BrendsResponseDataItems {
   String? titleRu;
   String? titleUz;
   String? titleUzk;
+  List<BrendsResponseDataItemsProducts>? products;
   String? image;
   List<BrendsResponseDataItemsChildren>? children;
 
@@ -76,6 +77,7 @@ class BrendsResponseDataItems {
         this.titleRu,
         this.titleUz,
         this.titleUzk,
+        this.products,
         this.image,
         this.children});
 
@@ -87,6 +89,12 @@ class BrendsResponseDataItems {
     titleRu = json['titleRu'];
     titleUz = json['titleUz'];
     titleUzk = json['titleUzk'];
+    if (json['products'] != null) {
+      products = <BrendsResponseDataItemsProducts>[];
+      json['products'].forEach((v) {
+        products!.add(BrendsResponseDataItemsProducts.fromJson(v));
+      });
+    }
     image = json['image'];
     if (json['children'] != null) {
       children = <BrendsResponseDataItemsChildren>[];
@@ -105,10 +113,74 @@ class BrendsResponseDataItems {
     data['titleRu'] = titleRu;
     data['titleUz'] = titleUz;
     data['titleUzk'] = titleUzk;
+    if (products != null) {
+      data['products'] = products!.map((v) => v.toJson()).toList();
+    }
     data['image'] = image;
     if (children != null) {
       data['children'] = children!.map((v) => v.toJson()).toList();
     }
+    return data;
+  }
+}
+
+class BrendsResponseDataItemsProducts {
+  String? id;
+  String? createdAt;
+  String? updatedAt;
+  String? titleEn;
+  String? titleRu;
+  String? titleUz;
+  String? titleUzk;
+  String? descriptionEn;
+  String? descriptionRu;
+  String? descriptionUz;
+  String? descriptionUzk;
+  String? images;
+
+  BrendsResponseDataItemsProducts(
+      {this.id,
+        this.createdAt,
+        this.updatedAt,
+        this.titleEn,
+        this.titleRu,
+        this.titleUz,
+        this.titleUzk,
+        this.descriptionEn,
+        this.descriptionRu,
+        this.descriptionUz,
+        this.descriptionUzk,
+        this.images});
+
+  BrendsResponseDataItemsProducts.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+    titleEn = json['titleEn'];
+    titleRu = json['titleRu'];
+    titleUz = json['titleUz'];
+    titleUzk = json['titleUzk'];
+    descriptionEn = json['descriptionEn'];
+    descriptionRu = json['descriptionRu'];
+    descriptionUz = json['descriptionUz'];
+    descriptionUzk = json['descriptionUzk'];
+    images = json['images'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['titleEn'] = titleEn;
+    data['titleRu'] = titleRu;
+    data['titleUz'] = titleUz;
+    data['titleUzk'] = titleUzk;
+    data['descriptionEn'] = descriptionEn;
+    data['descriptionRu'] = descriptionRu;
+    data['descriptionUz'] = descriptionUz;
+    data['descriptionUzk'] = descriptionUzk;
+    data['images'] = images;
     return data;
   }
 }
@@ -121,6 +193,7 @@ class BrendsResponseDataItemsChildren {
   String? titleRu;
   String? titleUz;
   String? titleUzk;
+  List<BrendsResponseDataItemsProducts>? products;
   String? image;
   Parent? parent;
 
@@ -132,6 +205,7 @@ class BrendsResponseDataItemsChildren {
         this.titleRu,
         this.titleUz,
         this.titleUzk,
+        this.products,
         this.image,
         this.parent});
 
@@ -143,6 +217,12 @@ class BrendsResponseDataItemsChildren {
     titleRu = json['titleRu'];
     titleUz = json['titleUz'];
     titleUzk = json['titleUzk'];
+    if (json['products'] != null) {
+      products = <BrendsResponseDataItemsProducts>[];
+      json['products'].forEach((v) {
+        products!.add(BrendsResponseDataItemsProducts.fromJson(v));
+      });
+    }
     image = json['image'];
     parent =
     json['parent'] != null ? Parent.fromJson(json['parent']) : null;
@@ -157,6 +237,9 @@ class BrendsResponseDataItemsChildren {
     data['titleRu'] = titleRu;
     data['titleUz'] = titleUz;
     data['titleUzk'] = titleUzk;
+    if (products != null) {
+      data['products'] = products!.map((v) => v.toJson()).toList();
+    }
     data['image'] = image;
     if (parent != null) {
       data['parent'] = parent!.toJson();

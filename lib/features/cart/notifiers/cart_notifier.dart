@@ -49,7 +49,7 @@ class CartNotifier extends _$CartNotifier {
   }
 
   Future<dynamic> addProductToCart({
-    required ProductModel? product,
+    required String? productId,
     required String? name,
     required String? description,
     required double amount,
@@ -59,7 +59,7 @@ class CartNotifier extends _$CartNotifier {
     if (state.value == null) return;
 
     final response = await cartRepository.addProductToCart(
-      product: product,
+      productId: productId,
       name: name,
       description: description,
       amount: amount,

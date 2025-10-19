@@ -194,11 +194,20 @@ class ProductAddModal extends HookConsumerWidget {
                     if (!formKey.currentState!.validate()) return;
 
                     isLoading.value = true;
+
+                    print("---------------------");
+                    print("${model?.id.toString()}");
+                    print("${descriptionController.text}");
+                    print("${nameController.text}");
+                    print("${double.tryParse(amountController.text)}");
+                    print("${unit.value?.id}");
+                    print("${selectMarketId.value}");
+                    print("---------------------");
                     try {
                       var response = await ref
                           .read(cartNotifierProvider.notifier)
                           .addProductToCart(
-                            product: model,
+                            productId: model?.id??"",
                             description: descriptionController.text,
                             name: nameController.text,
                             amount: double.tryParse(amountController.text) ?? 0,

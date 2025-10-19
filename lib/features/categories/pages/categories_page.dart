@@ -101,6 +101,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                                   return GestureDetector(
                                     onTap: (){
                                       Navigator.of(context).push(CupertinoPageRoute(builder: (context)=>BrendsChildrenScreen(title: state.items?[index].titleUz??"",
+                                      products: state.items?[index].products??[] ,
                                       children: state.items?[index].children??[],)));
                                     },
                                     child: Container(

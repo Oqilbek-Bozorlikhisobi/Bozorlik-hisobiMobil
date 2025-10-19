@@ -124,7 +124,7 @@ class CartRepository {
   Future<dynamic> addProductToCart({
     required String cartId,
     required String unitId,
-    required ProductModel? product,
+    required String? productId,
     required String? name,
     required String? marketId,
     required String? description,
@@ -132,7 +132,7 @@ class CartRepository {
   }) async {
     final response = await requestHelper.postWithAuth("/market-list", {
       "marketId": marketId,
-      "productId": product?.id,
+      "productId": productId,
       "productName": name,
       "description": description,
       "quantity": amount,

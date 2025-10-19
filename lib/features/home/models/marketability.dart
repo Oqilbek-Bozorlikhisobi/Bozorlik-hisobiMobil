@@ -11,7 +11,7 @@ class MarketabilityResponse {
     if (json['data'] != null) {
       data = <MarketabilityResponseData>[];
       json['data'].forEach((v) {
-        data!.add(new MarketabilityResponseData.fromJson(v));
+        data!.add(MarketabilityResponseData.fromJson(v));
       });
     }
   }
@@ -66,7 +66,7 @@ class MarketabilityResponseData {
     if (json['users'] != null) {
       users = <Users>[];
       json['users'].forEach((v) {
-        users!.add(new Users.fromJson(v));
+        users!.add(Users.fromJson(v));
       });
     }
     marketCreator = json['marketCreator'];
@@ -74,13 +74,13 @@ class MarketabilityResponseData {
     if (json['marketLists'] != null) {
       marketLists = <MarketLists>[];
       json['marketLists'].forEach((v) {
-        marketLists!.add(new MarketLists.fromJson(v));
+        marketLists!.add(MarketLists.fromJson(v));
       });
     }
     totalPrice = json['totalPrice'];
     location = json['location'];
     marketType = json['marketType'] != null
-        ? new MarketType.fromJson(json['marketType'])
+        ? MarketType.fromJson(json['marketType'])
         : null;
     isCurrent = json['isCurrent'];
   }
@@ -163,7 +163,7 @@ class MarketLists {
   String? id;
   String? createdAt;
   String? updatedAt;
-  Null? product;
+  Product? product;
   String? productName;
   int? quantity;
   int? price;
@@ -189,14 +189,15 @@ class MarketLists {
     id = json['id'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
-    product = json['product'];
+    // product = json['product'];
     productName = json['productName'];
     quantity = json['quantity'];
     price = json['price'];
     isBuying = json['isBuying'];
     description = json['description'];
-    user = json['user'] != null ? new Users.fromJson(json['user']) : null;
-    unit = json['unit'] != null ? new Unit.fromJson(json['unit']) : null;
+    product = json['product'] != null ? Product.fromJson(json['product']) : null;
+    user = json['user'] != null ? Users.fromJson(json['user']) : null;
+    unit = json['unit'] != null ? Unit.fromJson(json['unit']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -216,6 +217,67 @@ class MarketLists {
     if (unit != null) {
       data['unit'] = unit!.toJson();
     }
+    return data;
+  }
+}
+class Product {
+  String? id;
+  String? createdAt;
+  String? updatedAt;
+  String? titleEn;
+  String? titleRu;
+  String? titleUz;
+  String? titleUzk;
+  String? descriptionEn;
+  String? descriptionRu;
+  String? descriptionUz;
+  String? descriptionUzk;
+  String? images;
+
+  Product({
+    this.id,
+    this.createdAt,
+    this.updatedAt,
+    this.titleEn,
+    this.titleRu,
+    this.titleUz,
+    this.titleUzk,
+    this.descriptionEn,
+    this.descriptionRu,
+    this.descriptionUz,
+    this.descriptionUzk,
+    this.images,
+  });
+
+  Product.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+    titleEn = json['titleEn'];
+    titleRu = json['titleRu'];
+    titleUz = json['titleUz'];
+    titleUzk = json['titleUzk'];
+    descriptionEn = json['descriptionEn'];
+    descriptionRu = json['descriptionRu'];
+    descriptionUz = json['descriptionUz'];
+    descriptionUzk = json['descriptionUzk'];
+    images = json['images'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['id'] = id;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['titleEn'] = titleEn;
+    data['titleRu'] = titleRu;
+    data['titleUz'] = titleUz;
+    data['titleUzk'] = titleUzk;
+    data['descriptionEn'] = descriptionEn;
+    data['descriptionRu'] = descriptionRu;
+    data['descriptionUz'] = descriptionUz;
+    data['descriptionUzk'] = descriptionUzk;
+    data['images'] = images;
     return data;
   }
 }
