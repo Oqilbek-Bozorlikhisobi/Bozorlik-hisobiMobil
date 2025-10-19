@@ -21,12 +21,12 @@ class BuyProduct extends StatelessWidget {
             Image.asset(AppImages.cartItem),
             5.horizontal,
             Text(
-              state.data?.marketLists?[index].quantity.toString() ?? "",
+              state.buyProducts?[index].quantity.toString() ?? "",
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600, fontSize: 16),
             ),
 
             Text(
-              " ${state.data?.marketLists?[index].unit?.name.toString() ?? "dona"}",
+              " ${state.buyProducts?[index].unit?.name.toString() ?? "dona"}",
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600, fontSize: 16),
             ),
             10.horizontal,
@@ -36,7 +36,7 @@ class BuyProduct extends StatelessWidget {
               child: Text(
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                state.data?.marketLists?[index].productName.toString() ??"",
+                state.buyProducts?[index].productName.toString() ??"",
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w500, fontSize: 16, color: AppColors.darkGreyText),
               ),
             ),
@@ -48,7 +48,7 @@ class BuyProduct extends StatelessWidget {
                   Text("${"total".tr()}:"),
                   Text(
                     PriceFormatterService.formatPrice(
-                      ((state.data?.marketLists?[index].price ?? 0) * (state.data?.marketLists?[index].quantity ?? 0)).toString(),
+                      ((state.buyProducts?[index].price ?? 0) * (state.buyProducts?[index].quantity ?? 0)).toString(),
                     ),
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600, color: AppColors.primaryColor),
                   ),

@@ -1,19 +1,26 @@
 import 'package:bozorlik/app/theme.dart';
 import 'package:bozorlik/common/extension/number_extension.dart';
 import 'package:bozorlik/common/values/app_assets.dart';
+import 'package:bozorlik/common/widgets/custom_button.dart';
 import 'package:bozorlik/common/widgets/loading_widget.dart';
 import 'package:bozorlik/features/cart/bloc/inner_cart/inner_cart_bloc.dart';
 import 'package:bozorlik/features/cart/models/cart_response.dart';
+import 'package:bozorlik/features/products/models/product_model.dart';
 import 'package:bozorlik/utils/enums.dart';
 import 'package:bozorlik/utils/price_formatter.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import 'components/buy_product.dart';
+import 'components/buy_product_bottomsheet.dart';
+import 'components/delete_product_bottomsheet.dart';
+import 'components/end_market_bottomsheet.dart';
 import 'components/info_product_bottomsheet.dart';
+import 'components/product_add.dart';
 import 'components/un_buy_product.dart';
 
 class InnerCartScreen extends StatefulWidget {
@@ -44,6 +51,60 @@ class _InnerCartScreenState extends State<InnerCartScreen> {
         listener: (context, state) {},
         builder: (context, state) {
           return Scaffold(
+            floatingActionButtonLocation: _selectedIndex == 0 ? FloatingActionButtonLocation.endFloat : FloatingActionButtonLocation.centerFloat,
+            floatingActionButton:
+                _selectedIndex == 0
+                    ? GestureDetector(
+                      onTap: () async {
+                        showCupertinoModalBottomSheet(
+                          context: context,
+                          builder:
+                              (context) => ProductAddLocaleBottomsheet(marketName: widget.cartData.name ?? "", marketId: widget.cartData.id ?? ""),
+                        ).then((v) {
+                          if (v != null) {
+                            MarketLists vData = v;
+                            bloc.add(
+                              AddNewProductLocalEvent(
+                                buyProduct: MarketLists(
+                                  id: vData.id,
+                                  productName: vData.productName,
+                                  quantity: (vData.quantity) ?? 1,
+                                  unit: vData.unit,
+                                  isBuying: true,
+                                  description: vData.description,
+                                ),
+                              ),
+                            );
+                          }
+                        });
+                      },
+                      child: Container(
+                        height: 56,
+                        width: 56,
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: AppColors.primaryColor),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Container(
+                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: AppColors.white),
+                            child: Center(child: Icon(Icons.add, color: AppColors.primaryColor)),
+                          ),
+                        ),
+                      ),
+                    )
+                    : Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: CustomButton(
+                        text: "${"end_market".tr()} 🎉",
+                        onTap: () {
+                          showCupertinoModalBottomSheet(
+                            context: context,
+                            builder:
+                                (context) =>
+                                    EndMarketBottomsheet(marketTypeId: widget.cartData.marketType?.id ?? "", marketId: widget.cartData.id ?? ""),
+                          );
+                        },
+                      ),
+                    ),
             backgroundColor: AppColors.backGround,
             appBar: AppBar(backgroundColor: AppColors.backGround, title: Text(widget.cartData.name ?? "")),
             body: Padding(
@@ -90,30 +151,32 @@ class _InnerCartScreenState extends State<InnerCartScreen> {
                           10.vertical,
                           state.status == Status.loading
                               ? LoadingWidget()
-                              : (state.data?.marketLists?.isNotEmpty ?? false)
-                              ? SliderTheme(
-                                data: SliderThemeData(
-                                  activeTrackColor: AppColors.primaryColor,
-                                  inactiveTrackColor: AppColors.grey,
-                                  thumbShape: SliderComponentShape.noThumb,
-                                  overlayShape: SliderComponentShape.noOverlay,
-                                  trackHeight: 6,
-                                ),
-                                child: Slider(
-                                  min: 0,
-                                  max: (state.data?.marketLists?.length ?? 0).toDouble(),
-                                  value: _currentValue.clamp(0, (state.data?.marketLists?.length ?? 10).toDouble()),
-                                  onChanged: (v) {
-                                    setState(() {
-                                      _currentValue = v;
-                                    });
-                                  },
-                                ),
-                              )
-                              : SizedBox(),
+                              : ((state.unBuyProducts?.isNotEmpty ?? false) && (state.buyProducts?.isNotEmpty ?? false))
+                              ? SizedBox()
+                              : Builder(
+                                builder: (context) {
+                                  final totalProducts = (state.unBuyProducts?.length ?? 0) + (state.buyProducts?.length ?? 0);
+                                  final boughtProducts = state.buyProducts?.length ?? 0;
+
+                                  if (totalProducts == 0) {
+                                    return SizedBox();
+                                  }
+
+                                  return LinearProgressIndicator(
+                                    value: boughtProducts / totalProducts,
+                                    backgroundColor: AppColors.grey,
+                                    valueColor: AlwaysStoppedAnimation<Color>(AppColors.primaryColor),
+                                    minHeight: 6,
+                                    borderRadius: BorderRadius.circular(3),
+                                  );
+                                },
+                              ),
                           10.vertical,
                           Row(
-                            children: [Text("buy_products".tr()), Text(" ${state.buyProducts?.length ?? 0}/${state.data?.marketLists?.length ?? 0}")],
+                            children: [
+                              Text("buy_products".tr()),
+                              Text(" ${(state.buyProducts?.length ?? 0)}/${(state.unBuyProducts?.length ?? 0) + (state.buyProducts?.length ?? 0)}"),
+                            ],
                           ),
                         ],
                       ),
@@ -148,7 +211,7 @@ class _InnerCartScreenState extends State<InnerCartScreen> {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    'Olinishi kerak',
+                                    'must_be_taken'.tr(),
                                     style: TextStyle(
                                       color: _selectedIndex == 0 ? Colors.white : Colors.black,
                                       fontSize: 16,
@@ -174,7 +237,7 @@ class _InnerCartScreenState extends State<InnerCartScreen> {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    'Sotib olingan',
+                                    'purchased'.tr(),
                                     style: TextStyle(
                                       color: _selectedIndex == 1 ? Colors.white : Colors.black,
                                       fontSize: 16,
@@ -227,28 +290,130 @@ class _InnerCartScreenState extends State<InnerCartScreen> {
                                   ),
                                 )
                                 : _selectedIndex == 0
-                                ? ListView.builder(
-                                  itemCount: state.data?.marketLists?.length,
-                                  itemBuilder: (context, index) {
-                                    return UnBuyProduct(
-                                      state: state,
-                                      index: index,
-                                      onTapInfo: () {
-                                        showCupertinoModalBottomSheet(
-                                          context: context,
-                                          builder: (context) => InfoProductBottomsheet(product: state.data?.marketLists?[index]),
-                                        );
-                                      },
-                                      onTapBuy: () {},
-                                      onTapDelete: () {},
-                                    );
-                                  },
+                                ? Container(
+                                  child:
+                                      (state.unBuyProducts?.isEmpty ?? false)
+                                          ? Center(
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(horizontal: 12.0),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  SvgPicture.asset(AppIcons.emptyMarket, height: 120, width: 120),
+                                                  12.vertical,
+                                                  Text(
+                                                    "cart_empty".tr(),
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          )
+                                          : ListView.builder(
+                                            itemCount: state.unBuyProducts?.length ?? 0,
+                                            itemBuilder: (context, index) {
+                                              // Add this safety check
+                                              if (state.unBuyProducts == null || index >= state.unBuyProducts!.length) {
+                                                return SizedBox.shrink();
+                                              }
+
+                                              final product = state.unBuyProducts![index];
+
+                                              return UnBuyProduct(
+                                                state: state,
+                                                index: index,
+                                                onTapInfo: () {
+                                                  showCupertinoModalBottomSheet(
+                                                    context: context,
+                                                    builder: (context) => InfoProductBottomsheet(product: product),
+                                                  );
+                                                },
+                                                onTapBuy: () {
+                                                  // print("===================");
+                                                  // print("${product.id}");
+                                                  // print("===================");
+                                                  showCupertinoModalBottomSheet(
+                                                    context: context,
+                                                    builder: (context) {
+                                                      return BuyProductBottomsheet(
+                                                        product: product,
+                                                        save: (double price, Unit unit) {
+                                                          context.pop();
+
+                                                          bloc.add(
+                                                            BuyProductEvent(
+                                                              buyProduct: MarketLists(
+                                                                id: product.id,
+                                                                productName: product.productName,
+                                                                quantity: (product.quantity) ?? 1,
+                                                                price: price.toInt(),
+                                                                unit: unit,
+                                                                isBuying: true,
+                                                                description: product.description,
+                                                              ),
+                                                            ),
+                                                          );
+                                                        },
+                                                        marketListId: product.id,
+                                                      );
+                                                    },
+                                                  );
+                                                },
+                                                onTapDelete: () {
+                                                  showCupertinoModalBottomSheet(
+                                                    context: context,
+                                                    builder:
+                                                        (context) => DeleteProductBottomsheet(
+                                                          product: product,
+                                                          deleteProduct: (String id) {
+                                                            bloc.add(DeleteProductEvent(id: id));
+                                                            context.pop();
+                                                          },
+                                                        ),
+                                                  );
+                                                },
+                                              );
+                                            },
+                                          ),
                                 )
-                                : ListView.builder(
-                                  itemCount: state.data?.marketLists?.length,
-                                  itemBuilder: (context, index) {
-                                    return BuyProduct(state: state, index: index);
-                                  },
+                                : Container(
+                                  child:
+                                      (state.buyProducts?.isEmpty ?? false)
+                                          ? Center(
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(horizontal: 12.0),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  SvgPicture.asset(AppIcons.emptyMarket, height: 120, width: 120),
+                                                  12.vertical,
+                                                  Text(
+                                                    "cart_empty".tr(),
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                                                  ),
+                                                  // 10.vertical,
+                                                  // Text(
+                                                  //   "start_adding_products".tr(),
+                                                  //   textAlign: TextAlign.center,
+                                                  //   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                                                  // ),
+                                                  // 10.vertical,
+                                                ],
+                                              ),
+                                            ),
+                                          )
+                                          : ListView.builder(
+                                            itemCount: state.buyProducts?.length,
+                                            itemBuilder: (context, index) {
+                                              return BuyProduct(state: state, index: index);
+                                            },
+                                          ),
                                 ),
                       ),
                     ),

@@ -38,7 +38,7 @@ class CartItemNew extends StatelessWidget {
                   colorFilter: ColorFilter.mode(Color.fromRGBO(255, 194, 102, 1), BlendMode.srcIn),
                 ),
                 Text(
-                  (shopping?.name ?? "O").substring(0, 1).toUpperCase(),
+                  ((shopping?.name?.isEmpty??false)?"not_found".tr():shopping?.name ?? "OO").substring(0, 1).toUpperCase(),
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.black),
                 ),
               ],

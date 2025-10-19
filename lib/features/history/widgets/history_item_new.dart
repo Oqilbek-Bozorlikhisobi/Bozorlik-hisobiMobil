@@ -1,22 +1,24 @@
 import 'package:bozorlik/app/theme.dart';
 import 'package:bozorlik/common/values/app_assets.dart';
+import 'package:bozorlik/features/history/models/get_all_history_response.dart';
 import 'package:bozorlik/features/history/models/history_response.dart';
 import 'package:bozorlik/utils/date_formatter.dart';
+import 'package:bozorlik/utils/price_formatter.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class HistoryItemNew extends StatelessWidget {
   const HistoryItemNew({super.key, required this.shopping});
-  final HistoryResponseData shopping;
+  final HistoryResponseDataData shopping;
   @override
   Widget build(BuildContext context) {
     return  Container(
       width: 300,
-      margin: EdgeInsets.only(right: 12),
+      margin: EdgeInsets.only(right: 12,left: 12,top: 4),
       padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: AppColors.backGround,
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: AppColors.grey.withValues(alpha: 0.2), width: 1),
       ),
@@ -112,12 +114,16 @@ class HistoryItemNew extends StatelessWidget {
                     SizedBox(width: 8),
                     SvgPicture.asset(AppIcons.wallet, height: 18, width: 18),
                     SizedBox(width: 4),
-                    Text(
-                      NumberFormat('#,###', 'en_US').format(shopping.totalPrice ?? 0).replaceAll(',', ' '),
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        fontSize: 12,
-                        color: Color.fromRGBO(75, 75, 75, 1),
-                        fontWeight: FontWeight.w500,
+                    Expanded(
+                      child: Text(
+                        overflow: TextOverflow.ellipsis,
+                        // NumberFormat('#,###', 'en_US').format(shopping.totalPrice ?? 0).replaceAll(',', ' '),
+                        PriceFormatterService.formatPrice(shopping.totalPrice.toString()).replaceAll(',', ' '),
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          fontSize: 12,
+                          color: Color.fromRGBO(75, 75, 75, 1),
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                     SizedBox(width: 8),

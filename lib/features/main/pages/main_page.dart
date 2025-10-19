@@ -1,5 +1,6 @@
 import 'package:bozorlik/features/cart/pages/cart_page.dart';
 import 'package:bozorlik/features/categories/pages/categories_page.dart';
+import 'package:bozorlik/features/history/pages/history_new.dart';
 import 'package:bozorlik/features/history/pages/history_page.dart';
 import 'package:bozorlik/features/home/pages/home_page.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -35,7 +36,7 @@ class MainPage extends HookConsumerWidget {
       body: PageView(
         physics: const NeverScrollableScrollPhysics(),
         controller: controller,
-        children: [HomePage(), CategoriesPage(), CartPage(), HistoryPage(), SettingsPage()],
+        children: [HomePage(), CategoriesPage(), CartPage(), HistoryNew(), SettingsPage()],
       ),
 
       bottomNavigationBar: Theme(

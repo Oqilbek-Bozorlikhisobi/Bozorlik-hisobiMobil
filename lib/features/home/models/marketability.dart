@@ -38,7 +38,7 @@ class MarketabilityResponseData {
   Null? pendingUsers;
   List<MarketLists>? marketLists;
   int? totalPrice;
-  Null? location;
+  String? location;
   MarketType? marketType;
   bool? isCurrent;
 

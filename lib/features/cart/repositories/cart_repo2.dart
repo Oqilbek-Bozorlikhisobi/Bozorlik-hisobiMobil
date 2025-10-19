@@ -12,4 +12,32 @@ class CartRepository2 {
 
     return response;
   }
+
+  Future<Map<String, dynamic>> addProduct({
+    required String marketId,
+    required String productName,
+    required String quantity,
+    required String unitId,
+    required String description,
+  }) async {
+    final response = await requestHelper.postWithAuth("/market-list", {
+      "marketId": marketId,
+      // "productId": productName,
+      "productName": productName,
+      "quantity": quantity,
+      "unitId": unitId,
+      "description": description,
+    });
+
+    return response;
+  }
+
+  Future<Map<String, dynamic>> check({required String id, required num price, required String calculationType}) async {
+    print("===================");
+    print("${id}");
+    print("===================");
+    final response = await requestHelper.patchWithAuth("/market-list/check-is-buying/$id", {"price": price, "calculationType": calculationType});
+
+    return response;
+  }
 }

@@ -9,3 +9,4 @@ class CreateMarketEvent extends HomeEvent{
 class GetMarketabilityEvent extends HomeEvent{}
 class GetDepartmentEvent extends HomeEvent{}
 class GetBannerEvent extends HomeEvent{}
+class GetUnitEvent extends HomeEvent{}

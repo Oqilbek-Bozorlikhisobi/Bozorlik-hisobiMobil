@@ -12,9 +12,15 @@ class HomeState {
   final List<MarketabilityResponseData>? marketData;
   final List<DepartmentResponseDataItems>? departmentData;
   final List<BannerResponseDataItems>? banner;
+  final List<GetAllUnitResponseData>? units;
+  final Status? statusUnits;
+  final String? errorMessageUnits;
 
   HomeState({
     this.statusBanner,
+    this.statusUnits,
+    this.errorMessageUnits,
+    this.units,
     this.banner,
     this.errorMessageBanner,
     this.departmentData,
@@ -39,7 +45,11 @@ class HomeState {
     final List<MarketabilityResponseData>? marketData,
     final String? errorMessageDepartment,
     final List<DepartmentResponseDataItems>? departmentData,
-    final List<BannerResponseDataItems>? banner
+    final List<BannerResponseDataItems>? banner,
+
+    final List<GetAllUnitResponseData>? units,
+    final Status? statusUnits,
+    final String? errorMessageUnits,
   }) => HomeState(
     status: status ?? this.status,
     errorMessage: errorMessage ?? this.errorMessage,
@@ -52,5 +62,8 @@ class HomeState {
     statusBanner: statusBanner ?? this.statusBanner,
     banner: banner ?? this.banner,
     errorMessageBanner: errorMessageBanner ?? this.errorMessageBanner,
+    units: units ?? this.units,
+    statusUnits: statusUnits ?? this.statusUnits,
+    errorMessageUnits: errorMessageUnits ?? this.errorMessageUnits,
   );
 }

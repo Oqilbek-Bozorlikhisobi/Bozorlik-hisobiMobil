@@ -1,19 +1,14 @@
-class CartResponse {
+class PostProductResponse {
   String? message;
   int? statusCode;
-  List<CartResponseData>? data;
+  PostProductResponseData? data;
 
-  CartResponse({this.message, this.statusCode, this.data});
+  PostProductResponse({this.message, this.statusCode, this.data});
 
-  CartResponse.fromJson(Map<String, dynamic> json) {
+  PostProductResponse.fromJson(Map<String, dynamic> json) {
     message = json['message'];
     statusCode = json['statusCode'];
-    if (json['data'] != null) {
-      data = <CartResponseData>[];
-      json['data'].forEach((v) {
-        data!.add(CartResponseData.fromJson(v));
-      });
-    }
+    data = json['data'] != null ? PostProductResponseData.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -21,13 +16,87 @@ class CartResponse {
     data['message'] = message;
     data['statusCode'] = statusCode;
     if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
+      data['data'] = this.data!.toJson();
     }
     return data;
   }
 }
 
-class CartResponseData {
+class PostProductResponseData {
+  String? id;
+  String? createdAt;
+  String? updatedAt;
+  Market? market;
+  Null? product;
+  String? productName;
+  int? quantity;
+  Null? price;
+  String? calculationType;
+  bool? isBuying;
+  String? description;
+  Unit? unit;
+  String? marketId;
+  String? unitId;
+
+  PostProductResponseData(
+      {this.id,
+        this.createdAt,
+        this.updatedAt,
+        this.market,
+        this.product,
+        this.productName,
+        this.quantity,
+        this.price,
+        this.calculationType,
+        this.isBuying,
+        this.description,
+        this.unit,
+        this.marketId,
+        this.unitId});
+
+  PostProductResponseData.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+    market =
+    json['market'] != null ? Market.fromJson(json['market']) : null;
+    product = json['product'];
+    productName = json['productName'];
+    quantity = json['quantity'];
+    price = json['price'];
+    calculationType = json['calculationType'];
+    isBuying = json['isBuying'];
+    description = json['description'];
+    unit = json['unit'] != null ? Unit.fromJson(json['unit']) : null;
+    marketId = json['marketId'];
+    unitId = json['unitId'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    if (market != null) {
+      data['market'] = market!.toJson();
+    }
+    data['product'] = product;
+    data['productName'] = productName;
+    data['quantity'] = quantity;
+    data['price'] = price;
+    data['calculationType'] = calculationType;
+    data['isBuying'] = isBuying;
+    data['description'] = description;
+    if (unit != null) {
+      data['unit'] = unit!.toJson();
+    }
+    data['marketId'] = marketId;
+    data['unitId'] = unitId;
+    return data;
+  }
+}
+
+class Market {
   String? id;
   String? createdAt;
   String? updatedAt;
@@ -37,12 +106,12 @@ class CartResponseData {
   String? marketCreator;
   Null? pendingUsers;
   List<MarketLists>? marketLists;
-  int? totalPrice;
+  String? totalPrice;
   String? location;
   MarketType? marketType;
   bool? isCurrent;
 
-  CartResponseData(
+  Market(
       {this.id,
         this.createdAt,
         this.updatedAt,
@@ -57,7 +126,7 @@ class CartResponseData {
         this.marketType,
         this.isCurrent});
 
-  CartResponseData.fromJson(Map<String, dynamic> json) {
+  Market.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
@@ -163,13 +232,14 @@ class MarketLists {
   String? id;
   String? createdAt;
   String? updatedAt;
-  Null? product;
+  dynamic product;  // Changed from Null? to dynamic
   String? productName;
-  num? quantity;
-  int? price;
+  int? quantity;
+  num? price;
+  String? calculationType;
   bool? isBuying;
   String? description;
-  Users? user;
+  dynamic user;  // Changed from Null? to dynamic
   Unit? unit;
 
   MarketLists(
@@ -180,6 +250,7 @@ class MarketLists {
         this.productName,
         this.quantity,
         this.price,
+        this.calculationType,
         this.isBuying,
         this.description,
         this.user,
@@ -189,13 +260,14 @@ class MarketLists {
     id = json['id'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
-    product = json['product'];
+    product = json['product'];  // Now can accept any type
     productName = json['productName'];
     quantity = json['quantity'];
     price = json['price'];
+    calculationType = json['calculationType'];
     isBuying = json['isBuying'];
     description = json['description'];
-    user = json['user'] != null ? Users.fromJson(json['user']) : null;
+    user = json['user'];  // Now can accept any type
     unit = json['unit'] != null ? Unit.fromJson(json['unit']) : null;
   }
 
@@ -208,31 +280,42 @@ class MarketLists {
     data['productName'] = productName;
     data['quantity'] = quantity;
     data['price'] = price;
+    data['calculationType'] = calculationType;
     data['isBuying'] = isBuying;
     data['description'] = description;
-    if (user != null) {
-      data['user'] = user!.toJson();
-    }
+    data['user'] = user;
     if (unit != null) {
       data['unit'] = unit!.toJson();
     }
     return data;
   }
 }
-
 class Unit {
   String? id;
   String? createdAt;
   String? updatedAt;
-  String? name;
+  String? nameEn;
+  String? nameRu;
+  String? nameUz;
+  String? nameUzk;
 
-  Unit({this.id, this.createdAt, this.updatedAt, this.name});
+  Unit(
+      {this.id,
+        this.createdAt,
+        this.updatedAt,
+        this.nameEn,
+        this.nameRu,
+        this.nameUz,
+        this.nameUzk});
 
   Unit.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
-    name = json['nameUz'];
+    nameEn = json['nameEn'];
+    nameRu = json['nameRu'];
+    nameUz = json['nameUz'];
+    nameUzk = json['nameUzk'];
   }
 
   Map<String, dynamic> toJson() {
@@ -240,7 +323,10 @@ class Unit {
     data['id'] = id;
     data['createdAt'] = createdAt;
     data['updatedAt'] = updatedAt;
-    data['name'] = name;
+    data['nameEn'] = nameEn;
+    data['nameRu'] = nameRu;
+    data['nameUz'] = nameUz;
+    data['nameUzk'] = nameUzk;
     return data;
   }
 }

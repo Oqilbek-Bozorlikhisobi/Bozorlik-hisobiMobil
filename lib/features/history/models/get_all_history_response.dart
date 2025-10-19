@@ -1,19 +1,14 @@
-class CartResponse {
+class HistoryResponse {
   String? message;
   int? statusCode;
-  List<CartResponseData>? data;
+  HistoryResponseData? data;
 
-  CartResponse({this.message, this.statusCode, this.data});
+  HistoryResponse({this.message, this.statusCode, this.data});
 
-  CartResponse.fromJson(Map<String, dynamic> json) {
+  HistoryResponse.fromJson(Map<String, dynamic> json) {
     message = json['message'];
     statusCode = json['statusCode'];
-    if (json['data'] != null) {
-      data = <CartResponseData>[];
-      json['data'].forEach((v) {
-        data!.add(CartResponseData.fromJson(v));
-      });
-    }
+    data = json['data'] != null ? HistoryResponseData.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -21,68 +16,91 @@ class CartResponse {
     data['message'] = message;
     data['statusCode'] = statusCode;
     if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
+      data['data'] = this.data!.toJson();
     }
     return data;
   }
 }
 
-class CartResponseData {
+class HistoryResponseData {
+  List<HistoryResponseDataData>? data;
+  int? total;
+  int? page;
+  int? limit;
+  int? totalPages;
+
+  HistoryResponseData({this.data, this.total, this.page, this.limit, this.totalPages});
+
+  HistoryResponseData.fromJson(Map<String, dynamic> json) {
+    if (json['data'] != null) {
+      data = <HistoryResponseDataData>[];
+      json['data'].forEach((v) {
+        data!.add(HistoryResponseDataData.fromJson(v));
+      });
+    }
+    total = json['total'];
+    page = json['page'];
+    limit = json['limit'];
+    totalPages = json['totalPages'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (this.data != null) {
+      data['data'] = this.data!.map((v) => v.toJson()).toList();
+    }
+    data['total'] = total;
+    data['page'] = page;
+    data['limit'] = limit;
+    data['totalPages'] = totalPages;
+    return data;
+  }
+}
+
+class HistoryResponseDataData {
   String? id;
   String? createdAt;
   String? updatedAt;
   String? name;
-  bool? isAllBuy;
   List<Users>? users;
-  String? marketCreator;
-  Null? pendingUsers;
   List<MarketLists>? marketLists;
-  int? totalPrice;
-  String? location;
   MarketType? marketType;
-  bool? isCurrent;
+  String? totalPrice;
+  String? location;
 
-  CartResponseData(
+  HistoryResponseDataData(
       {this.id,
         this.createdAt,
         this.updatedAt,
         this.name,
-        this.isAllBuy,
         this.users,
-        this.marketCreator,
-        this.pendingUsers,
         this.marketLists,
-        this.totalPrice,
-        this.location,
         this.marketType,
-        this.isCurrent});
+        this.totalPrice,
+        this.location});
 
-  CartResponseData.fromJson(Map<String, dynamic> json) {
+  HistoryResponseDataData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     name = json['name'];
-    isAllBuy = json['isAllBuy'];
     if (json['users'] != null) {
       users = <Users>[];
       json['users'].forEach((v) {
         users!.add(Users.fromJson(v));
       });
     }
-    marketCreator = json['marketCreator'];
-    pendingUsers = json['pendingUsers'];
     if (json['marketLists'] != null) {
       marketLists = <MarketLists>[];
       json['marketLists'].forEach((v) {
         marketLists!.add(MarketLists.fromJson(v));
       });
     }
-    totalPrice = json['totalPrice'];
-    location = json['location'];
     marketType = json['marketType'] != null
         ? MarketType.fromJson(json['marketType'])
         : null;
-    isCurrent = json['isCurrent'];
+    totalPrice = json['totalPrice'];
+    location = json['location'];
   }
 
   Map<String, dynamic> toJson() {
@@ -91,54 +109,50 @@ class CartResponseData {
     data['createdAt'] = createdAt;
     data['updatedAt'] = updatedAt;
     data['name'] = name;
-    data['isAllBuy'] = isAllBuy;
     if (users != null) {
       data['users'] = users!.map((v) => v.toJson()).toList();
     }
-    data['marketCreator'] = marketCreator;
-    data['pendingUsers'] = pendingUsers;
     if (marketLists != null) {
       data['marketLists'] = marketLists!.map((v) => v.toJson()).toList();
     }
-    data['totalPrice'] = totalPrice;
-    data['location'] = location;
     if (marketType != null) {
       data['marketType'] = marketType!.toJson();
     }
-    data['isCurrent'] = isCurrent;
+    data['totalPrice'] = totalPrice;
+    data['location'] = location;
     return data;
   }
 }
 
 class Users {
   String? id;
+  String? gender;
+  String? region;
+  String? fullName;
   String? createdAt;
   String? updatedAt;
-  String? fullName;
-  String? region;
-  String? gender;
   String? phoneNumber;
   String? hashedPassword;
   String? hashedRefreshToken;
 
   Users(
       {this.id,
+        this.gender,
+        this.region,
+        this.fullName,
         this.createdAt,
         this.updatedAt,
-        this.fullName,
-        this.region,
-        this.gender,
         this.phoneNumber,
         this.hashedPassword,
         this.hashedRefreshToken});
 
   Users.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    gender = json['gender'];
+    region = json['region'];
+    fullName = json['fullName'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
-    fullName = json['fullName'];
-    region = json['region'];
-    gender = json['gender'];
     phoneNumber = json['phoneNumber'];
     hashedPassword = json['hashedPassword'];
     hashedRefreshToken = json['hashedRefreshToken'];
@@ -147,11 +161,11 @@ class Users {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
+    data['gender'] = gender;
+    data['region'] = region;
+    data['fullName'] = fullName;
     data['createdAt'] = createdAt;
     data['updatedAt'] = updatedAt;
-    data['fullName'] = fullName;
-    data['region'] = region;
-    data['gender'] = gender;
     data['phoneNumber'] = phoneNumber;
     data['hashedPassword'] = hashedPassword;
     data['hashedRefreshToken'] = hashedRefreshToken;
@@ -161,131 +175,151 @@ class Users {
 
 class MarketLists {
   String? id;
+  Unit? unit;
+  Users? user;
+  int? price;
+  Null? product;
+  bool? isBuying;
+  int? quantity;
   String? createdAt;
   String? updatedAt;
-  Null? product;
-  String? productName;
-  num? quantity;
-  int? price;
-  bool? isBuying;
   String? description;
-  Users? user;
-  Unit? unit;
+  String? productName;
+  String? calculationType;
 
   MarketLists(
       {this.id,
+        this.unit,
+        this.user,
+        this.price,
+        this.product,
+        this.isBuying,
+        this.quantity,
         this.createdAt,
         this.updatedAt,
-        this.product,
-        this.productName,
-        this.quantity,
-        this.price,
-        this.isBuying,
         this.description,
-        this.user,
-        this.unit});
+        this.productName,
+        this.calculationType});
 
   MarketLists.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    unit = json['unit'] != null ? Unit.fromJson(json['unit']) : null;
+    user = json['user'] != null ? Users.fromJson(json['user']) : null;
+    price = json['price'];
+    product = json['product'];
+    isBuying = json['isBuying'];
+    quantity = json['quantity'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
-    product = json['product'];
-    productName = json['productName'];
-    quantity = json['quantity'];
-    price = json['price'];
-    isBuying = json['isBuying'];
     description = json['description'];
-    user = json['user'] != null ? Users.fromJson(json['user']) : null;
-    unit = json['unit'] != null ? Unit.fromJson(json['unit']) : null;
+    productName = json['productName'];
+    calculationType = json['calculationType'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
-    data['createdAt'] = createdAt;
-    data['updatedAt'] = updatedAt;
-    data['product'] = product;
-    data['productName'] = productName;
-    data['quantity'] = quantity;
-    data['price'] = price;
-    data['isBuying'] = isBuying;
-    data['description'] = description;
-    if (user != null) {
-      data['user'] = user!.toJson();
-    }
     if (unit != null) {
       data['unit'] = unit!.toJson();
     }
+    if (user != null) {
+      data['user'] = user!.toJson();
+    }
+    data['price'] = price;
+    data['product'] = product;
+    data['isBuying'] = isBuying;
+    data['quantity'] = quantity;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['description'] = description;
+    data['productName'] = productName;
+    data['calculationType'] = calculationType;
     return data;
   }
 }
 
 class Unit {
   String? id;
+  String? nameEn;
+  String? nameRu;
+  String? nameUz;
+  String? nameUzk;
   String? createdAt;
   String? updatedAt;
-  String? name;
 
-  Unit({this.id, this.createdAt, this.updatedAt, this.name});
+  Unit(
+      {this.id,
+        this.nameEn,
+        this.nameRu,
+        this.nameUz,
+        this.nameUzk,
+        this.createdAt,
+        this.updatedAt});
 
   Unit.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    nameEn = json['nameEn'];
+    nameRu = json['nameRu'];
+    nameUz = json['nameUz'];
+    nameUzk = json['nameUzk'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
-    name = json['nameUz'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
+    data['nameEn'] = nameEn;
+    data['nameRu'] = nameRu;
+    data['nameUz'] = nameUz;
+    data['nameUzk'] = nameUzk;
     data['createdAt'] = createdAt;
     data['updatedAt'] = updatedAt;
-    data['name'] = name;
     return data;
   }
 }
 
 class MarketType {
   String? id;
-  String? createdAt;
-  String? updatedAt;
+  String? image;
   String? titleEn;
   String? titleRu;
   String? titleUz;
   String? titleUzk;
-  String? image;
+  String? createdAt;
+  String? updatedAt;
 
   MarketType(
       {this.id,
-        this.createdAt,
-        this.updatedAt,
+        this.image,
         this.titleEn,
         this.titleRu,
         this.titleUz,
         this.titleUzk,
-        this.image});
+        this.createdAt,
+        this.updatedAt});
 
   MarketType.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
+    image = json['image'];
     titleEn = json['titleEn'];
     titleRu = json['titleRu'];
     titleUz = json['titleUz'];
     titleUzk = json['titleUzk'];
-    image = json['image'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
-    data['createdAt'] = createdAt;
-    data['updatedAt'] = updatedAt;
+    data['image'] = image;
     data['titleEn'] = titleEn;
     data['titleRu'] = titleRu;
     data['titleUz'] = titleUz;
     data['titleUzk'] = titleUzk;
-    data['image'] = image;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
     return data;
   }
 }

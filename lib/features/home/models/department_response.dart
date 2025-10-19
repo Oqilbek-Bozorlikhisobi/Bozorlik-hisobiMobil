@@ -8,7 +8,7 @@ class DepartmentResponse {
   DepartmentResponse.fromJson(Map<String, dynamic> json) {
     message = json['message'];
     statusCode = json['statusCode'];
-    data = json['data'] != null ? new DepartmentResponseData.fromJson(json['data']) : null;
+    data = json['data'] != null ? DepartmentResponseData.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -35,7 +35,7 @@ class DepartmentResponseData {
     if (json['items'] != null) {
       items = <DepartmentResponseDataItems>[];
       json['items'].forEach((v) {
-        items!.add(new DepartmentResponseDataItems.fromJson(v));
+        items!.add(DepartmentResponseDataItems.fromJson(v));
       });
     }
     page = json['page'];
@@ -91,7 +91,7 @@ class DepartmentResponseDataItems {
     if (json['markets'] != null) {
       markets = <Markets>[];
       json['markets'].forEach((v) {
-        markets!.add(new Markets.fromJson(v));
+        markets!.add(Markets.fromJson(v));
       });
     }
   }
@@ -120,9 +120,9 @@ class Markets {
   String? name;
   bool? isAllBuy;
   String? marketCreator;
-  Null? pendingUsers;
+  List<dynamic>? pendingUsers;  // Changed from Null? to List<dynamic>?
   String? totalPrice;
-  Null? location;
+  dynamic location;  // Changed from Null? to dynamic
   bool? isCurrent;
 
   Markets(
@@ -144,7 +144,7 @@ class Markets {
     name = json['name'];
     isAllBuy = json['isAllBuy'];
     marketCreator = json['marketCreator'];
-    pendingUsers = json['pendingUsers'];
+    pendingUsers = json['pendingUsers'];  // Now safely handles List
     totalPrice = json['totalPrice'];
     location = json['location'];
     isCurrent = json['isCurrent'];

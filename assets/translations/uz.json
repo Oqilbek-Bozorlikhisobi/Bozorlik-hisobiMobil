@@ -160,5 +160,23 @@
   "market_department": "Bozorlik bo’limi:",
   "market_summ": "Bozorlik summasi:",
   "products_cart": "Mahsulotlar",
-  "buy_products": "Mahsulotlar sotib olindi:"
+  "buy_products": "Mahsulotlar sotib olindi:",
+  "description_info": "Izoh",
+  "product_price": "*Mahsulotni qanchaga oldingiz?",
+
+  "confirmation": "Tasdiqlash",
+  "write_summ": "summasini yozing",
+  "select_unit": "Birlikni tanlang",
+  "unit_description": "Jami narx bu - “olgan mahsulotingizni birlik qiymatini bilmagan xolatingizda, uning umumiy narxini yozishingiz uchun”",
+  "price_small": "narxi",
+  "end_market": "Bozorlikni yakunlash",
+  "must_be_taken": "Olinishi kerak",
+  "purchased": "Sotib olingan",
+  "delete_product": "Ushbu mahsulotni haqiqatdan ham o’chirasizmi?",
+  "make_market": "Bozorlikni qayerdan qildingiz?",
+  "make_market_hint": "Bozor yoki market nomini yozing",
+
+  "not_found": "Noma'lum",
+  "notifications": "Xabarnomalar"
+
 }

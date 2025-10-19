@@ -6,7 +6,9 @@ import 'package:bozorlik/common/widgets/custom_dropdown.dart';
 import 'package:bozorlik/common/widgets/custom_network_image.dart';
 import 'package:bozorlik/common/widgets/custom_text_field.dart';
 import 'package:bozorlik/common/widgets/custom_toast.dart';
+import 'package:bozorlik/features/cart/models/get_all_units_response.dart';
 import 'package:bozorlik/features/cart/notifiers/cart_notifier.dart';
+import 'package:bozorlik/features/cart/pages/screens/components/select_unit_bottomsheet.dart';
 import 'package:bozorlik/features/home/models/marketability.dart';
 import 'package:bozorlik/features/products/models/product_model.dart';
 import 'package:bozorlik/features/products/models/unit_model.dart';
@@ -118,35 +120,64 @@ class ProductAddModal extends HookConsumerWidget {
                 ),
                 10.vertical,
 
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 3,
-                      child: CustomTextField(
-                        focusNode: amountFocusNode,
-                        labelText: "amount".tr(),
-                        validatorText: "required_field".tr(),
-                        hintText: "amount_example".tr(),
-                        textInputType: TextInputType.numberWithOptions(),
-                        controller: amountController,
+                Container(
+                  width: double.infinity,
+                  height: 44,
+                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16), border: Border.all(color: AppColors.grey)),
+
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: Expanded(
+                          flex: 2,
+                          child: TextField(
+                            controller: amountController,
+                            decoration: InputDecoration(
+                              hintText: "amount_example".tr(),
+                              hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 15),
+                              border: InputBorder.none,
+                              contentPadding: const EdgeInsets.only(left: 16, top: 11, bottom: 11),
+                            ),
+                          ),
+                        ),
+                        // CustomTextField(
+                        //   focusNode: amountFocusNode,
+                        //   labelText: "amount".tr(),
+                        //   validatorText: "required_field".tr(),
+                        //   hintText: "amount_example".tr(),
+                        //   textInputType: TextInputType.numberWithOptions(),
+                        //   controller: amountController,
+                        // ),
                       ),
-                    ),
-                    8.horizontal,
-                    Expanded(
-                      flex: 2,
-                      child: CustomDropdown(
-                        height: 120,
-                        selectedValue: unit.value?.name,
-                        validatorText: "required_field".tr(),
-                        labelText: "measurement_unit".tr(),
-                        hintText: "piece".tr(),
-                        items: unitNotifier.getUnitNames(units.valueOrNull ?? []),
-                        onChanged: (String? value) {
-                          unit.value = unitNotifier.findUnitByName(name: value!, units: units.valueOrNull ?? []);
+                      8.horizontal,
+                      GestureDetector(
+                        onTap: () {
+                          showCupertinoModalBottomSheet(context: context, builder: (context) => SelectUnitBottomsheet(id: unit.value?.id)).then((v) {
+                            GetAllUnitResponseData data = v;
+                            unit.value = unitNotifier.findUnitByName(name: data.nameUz!, units: units.valueOrNull ?? []);
+                          
+                          });
                         },
+
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
+                          decoration: BoxDecoration(
+                            color: AppColors.grey,
+                            borderRadius: BorderRadius.only(topRight: Radius.circular(12), bottomRight: Radius.circular(12)),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text("${unit.value?.name ?? ""} narxi", style: TextStyle(color: Colors.black87, fontSize: 15)),
+                              SizedBox(width: 8),
+                              Icon(Icons.keyboard_arrow_down, color: Colors.black87, size: 20),
+                            ],
+                          ),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
 
                 10.vertical,
@@ -164,8 +195,6 @@ class ProductAddModal extends HookConsumerWidget {
 
                     isLoading.value = true;
                     try {
-
-
                       var response = await ref
                           .read(cartNotifierProvider.notifier)
                           .addProductToCart(
@@ -174,7 +203,7 @@ class ProductAddModal extends HookConsumerWidget {
                             name: nameController.text,
                             amount: double.tryParse(amountController.text) ?? 0,
                             unitId: unit.value?.id ?? "",
-                            marketId:selectMarketId.value??"",
+                            marketId: selectMarketId.value ?? "",
                           );
 
                       isLoading.value = false;

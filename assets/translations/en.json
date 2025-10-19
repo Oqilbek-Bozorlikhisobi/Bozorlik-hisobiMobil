@@ -158,7 +158,37 @@
   "market_department": "Marketing Department:",
   "market_summ": "Market amount:",
   "products_cart": "Products",
-  "buy_products": "Products purchased:"
+  "buy_products": "Products purchased:",
+  "description_info": "Comment",
+  "product_price": "*How much did you pay for the item?",
+  "confirmation": "Confirmation",
+  "write_summ": "Write the sum.",
+  "select_unit": "Select unit",
+  "unit_description": "Total price is \"so that you can write down the total price of the product you purchased when you don't know the unit price.\"",
+  "price_small": "price",
+  "end_market": "Market completion",
+  "must_be_taken": "Must be taken",
+  "purchased": "Purchased",
+  "delete_product": "Are you really going to delete this product?",
+  "make_market": "Where did you make the market?",
+  "make_market_hint": "Write the name of the market or market",
+  "not_found": "Unknown",
+  "notification": "Notifications"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

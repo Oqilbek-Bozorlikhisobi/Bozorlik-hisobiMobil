@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:bozorlik/features/cart/models/get_all_units_response.dart';
 import 'package:bozorlik/features/home/models/banner_response.dart';
 import 'package:bozorlik/features/home/models/department_response.dart';
 import 'package:bozorlik/features/home/models/marketability.dart';
@@ -63,6 +64,26 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         }
       } on DioException catch (e) {
         emit(state.copyWith(statusDepartment: Status.error, errorMessageDepartment: e.toString()));
+      }
+    });
+    on<GetUnitEvent>((event, emit) async {
+      emit(state.copyWith(statusUnits: Status.loading));
+
+      try {
+        final response = await repo.getUnit();
+
+        final data = GetAllUnitResponse.fromJson(response);
+        if (data.message == "ok") {
+          if (data.data?.isNotEmpty ?? false) {
+            emit(state.copyWith(statusUnits: Status.success, units: data.data));
+          } else {
+            emit(state.copyWith(statusUnits: Status.empty));
+          }
+        } else {
+          emit(state.copyWith(statusUnits: Status.error, errorMessageUnits: data.message));
+        }
+      } on DioException catch (e) {
+        emit(state.copyWith(statusUnits: Status.error, errorMessageUnits: e.toString()));
       }
     });
     on<GetBannerEvent>((event, emit) async {

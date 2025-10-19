@@ -7,6 +7,11 @@ import 'app/app.dart';
 import 'common/values/app_infos.dart';
 
 void main() async {
+  FlutterError.onError = (details) {
+    print('🔴 FLUTTER ERROR:');
+    print(details.exception);
+    print(details.stack);
+  };
 
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();

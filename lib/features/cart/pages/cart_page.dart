@@ -337,7 +337,12 @@ class _CartPageState extends State<CartPage> {
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {
-                            Navigator.of(context).push(CupertinoPageRoute(builder: (context) => InnerCartScreen(cartData: state.data![index])));
+                            Navigator.of(context).push(CupertinoPageRoute(builder: (context) => InnerCartScreen(cartData: state.data![index]))).then((v){
+                              if(v==true){
+                                bloc.add(GetCartEvent());
+
+                              }
+                            });
                           },
                           child: CartItemNew(shopping: state.data?[index]),
                         );

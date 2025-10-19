@@ -31,12 +31,12 @@ class UnBuyProduct extends StatelessWidget {
             Image.asset(AppImages.cartItem),
             5.horizontal,
             Text(
-              state.data?.marketLists?[index].quantity.toString() ?? "",
+              state.unBuyProducts?[index].quantity.toString() ?? "",
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600, fontSize: 16),
             ),
 
             Text(
-              " ${state.data?.marketLists?[index].unit?.name.toString() ?? "dona"}",
+              " ${state.unBuyProducts?[index].unit?.name.toString() ?? "dona"}",
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600, fontSize: 16),
             ),
             10.horizontal,
@@ -45,7 +45,7 @@ class UnBuyProduct extends StatelessWidget {
             Expanded(
               child: Text(
                 overflow: TextOverflow.ellipsis,
-                state.data?.marketLists?[index].productName.toString() ?? "",
+                state.unBuyProducts?[index].productName.toString() ?? "",
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w500, fontSize: 16, color: AppColors.darkGreyText),
               ),
             ),

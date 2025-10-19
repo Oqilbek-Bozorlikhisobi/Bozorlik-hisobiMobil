@@ -13,26 +13,53 @@ class HomeRepository {
   }
 
   Future<Map<String, dynamic>> createMarket({required String name}) async {
+    try {
+      final response = await requestHelper.postWithAuth("/market", {"name": name, "userId": userId});
 
-    final response = await requestHelper.postWithAuth("/market", {"name": name, "userId": userId});
-
-    return response;
+      return response;
+    } catch (e) {
+      return {"==========ERROR========": e.toString()};
+    }
   }
 
   Future<Map<String, dynamic>> getMarketability() async {
-    final response = await requestHelper.getWithAuth("/market");
+    try {
+      final response = await requestHelper.getWithAuth("/market");
 
-    return response;
+      return response;
+    } catch (e) {
+      return {"==========ERROR========": e.toString()};
+    }
   }
+
   Future<Map<String, dynamic>> getDepartment() async {
-    final response = await requestHelper.getWithAuth("/market-type");
+    try {
+      final response = await requestHelper.getWithAuth("/market-type");
 
-    return response;
+      return response;
+    } catch (e) {
+      return {"==========ERROR========": e.toString()};
+    }
   }
-  Future<Map<String, dynamic>> getBunner() async {
-    final response = await requestHelper.getWithAuth("/bunner");
 
-    return response;
+  Future<Map<String, dynamic>> getUnit() async {
+    try {
+      final response = await requestHelper.getWithAuth("/unit/all");
+
+      return response;
+    } catch (e) {
+      return {"==========ERROR========": e.toString()};
+    }
+  }
+
+  Future<Map<String, dynamic>> getBunner() async {
+    try {
+      final response = await requestHelper.getWithAuth("/bunner");
+
+      return response;
+    } catch (e) {
+      return {"==========ERROR========": e.toString()};
+    }
   }
 }
 

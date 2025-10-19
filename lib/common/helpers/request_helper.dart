@@ -28,6 +28,7 @@ class RequestHelper {
   RequestHelper() {
     dio.interceptors.addAll([
       DioInterceptor(),
+      // AppInterceptor(),
       PrettyDioLogger(
         requestHeader: true,
         requestBody: true,
@@ -427,34 +428,34 @@ class RequestHelper {
 
 final requestHelper = RequestHelper();
 
-// class AppInterceptor extends Interceptor {
-//   final logger = Logger();
-//
-//   void logLong(String text) {
-//     const chunkSize = 800;
-//     for (var i = 0; i < text.length; i += chunkSize) {
-//       logger.d(
-//         text.substring(
-//           i,
-//           i + chunkSize > text.length ? text.length : i + chunkSize,
-//         ),
-//       );
-//     }
-//   }
-//
-//   @override
-//   void onResponse(Response response, ResponseInterceptorHandler handler) {
-//     logLong("RESPONSE[${response.statusCode}] => PATH: ${response.realUri}");
-//     logLong("DATA: ${response.data}");
-//     super.onResponse(response, handler);
-//   }
-//
-//   @override
-//   void onError(DioError err, ErrorInterceptorHandler handler) {
-//     logLong(
-//       "ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}            DATA: ${err.response?.data ?? err.message}",
-//     );
-//
-//     super.onError(err, handler);
-//   }
-// }
+class AppInterceptor extends Interceptor {
+  final logger = Logger();
+
+  void logLong(String text) {
+    const chunkSize = 800;
+    for (var i = 0; i < text.length; i += chunkSize) {
+      logger.d(
+        text.substring(
+          i,
+          i + chunkSize > text.length ? text.length : i + chunkSize,
+        ),
+      );
+    }
+  }
+
+  @override
+  void onResponse(Response response, ResponseInterceptorHandler handler) {
+    logLong("RESPONSE[${response.statusCode}] => PATH: ${response.realUri}");
+    logLong("DATA: ${response.data}");
+    super.onResponse(response, handler);
+  }
+
+  @override
+  void onError(DioError err, ErrorInterceptorHandler handler) {
+    logLong(
+      "ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}            DATA: ${err.response?.data ?? err.message}",
+    );
+
+    super.onError(err, handler);
+  }
+}

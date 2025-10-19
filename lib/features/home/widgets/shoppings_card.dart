@@ -6,6 +6,7 @@ import 'package:bozorlik/features/home/bloc/home_bloc.dart';
 import 'package:bozorlik/features/main/notifiers/index_notifier.dart';
 import 'package:bozorlik/utils/date_formatter.dart';
 import 'package:bozorlik/utils/enums.dart';
+import 'package:bozorlik/utils/price_formatter.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -114,7 +115,7 @@ class _ShoppingsState extends ConsumerState<Shoppings> {
                                           colorFilter: ColorFilter.mode(Color.fromRGBO(255, 194, 102, 1), BlendMode.srcIn),
                                         ),
                                         Text(
-                                          (shopping?.name ?? "O").substring(0, 1).toUpperCase(),
+                                          ((shopping?.name?.isEmpty??false)?"not_found".tr():shopping?.name ?? "O").substring(0, 1).toUpperCase(),
                                           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.black),
                                         ),
                                       ],
@@ -192,6 +193,7 @@ class _ShoppingsState extends ConsumerState<Shoppings> {
                                             SvgPicture.asset(AppIcons.wallet, height: 18, width: 18),
                                             SizedBox(width: 4),
                                             Text(
+                                              // PriceFormatterService.formatPrice(shopping?.totalPrice.toString()??""),
                                               NumberFormat('#,###', 'en_US').format(shopping?.totalPrice ?? 0).replaceAll(',', ' '),
                                               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                                                 fontSize: 12,
