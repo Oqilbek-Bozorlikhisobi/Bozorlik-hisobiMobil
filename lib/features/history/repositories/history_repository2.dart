@@ -6,4 +6,9 @@ class HistoryRepository2{
 
     return response;
   }
+  Future<Map<String,dynamic>> getHistoryById({required String id})async{
+    final response = await requestHelper.getWithAuth("/history/$id",);
+
+    return response;
+  }
 }

@@ -57,7 +57,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(Icons.check_box_outlined, color: AppColors.primaryColor, size: 28),
+            icon:  Icon(Icons.check_box_outlined, color: AppColors.primaryColor, size: 28),
             onPressed: () {
               // Mark all as read action
             },
@@ -179,7 +179,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
               margin: const EdgeInsets.only(left: 8),
               width: 10,
               height: 10,
-              decoration: const BoxDecoration(
+              decoration:  BoxDecoration(
                 color: AppColors.primaryColor,
                 shape: BoxShape.circle,
               ),

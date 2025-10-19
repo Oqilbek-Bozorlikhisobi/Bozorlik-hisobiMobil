@@ -212,7 +212,7 @@ class _CustomPaginationWidgetState<T>
                           onPressed: () {
                             _pagingController.retryLastFailedRequest();
                           },
-                          icon: const Icon(
+                          icon:  Icon(
                             Icons.refresh,
                             color: AppColors.primaryColor,
                           ),

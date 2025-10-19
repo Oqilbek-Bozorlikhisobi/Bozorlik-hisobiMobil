@@ -8,7 +8,7 @@ class NotificationResponse {
   NotificationResponse.fromJson(Map<String, dynamic> json) {
     message = json['message'];
     statusCode = json['statusCode'];
-    data = json['data'] != null ? new NotificationResponseData.fromJson(json['data']) : null;
+    data = json['data'] != null ? NotificationResponseData.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -23,7 +23,7 @@ class NotificationResponse {
 }
 
 class NotificationResponseData {
-  List<Items>? items;
+  List<NotificationResponseDataItems>? items;
   int? page;
   int? limit;
   int? total;
@@ -33,9 +33,9 @@ class NotificationResponseData {
 
   NotificationResponseData.fromJson(Map<String, dynamic> json) {
     if (json['items'] != null) {
-      items = <Items>[];
+      items = <NotificationResponseDataItems>[];
       json['items'].forEach((v) {
-        items!.add(new Items.fromJson(v));
+        items!.add(NotificationResponseDataItems.fromJson(v));
       });
     }
     page = json['page'];
@@ -57,7 +57,7 @@ class NotificationResponseData {
   }
 }
 
-class Items {
+class NotificationResponseDataItems {
   String? id;
   String? createdAt;
   String? updatedAt;
@@ -77,7 +77,7 @@ class Items {
   Receiver? receiver;
   Null? sender;
 
-  Items(
+  NotificationResponseDataItems(
       {this.id,
         this.createdAt,
         this.updatedAt,
@@ -97,7 +97,7 @@ class Items {
         this.receiver,
         this.sender});
 
-  Items.fromJson(Map<String, dynamic> json) {
+  NotificationResponseDataItems.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
@@ -115,7 +115,7 @@ class Items {
     note = json['note'];
     market = json['market'];
     receiver = json['receiver'] != null
-        ? new Receiver.fromJson(json['receiver'])
+        ? Receiver.fromJson(json['receiver'])
         : null;
     sender = json['sender'];
   }

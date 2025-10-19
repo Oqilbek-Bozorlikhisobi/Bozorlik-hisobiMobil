@@ -207,7 +207,7 @@ class HistoryCartItem extends HookConsumerWidget {
                       ),
                       Text(
                         "${price.toStringAsFixed(2)} ${"currency".tr()}",
-                        style: const TextStyle(
+                        style:  TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 16,
                           color: AppColors.primaryColor,

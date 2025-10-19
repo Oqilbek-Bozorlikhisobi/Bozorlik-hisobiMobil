@@ -2,16 +2,17 @@ import 'package:bozorlik/app/theme.dart';
 import 'package:bozorlik/common/extension/number_extension.dart';
 import 'package:bozorlik/common/values/app_assets.dart';
 import 'package:bozorlik/common/widgets/loading_widget.dart';
-import 'package:bozorlik/features/cart/bloc/inner_cart/inner_cart_bloc.dart';
-import 'package:bozorlik/features/cart/models/cart_response.dart';
 import 'package:bozorlik/features/cart/pages/screens/components/buy_product.dart';
+import 'package:bozorlik/features/history/bloc/history_bloc.dart';
 import 'package:bozorlik/features/history/models/get_all_history_response.dart';
+import 'package:bozorlik/features/history/widgets/buy_product_history.dart';
 import 'package:bozorlik/utils/enums.dart';
 import 'package:bozorlik/utils/price_formatter.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 class InnerHistoryScreen extends StatefulWidget {
   const InnerHistoryScreen({super.key, required this.cartData});
 
@@ -22,20 +23,20 @@ class InnerHistoryScreen extends StatefulWidget {
 }
 
 class _InnerHistoryScreenState extends State<InnerHistoryScreen> {
-  final bloc = InnerCartBloc();
+  final bloc = HistoryBloc();
   double _currentValue = 10;
 
   @override
   void initState() {
     super.initState();
-    bloc.add(GetInnerByIdEvent(id: widget.cartData.id ?? ""));
+    bloc.add(GetByIdHistoryEvent(historyId: widget.cartData.id ?? ""));
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: bloc,
-      child: BlocConsumer<InnerCartBloc, InnerCartState>(
+      child: BlocConsumer<HistoryBloc, HistoryState>(
         listener: (context, state) {},
         builder: (context, state) {
           return Scaffold(
@@ -63,9 +64,16 @@ class _InnerHistoryScreenState extends State<InnerHistoryScreen> {
                                 "market_department".tr(),
                                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600, fontSize: 16),
                               ),
-                              Text(
-                                widget.cartData.name ?? "",
-                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w500, fontSize: 16),
+                              5.horizontal,
+                              Expanded(
+                                child: Text(
+                                  maxLines: 1,
+                                  textAlign: TextAlign.end,
+
+                                  overflow: TextOverflow.ellipsis,
+                                  widget.cartData.name ?? "",
+                                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w500, fontSize: 16),
+                                ),
                               ),
                             ],
                           ),
@@ -76,42 +84,41 @@ class _InnerHistoryScreenState extends State<InnerHistoryScreen> {
                                 "market_summ".tr(),
                                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600, fontSize: 16),
                               ),
-                              Text(
-                                PriceFormatterService.formatPrice(widget.cartData.totalPrice.toString() ?? ""),
-                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w500, fontSize: 16),
+                              5.horizontal,
+
+                              Expanded(
+                                child: Text(
+                                  textAlign: TextAlign.end,
+                                  PriceFormatterService.formatPrice(widget.cartData.totalPrice.toString() ?? ""),
+                                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w500, fontSize: 16),
+                                ),
                               ),
                             ],
                           ),
                           10.vertical,
-                          state.status == Status.loading
-                              ? LoadingWidget()
-                              : ((state.unBuyProducts?.isNotEmpty ?? false) && (state.buyProducts?.isNotEmpty ?? false))
-                              ? SizedBox()
-                              : Builder(
-                                builder: (context) {
-                                  final totalProducts = (state.unBuyProducts?.length ?? 0) + (state.buyProducts?.length ?? 0);
-                                  final boughtProducts = state.buyProducts?.length ?? 0;
-
-                                  if (totalProducts == 0) {
-                                    return SizedBox();
-                                  }
-
-                                  return LinearProgressIndicator(
-                                    value: boughtProducts / totalProducts,
-                                    backgroundColor: AppColors.grey,
-                                    valueColor: AlwaysStoppedAnimation<Color>(AppColors.primaryColor),
-                                    minHeight: 6,
-                                    borderRadius: BorderRadius.circular(3),
-                                  );
-                                },
-                              ),
-                          10.vertical,
-                          Row(
-                            children: [
-                              Text("buy_products".tr()),
-                              Text(" ${(state.buyProducts?.length ?? 0)}/${(state.unBuyProducts?.length ?? 0) + (state.buyProducts?.length ?? 0)}"),
-                            ],
+                          Builder(
+                            builder: (context) {
+                              // final totalProducts = (state.unBuyProducts?.length ?? 0) + (state.buyProducts?.length ?? 0);
+                              // final boughtProducts = state.buyProducts?.length ?? 0;
+                              //
+                              // if (totalProducts == 0) {
+                              //   return SizedBox();
+                              // }
+                              // return Container(
+                              //     width: double.infinity,
+                              //     height: 6,
+                              //     decoration: BoxDecoration(color: AppColors.primaryColor));
+                              return LinearProgressIndicator(
+                                value: (state.innerHistory?.marketLists?.length.toDouble()),
+                                backgroundColor: AppColors.primaryColor,
+                                valueColor: AlwaysStoppedAnimation<Color>(AppColors.primaryColor),
+                                minHeight: 6,
+                                borderRadius: BorderRadius.circular(3),
+                              );
+                            },
                           ),
+                          10.vertical,
+                          Row(children: [Text("buy_products".tr()), Text("${state.innerHistory?.marketLists?.length}")]),
                         ],
                       ),
                     ),
@@ -156,9 +163,10 @@ class _InnerHistoryScreenState extends State<InnerHistoryScreen> {
                                     ),
                                   ),
                                 )
-                                : state.status==Status.success? Container(
+                                : state.status == Status.success
+                                ? Container(
                                   child:
-                                      (state.buyProducts?.isEmpty ?? false)
+                                      (state.innerHistory?.marketLists?.isEmpty ?? false)
                                           ? Center(
                                             child: Padding(
                                               padding: EdgeInsets.symmetric(horizontal: 12.0),
@@ -186,12 +194,13 @@ class _InnerHistoryScreenState extends State<InnerHistoryScreen> {
                                             ),
                                           )
                                           : ListView.builder(
-                                            itemCount: state.buyProducts?.length,
+                                            itemCount: state.innerHistory?.marketLists?.length,
                                             itemBuilder: (context, index) {
-                                              return BuyProduct(state: state, index: index);
+                                              return BuyProductHistory(state: state, index: index);
                                             },
                                           ),
-                                ):SizedBox(),
+                                )
+                                : SizedBox(),
                       ),
                     ),
                   ),

@@ -60,6 +60,8 @@ class _AppState extends State<App> {
       create: (_) => ThemeBloc(),
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {
+          AppColors.init(context); // Init qilish
+
           return GestureDetector(
             onTap: () {
               FocusManager.instance.primaryFocus?.unfocus();
