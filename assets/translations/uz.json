@@ -177,6 +177,10 @@
   "make_market_hint": "Bozor yoki market nomini yozing",
 
   "not_found": "Noma'lum",
-  "notifications": "Xabarnomalar"
+  "notifications": "Xabarnomalar",
+  "all": "Barchasi",
+  "un_read": "O'qilmagan",
+  "read": "O'qilgan",
+  "amazing": "Ajoyib"
 
 }

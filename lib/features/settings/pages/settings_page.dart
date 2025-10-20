@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bozorlik/app/theme.dart';
 import 'package:bozorlik/common/extension/number_extension.dart';
 import 'package:bozorlik/common/values/app_assets.dart';
@@ -16,6 +18,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../app/router.dart';
 import '../../../common/widgets/loading_widget.dart';
@@ -25,6 +28,21 @@ import '../widgets/profile_item.dart';
 
 class SettingsPage extends HookConsumerWidget {
   const SettingsPage({super.key});
+
+  Future<void> _openStore() async {
+    // 🔗 Sizning ilova linklaringizni shu yerga kiriting
+    const String playStoreUrl = 'https://play.google.com/store/apps/details?id=uz.bozorlik.app&pcampaignid=web_share';
+    const String appStoreUrl = 'https://apps.apple.com/uz/app/bozor-app/id6751641500';
+
+    final Uri url = Uri.parse(Platform.isIOS ? appStoreUrl : playStoreUrl);
+
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication, // default brauzer / AppStore / PlayMarket
+    )) {
+      throw Exception('Store linkni ochib bo‘lmadi');
+    }
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -166,7 +184,8 @@ class SettingsPage extends HookConsumerWidget {
                         svg: AppIcons.appRating,
                         title: 'app_rating'.tr(),
                         onTap: () {
-                          showComingSoon(context: context);
+                          _openStore();
+                          // showComingSoon(context: context);
                         },
                       ),
                       Divider(thickness: 0.5, color: AppColors.greyText.withValues(alpha: 0.5)),

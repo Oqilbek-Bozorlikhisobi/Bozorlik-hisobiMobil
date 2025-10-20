@@ -77,6 +77,11 @@ class NotificationResponseDataItems {
   Receiver? receiver;
   Null? sender;
 
+  @override
+  String toString() {
+    return 'NotificationResponseDataItems{id: $id, createdAt: $createdAt, updatedAt: $updatedAt, titleEn: $titleEn, titleRu: $titleRu, titleUz: $titleUz, titleUzk: $titleUzk, messageEn: $messageEn, messageRu: $messageRu, messageUz: $messageUz, messageUzk: $messageUzk, isRead: $isRead, isGlobal: $isGlobal, isSent: $isSent, note: $note, market: $market, receiver: $receiver, sender: $sender}';
+  }
+
   NotificationResponseDataItems(
       {this.id,
         this.createdAt,

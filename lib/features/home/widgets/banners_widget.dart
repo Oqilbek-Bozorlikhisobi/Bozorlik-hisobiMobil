@@ -132,6 +132,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' hide CarouselController;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class OnboardingBanner extends StatefulWidget {
   const OnboardingBanner({super.key, required this.bloc});
@@ -144,7 +145,15 @@ class OnboardingBanner extends StatefulWidget {
 
 class _OnboardingBannerState extends State<OnboardingBanner> {
   int _current = 0;
-
+  Future<void> _openLink(String link) async {
+    final Uri url = Uri.parse(link);
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw Exception('URL ochilmadi');
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeBloc, HomeState>(
@@ -243,7 +252,17 @@ class _OnboardingBannerState extends State<OnboardingBanner> {
                                                     // const SizedBox(height: 5),
                                                     Spacer(),
                                                     GestureDetector(
-                                                      onTap: () {},
+                                                      onTap: () async{
+                                                        _openLink(item.link??"");
+                                                        // final Uri url = Uri.parse('${item.link}');
+                                                        // if (await canLaunchUrl(url)) {
+                                                        // await launchUrl(url, mode: LaunchMode.externalApplication);
+                                                        // } else {
+                                                        // ScaffoldMessenger.of(context).showSnackBar(
+                                                        // const SnackBar(content: Text('Linkni ochib bo‘lmadi')),
+                                                        // );
+                                                        // }
+                                                      },
                                                       child: Container(
                                                         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                                                         decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8)),

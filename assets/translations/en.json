@@ -152,7 +152,7 @@
   "add": "Add",
   "description": "Comment (optional)",
   "select_market": "Select a market",
-  "new_add_product":"Add new product",
+  "new_add_product": "Add new product",
   "details": "More details",
   "infos": "Information",
   "market_department": "Marketing Department:",
@@ -173,37 +173,9 @@
   "make_market": "Where did you make the market?",
   "make_market_hint": "Write the name of the market or market",
   "not_found": "Unknown",
-  "notification": "Notifications"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  "notification": "Notifications",
+  "all": "All",
+  "unread": "Unread",
+  "read": "Read",
+  "amazing": "Wonderful"
 }

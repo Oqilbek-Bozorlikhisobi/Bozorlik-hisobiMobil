@@ -1,0 +1,88 @@
+import 'package:bozorlik/app/theme.dart';
+import 'package:bozorlik/common/extension/number_extension.dart';
+import 'package:bozorlik/common/widgets/custom_button.dart';
+import 'package:bozorlik/common/widgets/custom_toast.dart';
+import 'package:bozorlik/features/home/models/notification/notification.dart';
+import 'package:bozorlik/features/home/pages/screens/bloc/bottomsheet_notification/bottomsheet_notification_bloc.dart';
+import 'package:bozorlik/utils/date_formatter.dart';
+import 'package:bozorlik/utils/enums.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:toastification/toastification.dart';
+
+class NotificationInfoBottomsheet extends StatefulWidget {
+  const NotificationInfoBottomsheet({super.key, this.data});
+
+  final NotificationResponseDataItems? data;
+
+  @override
+  State<NotificationInfoBottomsheet> createState() => _NotificationInfoBottomsheetState();
+}
+
+class _NotificationInfoBottomsheetState extends State<NotificationInfoBottomsheet> {
+  final bloc = BottomsheetNotificationBloc();
+
+  @override
+  void dispose() {
+    bloc.close();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider.value(
+      value: bloc,
+      child: BlocConsumer<BottomsheetNotificationBloc, BottomsheetNotificationState>(
+        listener: (context, state) {
+          if (state.status == Status.error) {
+            showCustomToast(title: state.errorMessage ?? "", type: ToastificationType.error);
+          }
+          if (state.status == Status.success) {
+            context.pop(true);
+          }
+        },
+        builder: (context, state) {
+          return Padding(
+            padding: EdgeInsets.symmetric(horizontal: 18),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                6.vertical,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(height: 4, width: 36, decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: AppColors.grey)),
+                  ],
+                ),
+                12.vertical,
+                Text(
+                  formatDate2(widget.data?.createdAt ?? ""),
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w400, fontSize: 14),
+                ),
+                12.vertical,
+                Text(widget.data?.titleUz ?? "", style: Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w600)),
+                12.vertical,
+                Text(
+                  widget.data?.messageUz ?? "",
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w400, fontSize: 14),
+                ),
+                32.vertical,
+                CustomButton(
+                  isLoading: state.status == Status.loading,
+                  text: "amazing".tr(),
+                  onTap: () {
+                    bloc.add(OneReadEvent(id: widget.data?.id ?? ""));
+                  },
+                ),
+                40.vertical,
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
