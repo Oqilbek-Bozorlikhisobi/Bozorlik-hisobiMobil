@@ -7,18 +7,34 @@ part 'bottomsheet_notification_event.dart';
 
 part 'bottomsheet_notification_state.dart';
 
-class BottomsheetNotificationBloc extends Bloc<BottomsheetNotificationEvent, BottomsheetNotificationState> {
+class BottomsheetNotificationBloc
+    extends Bloc<BottomsheetNotificationEvent, BottomsheetNotificationState> {
   BottomsheetNotificationBloc() : super(BottomsheetNotificationState()) {
     final repo = NotificationRepository();
+
     on<OneReadEvent>((event, emit) async {
       emit(state.copyWith(status: Status.loading));
 
       try {
         final response = await repo.onRead(id: event.id);
-      if(response['message']=="ok"){
-        emit(state.copyWith(status: Status.success));
+        if (response['message'] == "ok") {
+          emit(state.copyWith(status: Status.success));
+        }
+      } on DioException catch (e) {
+        emit(state.copyWith(status: Status.error, errorMessage: e.toString()));
       }
+    });
+    on<RejectAcceptEvent>((event, emit) async {
+      emit(state.copyWith(status: Status.loading));
 
+      try {
+        final response = await repo.acceptReject(
+          marketId: event.marketId,
+          accept: event.accept,
+        );
+        if (response['message'] == "ok") {
+          emit(state.copyWith(status: Status.success));
+        }
       } on DioException catch (e) {
         emit(state.copyWith(status: Status.error, errorMessage: e.toString()));
       }

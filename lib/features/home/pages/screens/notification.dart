@@ -1,4 +1,5 @@
 import 'package:bozorlik/app/theme.dart';
+import 'package:bozorlik/common/values/app_assets.dart';
 import 'package:bozorlik/features/home/models/notification/notification.dart';
 import 'package:bozorlik/utils/custom_tab_view_ruler.dart';
 import 'package:bozorlik/utils/date_formatter.dart';
@@ -7,11 +8,13 @@ import 'package:bozorlik/utils/error_view.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'bloc/notification_bloc.dart';
 import 'components/notification_info_bottomsheet.dart';
+import 'components/notification_success_bottomsheet.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -20,7 +23,8 @@ class NotificationScreen extends StatefulWidget {
   State<NotificationScreen> createState() => _NotificationScreenState();
 }
 
-class _NotificationScreenState extends State<NotificationScreen> with TickerProviderStateMixin {
+class _NotificationScreenState extends State<NotificationScreen>
+    with TickerProviderStateMixin {
   int selectedTab = 0;
   final bloc = NotificationBloc();
   late RefreshController refreshControllerCommon;
@@ -31,7 +35,12 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
   @override
   void initState() {
     super.initState();
-    controllerTab = TabController(vsync: this, initialIndex: 0, animationDuration: const Duration(seconds: 0), length: 3);
+    controllerTab = TabController(
+      vsync: this,
+      initialIndex: 0,
+      animationDuration: const Duration(seconds: 0),
+      length: 3,
+    );
     refreshControllerCommon = RefreshController(initialRefresh: false);
     refreshControllerValue = RefreshController(initialRefresh: false);
     refreshControllerPosition = RefreshController(initialRefresh: false);
@@ -45,22 +54,51 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
     return BlocProvider.value(
       value: bloc,
       child: BlocConsumer<NotificationBloc, NotificationState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state.statusAll == Status.success) {
+            // bloc.add(GetNotificationEvent());
+            // bloc.add(GetReadNotificationEvent());
+            // bloc.add(GetUnReadNotificationEvent());
+          }
+        },
         builder: (context, state) {
           return Scaffold(
             backgroundColor: AppColors.backGround,
             appBar: AppBar(
               backgroundColor: AppColors.backGround,
               elevation: 0,
-              leading: IconButton(icon: const Icon(Icons.arrow_back, color: Colors.black), onPressed: () => Navigator.pop(context)),
-              title: Text("notifications".tr(), style: const TextStyle(color: Colors.black, fontWeight: FontWeight.w600)),
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back, color: Colors.black),
+                onPressed: () => Navigator.pop(context),
+              ),
+              title: Text(
+                "notifications".tr(),
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
               centerTitle: true,
               actions: [
-                IconButton(
-                  icon: Icon(Icons.check_box_outlined, color: AppColors.primaryColor, size: 28),
-                  onPressed: () {
-                    // Mark all as read action
-                  },
+                GestureDetector(
+                  onTap:
+                      state.statusAll == Status.success
+                          ? null
+                          : () {
+                            bloc.add(AllReadEvent());
+                            bloc.add(GetNotificationEvent());
+                            bloc.add(GetReadNotificationEvent());
+                            bloc.add(GetUnReadNotificationEvent());
+                          },
+                  child: SvgPicture.asset(
+                    AppIcons.checkNotification,
+                    colorFilter: ColorFilter.mode(
+                      state.statusAll == Status.success
+                          ? AppColors.grey
+                          : AppColors.primaryColor,
+                      BlendMode.srcIn,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -92,9 +130,17 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
                 },
                 child: Builder(
                   builder: (context) {
-                    if (state.status == Status.loading) return const Center(child: CircularProgressIndicator());
-                    if (state.status == Status.error) return Center(child: ErrorView(error: state.errorMessage.toString()));
-                    if (((state.itemsAll?.length ?? 0)) < 1) return const Center(child: SizedBox());
+                    if (state.status == Status.loading) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    if (state.status == Status.error) {
+                      return Center(
+                        child: ErrorView(error: state.errorMessage.toString()),
+                      );
+                    }
+                    if (((state.itemsAll?.length ?? 0)) < 1) {
+                      return const Center(child: SizedBox());
+                    }
                     if (state.status == Status.success) {
                       return Expanded(
                         child: ListView.builder(
@@ -104,11 +150,24 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
                             final notification = state.itemsAll?[index];
                             return GestureDetector(
                               onTap: () {
-                                if(notification.isGlobal==true){
-                                showCupertinoModalBottomSheet(context: context, builder: (context) => NotificationInfoBottomsheet(data: notification,));
-                                }else{
-                                showCupertinoModalBottomSheet(context: context, builder: (context) => NotificationInfoBottomsheet(data: notification,));
-
+                                if (notification.isGlobal == true) {
+                                  showCupertinoModalBottomSheet(
+                                    context: context,
+                                    builder:
+                                        (context) =>
+                                            NotificationInfoBottomsheet(
+                                              data: notification,
+                                            ),
+                                  );
+                                } else {
+                                  showCupertinoModalBottomSheet(
+                                    context: context,
+                                    builder:
+                                        (context) =>
+                                            NotificationSuccessBottomsheet(
+                                              data: notification,
+                                            ),
+                                  );
                                 }
                               },
                               child: _buildNotificationCard(notification!),
@@ -133,9 +192,17 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
                 },
                 child: Builder(
                   builder: (context) {
-                    if (state.status == Status.loading) return const Center(child: CircularProgressIndicator());
-                    if (state.status == Status.error) return Center(child: ErrorView(error: state.errorMessage.toString()));
-                    if (((state.itemsUnRead?.length ?? 0)) < 1) return const Center(child: SizedBox());
+                    if (state.status == Status.loading) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    if (state.status == Status.error) {
+                      return Center(
+                        child: ErrorView(error: state.errorMessage.toString()),
+                      );
+                    }
+                    if (((state.itemsUnRead?.length ?? 0)) < 1) {
+                      return const Center(child: SizedBox());
+                    }
                     if (state.status == Status.success) {
                       return Expanded(
                         child: ListView.builder(
@@ -143,7 +210,30 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
                           itemCount: state.itemsUnRead?.length,
                           itemBuilder: (context, index) {
                             final notification = state.itemsUnRead?[index];
-                            return _buildNotificationCard(notification!);
+                            return GestureDetector(
+                              onTap: () {
+                                if (notification.isGlobal == true) {
+                                  showCupertinoModalBottomSheet(
+                                    context: context,
+                                    builder:
+                                        (context) =>
+                                            NotificationInfoBottomsheet(
+                                              data: notification,
+                                            ),
+                                  );
+                                } else {
+                                  showCupertinoModalBottomSheet(
+                                    context: context,
+                                    builder:
+                                        (context) =>
+                                            NotificationSuccessBottomsheet(
+                                              data: notification,
+                                            ),
+                                  );
+                                }
+                              },
+                              child: _buildNotificationCard(notification!),
+                            );
                           },
                         ),
                       );
@@ -164,9 +254,17 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
                 },
                 child: Builder(
                   builder: (context) {
-                    if (state.status == Status.loading) return const Center(child: CircularProgressIndicator());
-                    if (state.status == Status.error) return Center(child: ErrorView(error: state.errorMessage.toString()));
-                    if (((state.itemsRead?.length ?? 0)) < 1) return const Center(child: SizedBox());
+                    if (state.status == Status.loading) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    if (state.status == Status.error) {
+                      return Center(
+                        child: ErrorView(error: state.errorMessage.toString()),
+                      );
+                    }
+                    if (((state.itemsRead?.length ?? 0)) < 1) {
+                      return const Center(child: SizedBox());
+                    }
                     if (state.status == Status.success) {
                       return Expanded(
                         child: ListView.builder(
@@ -174,7 +272,32 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
                           itemCount: state.itemsRead?.length,
                           itemBuilder: (context, index) {
                             final notification = state.itemsRead?[index];
-                            return _buildNotificationCard(notification!);
+                            return GestureDetector(
+                              onTap: () {
+                                if (notification.isGlobal == true) {
+                                  showCupertinoModalBottomSheet(
+                                    context: context,
+                                    builder:
+                                        (context) =>
+                                            NotificationInfoBottomsheet(
+                                              data: notification,
+                                              isRead: true,
+                                            ),
+                                  );
+                                } else {
+                                  showCupertinoModalBottomSheet(
+                                    context: context,
+                                    builder:
+                                        (context) =>
+                                            NotificationSuccessBottomsheet(
+                                              data: notification,
+                                              isRead: true,
+                                            ),
+                                  );
+                                }
+                              },
+                              child: _buildNotificationCard(notification!),
+                            );
                           },
                         ),
                       );
@@ -204,7 +327,10 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
           decoration: BoxDecoration(
             color: isSelected ? AppColors.primaryColor : Colors.white,
             borderRadius: BorderRadius.circular(25),
-            border: Border.all(color: isSelected ? AppColors.primaryColor : Colors.grey[300]!, width: 1),
+            border: Border.all(
+              color: isSelected ? AppColors.primaryColor : Colors.grey[300]!,
+              width: 1,
+            ),
           ),
           child: Center(
             child: Text(
@@ -229,7 +355,10 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: (notification.isRead ?? false) ? AppColors.grey : AppColors.primaryColor,
+          color:
+              (notification.isRead ?? false)
+                  ? AppColors.grey
+                  : AppColors.primaryColor,
           width: (notification.isRead ?? false) ? 1 : 2,
         ),
       ),
@@ -244,12 +373,18 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
                   notification.titleUz ?? "",
                   style: TextStyle(
                     fontSize: 15,
-                    fontWeight: (notification.isRead ?? false) ? FontWeight.w400 : FontWeight.w500,
+                    fontWeight:
+                        (notification.isRead ?? false)
+                            ? FontWeight.w400
+                            : FontWeight.w500,
                     color: Colors.black87,
                   ),
                 ),
                 const SizedBox(height: 6),
-                Text(formatDate2(notification.createdAt ?? ""), style: TextStyle(fontSize: 13, color: Colors.grey[600])),
+                Text(
+                  formatDate2(notification.createdAt ?? ""),
+                  style: TextStyle(fontSize: 13, color: Colors.grey[600]),
+                ),
               ],
             ),
           ),
@@ -258,7 +393,10 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
               margin: const EdgeInsets.only(left: 8),
               width: 10,
               height: 10,
-              decoration: BoxDecoration(color: AppColors.primaryColor, shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                color: AppColors.primaryColor,
+                shape: BoxShape.circle,
+              ),
             ),
         ],
       ),
@@ -271,5 +409,9 @@ class NotificationItem {
   final String date;
   final bool isRead;
 
-  NotificationItem({required this.title, required this.date, required this.isRead});
+  NotificationItem({
+    required this.title,
+    required this.date,
+    required this.isRead,
+  });
 }

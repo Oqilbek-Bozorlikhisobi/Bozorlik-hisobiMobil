@@ -13,15 +13,18 @@ import 'package:go_router/go_router.dart';
 import 'package:toastification/toastification.dart';
 
 class NotificationInfoBottomsheet extends StatefulWidget {
-  const NotificationInfoBottomsheet({super.key, this.data});
+  const NotificationInfoBottomsheet({super.key, this.data, this.isRead});
 
   final NotificationResponseDataItems? data;
+  final bool? isRead;
 
   @override
-  State<NotificationInfoBottomsheet> createState() => _NotificationInfoBottomsheetState();
+  State<NotificationInfoBottomsheet> createState() =>
+      _NotificationInfoBottomsheetState();
 }
 
-class _NotificationInfoBottomsheetState extends State<NotificationInfoBottomsheet> {
+class _NotificationInfoBottomsheetState
+    extends State<NotificationInfoBottomsheet> {
   final bloc = BottomsheetNotificationBloc();
 
   @override
@@ -34,10 +37,16 @@ class _NotificationInfoBottomsheetState extends State<NotificationInfoBottomshee
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: bloc,
-      child: BlocConsumer<BottomsheetNotificationBloc, BottomsheetNotificationState>(
+      child: BlocConsumer<
+        BottomsheetNotificationBloc,
+        BottomsheetNotificationState
+      >(
         listener: (context, state) {
           if (state.status == Status.error) {
-            showCustomToast(title: state.errorMessage ?? "", type: ToastificationType.error);
+            showCustomToast(
+              title: state.errorMessage ?? "",
+              type: ToastificationType.error,
+            );
           }
           if (state.status == Status.success) {
             context.pop(true);
@@ -54,27 +63,50 @@ class _NotificationInfoBottomsheetState extends State<NotificationInfoBottomshee
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(height: 4, width: 36, decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: AppColors.grey)),
+                    Container(
+                      height: 4,
+                      width: 36,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: AppColors.grey,
+                      ),
+                    ),
                   ],
                 ),
                 12.vertical,
                 Text(
                   formatDate2(widget.data?.createdAt ?? ""),
-                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w400, fontSize: 14),
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14,
+                  ),
                 ),
                 12.vertical,
-                Text(widget.data?.titleUz ?? "", style: Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w600)),
+                Text(
+                  widget.data?.titleUz ?? "",
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
                 12.vertical,
                 Text(
                   widget.data?.messageUz ?? "",
-                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w400, fontSize: 14),
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14,
+                  ),
                 ),
                 32.vertical,
                 CustomButton(
                   isLoading: state.status == Status.loading,
                   text: "amazing".tr(),
                   onTap: () {
-                    bloc.add(OneReadEvent(id: widget.data?.id ?? ""));
+                    if (widget.isRead ==true) {
+                      context.pop(true);
+                    } else {
+                      print("-------");
+                      bloc.add(OneReadEvent(id: widget.data?.id ?? ""));
+                    }
                   },
                 ),
                 40.vertical,

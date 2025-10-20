@@ -1,6 +1,8 @@
 part of 'notification_bloc.dart';
 
 class NotificationEvent {}
+class AllReadEvent extends NotificationEvent {
+}
 
 class GetNotificationEvent extends NotificationEvent {
   final bool? isRead;

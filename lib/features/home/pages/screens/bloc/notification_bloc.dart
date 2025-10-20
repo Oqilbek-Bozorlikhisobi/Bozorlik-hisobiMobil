@@ -21,6 +21,19 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     List<NotificationResponseDataItems> loadDataIItemsAll = [];
     List<NotificationResponseDataItems> loadDataIItemsUnRead = [];
     List<NotificationResponseDataItems> loadDataIItemsRead = [];
+    on<AllReadEvent>((event, emit) async {
+      emit(state.copyWith(statusAll: Status.loading));
+
+      try {
+        final response = await repo.allRead();
+        if (response['message'] == "ok") {
+          emit(state.copyWith(statusAll: Status.success));
+        }
+      } on DioException catch (e) {
+        emit(state.copyWith(statusAll: Status.error, errorMessage: e.toString()));
+      }
+    });
+
 
     ///all
     on<GetNotificationEvent>((event, emit) async {

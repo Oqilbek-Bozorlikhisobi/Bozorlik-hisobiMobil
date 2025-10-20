@@ -1,3 +1,5 @@
+import '../../../cart/models/cart_response.dart';
+
 class NotificationResponse {
   String? message;
   int? statusCode;
@@ -73,7 +75,7 @@ class NotificationResponseDataItems {
   bool? isGlobal;
   bool? isSent;
   Null? note;
-  Null? market;
+  Market? market;
   Receiver? receiver;
   Null? sender;
 
@@ -118,11 +120,13 @@ class NotificationResponseDataItems {
     isGlobal = json['isGlobal'];
     isSent = json['isSent'];
     note = json['note'];
-    market = json['market'];
     receiver = json['receiver'] != null
         ? Receiver.fromJson(json['receiver'])
         : null;
     sender = json['sender'];
+    market = json['market'] != null
+        ? Market.fromJson(json['market'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -143,10 +147,95 @@ class NotificationResponseDataItems {
     data['isSent'] = isSent;
     data['note'] = note;
     data['market'] = market;
+    // if (market != null) {
+    //   data['market'] = Market!.toJson();
+    // }
     if (receiver != null) {
       data['receiver'] = receiver!.toJson();
     }
     data['sender'] = sender;
+    return data;
+  }
+}
+class Market {
+  String? id;
+  String? createdAt;
+  String? updatedAt;
+  String? name;
+  bool? isAllBuy;
+  List<Users>? users;
+  String? marketCreator;
+  Null? pendingUsers;
+  List<MarketLists>? marketLists;
+  String? totalPrice;
+  String? location;
+  MarketType? marketType;
+  bool? isCurrent;
+
+  Market(
+      {this.id,
+        this.createdAt,
+        this.updatedAt,
+        this.name,
+        this.isAllBuy,
+        this.users,
+        this.marketCreator,
+        this.pendingUsers,
+        this.marketLists,
+        this.totalPrice,
+        this.location,
+        this.marketType,
+        this.isCurrent});
+
+  Market.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+    name = json['name'];
+    isAllBuy = json['isAllBuy'];
+    if (json['users'] != null) {
+      users = <Users>[];
+      json['users'].forEach((v) {
+        users!.add(Users.fromJson(v));
+      });
+    }
+    marketCreator = json['marketCreator'];
+    pendingUsers = json['pendingUsers'];
+    if (json['marketLists'] != null) {
+      marketLists = <MarketLists>[];
+      json['marketLists'].forEach((v) {
+        marketLists!.add(MarketLists.fromJson(v));
+      });
+    }
+    totalPrice = json['totalPrice'];
+    location = json['location'];
+    marketType = json['marketType'] != null
+        ? MarketType.fromJson(json['marketType'])
+        : null;
+    isCurrent = json['isCurrent'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['name'] = name;
+    data['isAllBuy'] = isAllBuy;
+    if (users != null) {
+      data['users'] = users!.map((v) => v.toJson()).toList();
+    }
+    data['marketCreator'] = marketCreator;
+    data['pendingUsers'] = pendingUsers;
+    if (marketLists != null) {
+      data['marketLists'] = marketLists!.map((v) => v.toJson()).toList();
+    }
+    data['totalPrice'] = totalPrice;
+    data['location'] = location;
+    if (marketType != null) {
+      data['marketType'] = marketType!.toJson();
+    }
+    data['isCurrent'] = isCurrent;
     return data;
   }
 }

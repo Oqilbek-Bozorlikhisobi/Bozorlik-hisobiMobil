@@ -177,5 +177,26 @@
   "all": "All",
   "unread": "Unread",
   "read": "Read",
-  "amazing": "Wonderful"
+  "amazing": "Wonderful",
+  "customer": "The user shared a market with you.",
+  "re_view": "Review",
+  "rejection": "Rejection",
+  "acceptance": "Acceptance",
+  "all_market_number": "ОTotal number of markets:",
+  "total_costs": "Total costs:",
+  "monthly_market": "КNumber of monthly markets:",
+  "monthly_expenses": "Monthly expenses",
+  "ratio_month": "Ratio to last month",
+  "active_markets": "Active markets",
+  "completed_markets": "Completed markets"
+
+
+
+
+
+
+
+
+
+
 }

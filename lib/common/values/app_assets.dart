@@ -38,6 +38,8 @@ class AppIcons {
   static const String delete = "assets/svg/delete.svg";
   static const String cartItem = "assets/svg/cart_item.svg";
   static const String information = "assets/svg/information.svg";
+  static const String checkNotification = "assets/svg/check_notification.svg";
+  static const String arrowGreen = "assets/svg/arrow_green.svg";
 
   AppIcons._();
 }

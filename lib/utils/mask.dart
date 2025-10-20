@@ -9,6 +9,12 @@ var maskFormatter = MaskTextInputFormatter(
   filter: {"#": RegExp(r'[0-9]')},
   type: MaskAutoCompletionType.lazy,
 );
+
+var maskFormatter2 = MaskTextInputFormatter(
+  mask: '+998 ## *** ####',
+  filter: {"#": RegExp(r'[0-9]')},
+  type: MaskAutoCompletionType.lazy,
+);
 String maskPhoneNumber(String phoneNumber) {
 
   if (phoneNumber.length >= 17) {

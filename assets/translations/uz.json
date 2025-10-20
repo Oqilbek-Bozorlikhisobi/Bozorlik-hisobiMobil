@@ -181,6 +181,18 @@
   "all": "Barchasi",
   "un_read": "O'qilmagan",
   "read": "O'qilgan",
-  "amazing": "Ajoyib"
+  "amazing": "Ajoyib",
+  "customer": "foydalanuvchi sizga bozorlik ulashdi",
+  "re_view": "Ko’rib chiqish",
+  "rejection": "Rad etish",
+  "acceptance": "Qabul qilish",
+  "all_market_number": "Jami bozorliklar soni:",
+  "total_costs": "Jami xarajatlar:",
+  "monthly_market": "Oylik bozorliklar soni:",
+  "monthly_expenses": "Oylik xarajatlar",
+  "ratio_month": "O’tgan oyga nisbati",
+  "active_markets": "Faol bozorliklar",
+  "completed_markets": "Tugallangan bozorliklar"
+
 
 }
