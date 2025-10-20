@@ -16,13 +16,14 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:toastification/toastification.dart';
 
 class CartShareModal extends HookConsumerWidget {
-  const CartShareModal({super.key, required this.model});
+  const CartShareModal({super.key, required this.marketId});
 
-  final CartModel model;
+  final String marketId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final phoneController = useTextEditingController();
+    final descriptionController = useTextEditingController();
     final phoneNumber = useState("");
     final formKey = useMemoized(() => GlobalKey<FormState>());
 
@@ -33,9 +34,9 @@ class CartShareModal extends HookConsumerWidget {
         borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
       ),
       padding: EdgeInsets.only(
-        left: 8,
-        right: 8,
-        top: 12,
+        left: 16,
+        right: 16,
+        top: 24,
         bottom: MediaQuery.of(context).viewInsets.bottom,
       ),
       child: Form(
@@ -44,24 +45,32 @@ class CartShareModal extends HookConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              "share_shopping".tr(),
+              "invitation_number".tr(),
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
             ),
-            4.vertical,
-            Text(
-              "enter_user_phone".tr(),
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-            ),
-            30.vertical,
+            // 4.vertical,
+            // Text(
+            //   "enter_user_phone".tr(),
+            //   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+            // ),
+            16.vertical,
             CustomPhoneField(
               onChange: (value) {
                 phoneNumber.value = value;
               },
               validatorText: "enter_phone_number".tr(),
-              labelText: "phone".tr(),
+              labelText: "user_phone".tr(),
               controller: phoneController,
             ),
-
+            16.vertical,
+            CustomTextField(
+              onChange: (value) {
+                // phoneNumber.value = value;
+              },
+              hintText: "...",
+              labelText: "description".tr(),
+              controller: descriptionController,
+            ),
             20.vertical,
             CustomButton(
               isLoading: isLoading.value,
@@ -71,7 +80,11 @@ class CartShareModal extends HookConsumerWidget {
                 try {
                   await ref
                       .read(cartNotifierProvider.notifier)
-                      .shareCart(phoneNumber: phoneNumber.value);
+                      .shareCart(
+                        phoneNumber: phoneNumber.value,
+                        description: descriptionController.text,
+                        marketId: marketId,
+                      );
                   showCustomToast(title: "success_sent".tr());
                   if (context.mounted) {
                     Navigator.pop(context, true);
@@ -96,12 +109,12 @@ class CartShareModal extends HookConsumerWidget {
     );
   }
 
-  static Future show(BuildContext context, {required CartModel model}) async {
+  static Future show(BuildContext context, {required String marketId}) async {
     return showModalBottomSheet(
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       context: context,
-      builder: (context) => CartShareModal(model: model),
+      builder: (context) => CartShareModal(marketId: marketId),
     );
   }
 }

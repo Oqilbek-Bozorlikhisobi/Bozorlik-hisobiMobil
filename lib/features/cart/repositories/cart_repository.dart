@@ -17,10 +17,12 @@ class CartRepository {
   Future<dynamic> shareCart({
     required String cartId,
     required String phoneNumber,
+    required String description,
   }) async {
-    final response = await requestHelper.patchWithAuth("/market/add/user", {
+    final response = await requestHelper.patchWithAuth("/market/send/invitation", {
       "marketId": cartId,
       "phoneNumber": phoneNumber,
+      "note": description,
     });
   }
 

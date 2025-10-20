@@ -188,7 +188,11 @@
   "monthly_expenses": "Monthly expenses",
   "ratio_month": "Ratio to last month",
   "active_markets": "Active markets",
-  "completed_markets": "Completed markets"
+  "completed_markets": "Completed markets",
+  "invitation_number": "Offer by number",
+  "user_phone": "*User phone number"
+
+
 
 
 

@@ -40,6 +40,7 @@ class AppIcons {
   static const String information = "assets/svg/information.svg";
   static const String checkNotification = "assets/svg/check_notification.svg";
   static const String arrowGreen = "assets/svg/arrow_green.svg";
+  static const String addUser = "assets/svg/add_user.svg";
 
   AppIcons._();
 }

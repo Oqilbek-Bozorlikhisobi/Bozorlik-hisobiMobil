@@ -192,7 +192,9 @@
   "monthly_expenses": "Oylik xarajatlar",
   "ratio_month": "O’tgan oyga nisbati",
   "active_markets": "Faol bozorliklar",
-  "completed_markets": "Tugallangan bozorliklar"
+  "completed_markets": "Tugallangan bozorliklar",
+  "invitation_number": "Raqam orqali taklif qilish",
+  "user_phone": "*Foydalanuvchi raqami"
 
 
 }
