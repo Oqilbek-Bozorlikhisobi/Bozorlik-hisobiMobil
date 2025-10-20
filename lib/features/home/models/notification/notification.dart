@@ -74,10 +74,10 @@ class NotificationResponseDataItems {
   bool? isRead;
   bool? isGlobal;
   bool? isSent;
-  Null? note;
+  String? note;
   Market? market;
   Receiver? receiver;
-  Null? sender;
+  Users? sender;
 
   @override
   String toString() {
@@ -123,9 +123,13 @@ class NotificationResponseDataItems {
     receiver = json['receiver'] != null
         ? Receiver.fromJson(json['receiver'])
         : null;
-    sender = json['sender'];
+    // sender = json['sender'];
+    // sender = json['sender'];
     market = json['market'] != null
         ? Market.fromJson(json['market'])
+        : null;
+    sender = json['sender'] != null
+        ? Users.fromJson(json['sender'])
         : null;
   }
 
@@ -165,7 +169,7 @@ class Market {
   bool? isAllBuy;
   List<Users>? users;
   String? marketCreator;
-  Null? pendingUsers;
+  List<PendingUsers>? pendingUsers;
   List<MarketLists>? marketLists;
   String? totalPrice;
   String? location;
@@ -200,13 +204,19 @@ class Market {
       });
     }
     marketCreator = json['marketCreator'];
-    pendingUsers = json['pendingUsers'];
+    // pendingUsers = json['pendingUsers'];
     if (json['marketLists'] != null) {
       marketLists = <MarketLists>[];
       json['marketLists'].forEach((v) {
         marketLists!.add(MarketLists.fromJson(v));
       });
+    } if (json['pendingUsers'] != null) {
+      pendingUsers = <PendingUsers>[];
+      json['pendingUsers'].forEach((v) {
+        pendingUsers!.add(PendingUsers.fromJson(v));
+      });
     }
+
     totalPrice = json['totalPrice'];
     location = json['location'];
     marketType = json['marketType'] != null
@@ -236,6 +246,30 @@ class Market {
       data['marketType'] = marketType!.toJson();
     }
     data['isCurrent'] = isCurrent;
+    return data;
+  }
+}
+class PendingUsers {
+  String? id;
+  String? fullName;
+  String? phoneNumber;
+  String? createdAt;
+
+  PendingUsers({this.id, this.fullName, this.phoneNumber, this.createdAt});
+
+  PendingUsers.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    fullName = json['fullName'];
+    phoneNumber = json['phoneNumber'];
+    createdAt = json['createdAt'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['fullName'] = this.fullName;
+    data['phoneNumber'] = this.phoneNumber;
+    data['createdAt'] = this.createdAt;
     return data;
   }
 }

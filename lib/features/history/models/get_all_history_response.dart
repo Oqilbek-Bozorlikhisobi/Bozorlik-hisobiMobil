@@ -1,3 +1,5 @@
+import 'package:bozorlik/features/cart/models/cart_response.dart';
+
 class HistoryResponse {
   String? message;
   int? statusCode;
@@ -178,7 +180,7 @@ class MarketLists {
   Unit? unit;
   Users? user;
   int? price;
-  Null? product;
+  Product? product;
   bool? isBuying;
   int? quantity;
   String? createdAt;
@@ -206,7 +208,9 @@ class MarketLists {
     unit = json['unit'] != null ? Unit.fromJson(json['unit']) : null;
     user = json['user'] != null ? Users.fromJson(json['user']) : null;
     price = json['price'];
-    product = json['product'];
+    product = json['product'] != null ? Product.fromJson(json['product']) : null;
+
+    // product = json['product'];
     isBuying = json['isBuying'];
     quantity = json['quantity'];
     createdAt = json['createdAt'];

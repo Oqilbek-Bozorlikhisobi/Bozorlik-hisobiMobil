@@ -208,12 +208,15 @@ class _ShoppingsState extends ConsumerState<Shoppings> {
                                             // Date
                                             // Icon(Icons.calendar_today_outlined, size: 16, color: AppColors.grey),
                                             SizedBox(width: 4),
-                                            Text(
-                                              formatDate(shopping?.createdAt ?? ""),
-                                              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                                fontSize: 12,
-                                                color: Color.fromRGBO(75, 75, 75, 1),
-                                                fontWeight: FontWeight.w500,
+                                            Expanded(
+                                              child: Text(
+                                                overflow: TextOverflow.ellipsis,
+                                                formatDate(shopping?.createdAt ?? ""),
+                                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                                  fontSize: 12,
+                                                  color: Color.fromRGBO(75, 75, 75, 1),
+                                                  fontWeight: FontWeight.w500,
+                                                ),
                                               ),
                                             ),
                                           ],

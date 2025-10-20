@@ -35,7 +35,7 @@ class CartResponseData {
   bool? isAllBuy;
   List<Users>? users;
   String? marketCreator;
-  Null? pendingUsers;
+  List<Users>? pendingUsers;
   List<MarketLists>? marketLists;
   int? totalPrice;
   String? location;
@@ -71,7 +71,13 @@ class CartResponseData {
       });
     }
     marketCreator = json['marketCreator'];
-    pendingUsers = json['pendingUsers'];
+    // pendingUsers = json['pendingUsers'];
+    if (json['pendingUsers'] != null) {
+      pendingUsers = <Users>[];
+      json['pendingUsers'].forEach((v) {
+        pendingUsers!.add(Users.fromJson(v));
+      });
+    }
     if (json['marketLists'] != null) {
       marketLists = <MarketLists>[];
       json['marketLists'].forEach((v) {

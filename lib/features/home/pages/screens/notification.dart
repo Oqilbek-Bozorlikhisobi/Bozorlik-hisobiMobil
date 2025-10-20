@@ -370,7 +370,7 @@ class _NotificationScreenState extends State<NotificationScreen>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  notification.titleUz ?? "",
+                  notification.note ?? "",
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight:

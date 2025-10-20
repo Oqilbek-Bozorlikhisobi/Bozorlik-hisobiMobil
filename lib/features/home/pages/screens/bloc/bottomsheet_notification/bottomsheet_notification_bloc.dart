@@ -32,7 +32,7 @@ class BottomsheetNotificationBloc
           marketId: event.marketId,
           accept: event.accept,
         );
-        if (response['message'] == "ok") {
+        if (response['statusCode'].toString() == "200") {
           emit(state.copyWith(status: Status.success));
         }
       } on DioException catch (e) {

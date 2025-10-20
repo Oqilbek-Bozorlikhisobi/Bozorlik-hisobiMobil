@@ -85,7 +85,7 @@ class _NotificationSuccessBottomsheetState
                 ),
                 12.vertical,
                 Text(
-                  "${maskFormatter2.maskText(widget.data?.receiver?.phoneNumber ?? "")} (${(widget.data?.receiver?.fullName ?? "")})",
+                  "${formatPhoneNumber(widget.data?.sender?.phoneNumber ?? "")} (${(widget.data?.sender?.fullName ?? "")})",
                   style: Theme.of(context).textTheme.titleMedium!.copyWith(
                     fontWeight: FontWeight.w600,
                   ),

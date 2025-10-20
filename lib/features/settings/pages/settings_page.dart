@@ -6,6 +6,7 @@ import 'package:bozorlik/common/values/app_assets.dart';
 import 'package:bozorlik/common/values/app_infos.dart';
 import 'package:bozorlik/common/widgets/custom_error_widget.dart';
 import 'package:bozorlik/common/widgets/custom_scaffold_loading.dart';
+import 'package:bozorlik/features/auth/pages/forgot_password_page.dart';
 import 'package:bozorlik/features/settings/widgets/coming_soon_dialog.dart';
 import 'package:bozorlik/features/settings/widgets/feedback_modal.dart';
 import 'package:bozorlik/utils/mask.dart';
@@ -129,7 +130,8 @@ class SettingsPage extends HookConsumerWidget {
                         svg: AppIcons.editPassword,
                         title: 'edit_password'.tr(),
                         onTap: () {
-                          showComingSoon(context: context);
+                          Navigator.of(context).push(CupertinoPageRoute(builder: (context)=>ForgotPasswordPage()));
+                          // showComingSoon(context: context);
                         },
                       ),
                       Divider(thickness: 0.5, color: AppColors.greyText.withValues(alpha: 0.5)),
