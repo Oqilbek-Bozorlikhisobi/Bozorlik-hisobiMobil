@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" tools:node="remove"/>
     <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" tools:node="remove"/>
 
+
     <!-- ✅ BU joyda bo'lishi kerak -->
     <queries>
         <intent>
@@ -30,6 +31,22 @@
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:label="BOZOR APP">
+        <receiver
+            android:name="me.carda.awesome_notifications.notifications.receivers.NotificationReceiver"
+            android:exported="true" />
+
+        <receiver
+            android:name="me.carda.awesome_notifications.notifications.receivers.ActionReceiver"
+            android:exported="true" />
+
+        <receiver
+            android:name="me.carda.awesome_notifications.notifications.receivers.DismissedReceiver"
+            android:exported="true" />
+
+        <receiver
+            android:name="me.carda.awesome_notifications.notifications.receivers.ScheduledNotificationReceiver"
+            android:exported="true" />
+
 
         <activity
             android:name=".MainActivity"

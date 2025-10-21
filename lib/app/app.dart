@@ -1,13 +1,45 @@
+import 'dart:io';
+
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:bozorlik/app/router.dart';
 import 'package:bozorlik/app/theme.dart';
+import 'package:bozorlik/utils/notification.dart';
 import 'package:bozorlik/utils/theme/theme_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toastification/toastification.dart';
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
   const App({super.key});
+
+  @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+
+  @override
+  void initState() {
+    super.initState();
+    AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
+      if (!isAllowed) {
+        AwesomeNotifications().requestPermissionToSendNotifications();
+      }
+    });
+
+    // Foreground holatda pushni tinglash
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      if (Platform.isIOS) {
+        if (message.notification == null) {
+          showAwesomeNotification(message);
+        }
+      } else {
+        showAwesomeNotification(message);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
