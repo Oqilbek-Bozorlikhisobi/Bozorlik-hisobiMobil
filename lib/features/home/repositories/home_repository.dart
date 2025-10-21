@@ -54,7 +54,7 @@ class HomeRepository {
 
   Future<Map<String, dynamic>> getBunner() async {
     try {
-      final response = await requestHelper.getWithAuth("/bunner");
+      final response = await requestHelper.getWithAuth("/bunner",);
 
       return response;
     } catch (e) {

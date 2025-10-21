@@ -49,7 +49,7 @@ class MainPage extends HookConsumerWidget {
             boxShadow: <BoxShadow>[BoxShadow(color: Colors.black12, blurRadius: 5)],
           ),
           child: BottomNavigationBar(
-            backgroundColor: Colors.white,
+            backgroundColor: AppColors.white,
             type: BottomNavigationBarType.fixed,
             elevation: 10,
 

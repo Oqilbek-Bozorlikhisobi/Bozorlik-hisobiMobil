@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "789077363083",
+    "project_id": "bozorapp-151f6",
+    "storage_bucket": "bozorapp-151f6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:789077363083:android:02b2537ebc4317cc91078e",
+        "android_client_info": {
+          "package_name": "uz.bozorlik.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjKi0ohxmNsuHT2PAZjhkaCm6w-9Xofc4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
