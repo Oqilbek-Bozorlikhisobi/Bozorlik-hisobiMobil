@@ -14,9 +14,11 @@ import 'package:bozorlik/features/products/models/product_model.dart';
 import 'package:bozorlik/features/products/models/unit_model.dart';
 import 'package:bozorlik/features/products/notifiers/units_notifier.dart';
 import 'package:bozorlik/features/products/widgets/select_market_bottomsheet.dart';
+import 'package:bozorlik/utils/textfield_summ_formatter.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -93,7 +95,6 @@ class ProductAddModal extends HookConsumerWidget {
                         ).then((v) {
                           if (v != null) {
                             MarketabilityResponseData data = v;
-                            // BU YERDA O'ZGARTIRISH: .value orqali o'zgartiramiz
                             selectMarketName.value = data.name;
                             selectMarketId.value = data.id;
                           }
@@ -109,7 +110,6 @@ class ProductAddModal extends HookConsumerWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            // BU YERDA O'ZGARTIRISH: .value orqali o'qiymiz
                             Text(selectMarketName.value ?? "select_market".tr(), style: TextStyle(fontSize: 16, color: Colors.black87)),
                             Icon(Icons.keyboard_arrow_down, color: Colors.grey),
                           ],
@@ -132,8 +132,13 @@ class ProductAddModal extends HookConsumerWidget {
                         child: Expanded(
                           flex: 2,
                           child: TextField(
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                              NumberFormatter(),
+                            ],
                             controller: amountController,
                             decoration: InputDecoration(
+
                               hintText: "amount_example".tr(),
                               hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 15),
                               border: InputBorder.none,
@@ -210,7 +215,7 @@ class ProductAddModal extends HookConsumerWidget {
                             productId: model?.id??"",
                             description: descriptionController.text,
                             name: nameController.text,
-                            amount: double.tryParse(amountController.text) ?? 0,
+                            amount: double.tryParse(getUnformattedValue(amountController.text)) ?? 0,
                             unitId: unit.value?.id ?? "",
                             marketId: selectMarketId.value ?? "",
                           );

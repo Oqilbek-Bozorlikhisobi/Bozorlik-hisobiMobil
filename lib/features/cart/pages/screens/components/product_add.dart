@@ -4,12 +4,15 @@ import 'package:bozorlik/common/widgets/custom_button.dart';
 import 'package:bozorlik/common/widgets/custom_text_field.dart';
 import 'package:bozorlik/common/widgets/custom_toast.dart';
 import 'package:bozorlik/features/cart/bloc/inner_cart/inner_cart_bloc.dart';
-import 'package:bozorlik/features/cart/models/get_all_units_response.dart' hide MarketLists;
+import 'package:bozorlik/features/cart/models/get_all_units_response.dart'
+    hide MarketLists;
 import 'package:bozorlik/features/cart/pages/screens/components/select_unit_bottomsheet.dart';
 import 'package:bozorlik/utils/enums.dart';
+import 'package:bozorlik/utils/textfield_summ_formatter.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
@@ -218,16 +221,22 @@ import '../../../models/cart_response.dart';
 // }
 
 class ProductAddLocaleBottomsheet extends StatefulWidget {
-  const ProductAddLocaleBottomsheet({super.key, required this.marketName, required this.marketId});
+  const ProductAddLocaleBottomsheet({
+    super.key,
+    required this.marketName,
+    required this.marketId,
+  });
 
   final String marketName;
   final String marketId;
 
   @override
-  State<ProductAddLocaleBottomsheet> createState() => _ProductAddLocaleBottomsheetState();
+  State<ProductAddLocaleBottomsheet> createState() =>
+      _ProductAddLocaleBottomsheetState();
 }
 
-class _ProductAddLocaleBottomsheetState extends State<ProductAddLocaleBottomsheet> {
+class _ProductAddLocaleBottomsheetState
+    extends State<ProductAddLocaleBottomsheet> {
   final bloc = InnerCartBloc();
 
   final TextEditingController nameController = TextEditingController();
@@ -264,8 +273,16 @@ class _ProductAddLocaleBottomsheetState extends State<ProductAddLocaleBottomshee
           },
           builder: (context, state) {
             return Container(
-              decoration: BoxDecoration(color: CupertinoColors.white, borderRadius: BorderRadius.vertical(top: Radius.circular(12))),
-              padding: EdgeInsets.only(left: 8, right: 8, top: 12, bottom: MediaQuery.of(context).viewInsets.bottom),
+              decoration: BoxDecoration(
+                color: CupertinoColors.white,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+              ),
+              padding: EdgeInsets.only(
+                left: 8,
+                right: 8,
+                top: 12,
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+              ),
               child: SingleChildScrollView(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 8.0),
@@ -273,7 +290,10 @@ class _ProductAddLocaleBottomsheetState extends State<ProductAddLocaleBottomshee
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text("new_add_product".tr(), style: Theme.of(context).textTheme.titleMedium),
+                      Text(
+                        "new_add_product".tr(),
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
                       10.vertical,
 
                       CustomTextField(
@@ -284,7 +304,13 @@ class _ProductAddLocaleBottomsheetState extends State<ProductAddLocaleBottomshee
                       ),
                       10.vertical,
                       10.vertical,
-                      Text("select_market".tr(), style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w400, fontSize: 14)),
+                      Text(
+                        "select_market".tr(),
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 14,
+                        ),
+                      ),
                       8.vertical,
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -306,18 +332,35 @@ class _ProductAddLocaleBottomsheetState extends State<ProductAddLocaleBottomshee
                               // });
                             },
                             child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 10,
+                              ),
                               decoration: BoxDecoration(
                                 color: AppColors.white,
                                 borderRadius: BorderRadius.circular(12),
-                                border: Border.all(width: 2, color: CupertinoColors.systemGroupedBackground),
+                                border: Border.all(
+                                  width: 2,
+                                  color:
+                                      CupertinoColors.systemGroupedBackground,
+                                ),
                               ),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   // BU YERDA O'ZGARTIRISH: .value orqali o'qiymiz
-                                  Text(widget.marketName ?? "select_market".tr(), style: TextStyle(fontSize: 16, color: Colors.black87)),
-                                  Icon(Icons.keyboard_arrow_down, color: Colors.grey),
+                                  Text(
+                                    widget.marketName ?? "select_market".tr(),
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                  Icon(
+                                    Icons.keyboard_arrow_down,
+                                    color: Colors.grey,
+                                  ),
                                 ],
                               ),
                             ),
@@ -342,12 +385,23 @@ class _ProductAddLocaleBottomsheetState extends State<ProductAddLocaleBottomshee
                               child: Expanded(
                                 flex: 2,
                                 child: TextField(
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.digitsOnly,
+                                    NumberFormatter(),
+                                  ],
                                   controller: amountController,
                                   decoration: InputDecoration(
                                     hintText: "amount_example".tr(),
-                                    hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 15),
+                                    hintStyle: TextStyle(
+                                      color: Colors.grey.shade400,
+                                      fontSize: 15,
+                                    ),
                                     border: InputBorder.none,
-                                    contentPadding: const EdgeInsets.only(left: 16, top: 11, bottom: 11),
+                                    contentPadding: const EdgeInsets.only(
+                                      left: 16,
+                                      top: 11,
+                                      bottom: 11,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -355,7 +409,12 @@ class _ProductAddLocaleBottomsheetState extends State<ProductAddLocaleBottomshee
                             8.horizontal,
                             GestureDetector(
                               onTap: () {
-                                showCupertinoModalBottomSheet(context: context, builder: (context) => SelectUnitBottomsheet(id: unitId)).then((v) {
+                                showCupertinoModalBottomSheet(
+                                  context: context,
+                                  builder:
+                                      (context) =>
+                                          SelectUnitBottomsheet(id: unitId),
+                                ).then((v) {
                                   data = v;
                                   unitName = data?.nameUz ?? "";
                                   unitId = data?.id ?? "";
@@ -364,17 +423,33 @@ class _ProductAddLocaleBottomsheetState extends State<ProductAddLocaleBottomshee
                               },
 
                               child: Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 11,
+                                ),
                                 decoration: BoxDecoration(
                                   color: AppColors.grey,
-                                  borderRadius: BorderRadius.only(topRight: Radius.circular(12), bottomRight: Radius.circular(12)),
+                                  borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(12),
+                                    bottomRight: Radius.circular(12),
+                                  ),
                                 ),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Text("${unitName ?? ""} narxi", style: TextStyle(color: Colors.black87, fontSize: 15)),
+                                    Text(
+                                      "${unitName ?? ""} narxi",
+                                      style: TextStyle(
+                                        color: Colors.black87,
+                                        fontSize: 15,
+                                      ),
+                                    ),
                                     SizedBox(width: 8),
-                                    Icon(Icons.keyboard_arrow_down, color: Colors.black87, size: 20),
+                                    Icon(
+                                      Icons.keyboard_arrow_down,
+                                      color: Colors.black87,
+                                      size: 20,
+                                    ),
                                   ],
                                 ),
                               ),
@@ -384,14 +459,22 @@ class _ProductAddLocaleBottomsheetState extends State<ProductAddLocaleBottomshee
                       ),
 
                       10.vertical,
-                      CustomTextField(isDeletable: true, labelText: "description".tr(), controller: descriptionController, hintText: "..."),
+                      CustomTextField(
+                        isDeletable: true,
+                        labelText: "description".tr(),
+                        controller: descriptionController,
+                        hintText: "...",
+                      ),
                       20.vertical,
                       CustomButton(
                         isLoading: state.statusAddProduct == Status.loading,
                         text: "add_to_cart".tr(),
                         onTap: () async {
                           if (nameController.text.isEmpty) {
-                            showCustomToast(title: "Empty field", type: ToastificationType.error);
+                            showCustomToast(
+                              title: "Empty field",
+                              type: ToastificationType.error,
+                            );
                             return;
                           }
 
@@ -405,7 +488,12 @@ class _ProductAddLocaleBottomsheetState extends State<ProductAddLocaleBottomshee
                               // ),
                               marketId: widget.marketId,
                               productName: nameController.text,
-                              quantity: double.parse(amountController.text ?? "").toString(),
+                              quantity:
+                                  double.parse(
+                                    getUnformattedValue(
+                                      amountController.text ?? "",
+                                    ),
+                                  ).toString(),
                               unitId: data?.id ?? "",
                               description: descriptionController.text,
                             ),
