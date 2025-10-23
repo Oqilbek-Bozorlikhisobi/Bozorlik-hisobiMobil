@@ -6,6 +6,8 @@ import 'package:bozorlik/common/widgets/custom_toast.dart';
 import 'package:bozorlik/features/cart/bloc/inner_cart/inner_cart_bloc.dart';
 import 'package:bozorlik/features/cart/models/get_all_units_response.dart' hide MarketLists;
 import 'package:bozorlik/features/cart/pages/screens/components/select_unit_bottomsheet.dart';
+import 'package:bozorlik/features/categories/models/brends_response.dart';
+import 'package:bozorlik/features/categories/pages/categories_page.dart';
 import 'package:bozorlik/utils/enums.dart';
 import 'package:bozorlik/utils/textfield_summ_formatter.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -219,23 +221,25 @@ import '../../../models/cart_response.dart';
 //   }
 // }
 ///--------------------------------------------------------------------
-class ProductAddLocaleBottomsheet extends StatefulWidget {
-  const ProductAddLocaleBottomsheet({super.key, required this.marketName, required this.marketId});
+class ProductAddCartLocaleBottomsheet extends StatefulWidget {
+  const ProductAddCartLocaleBottomsheet({super.key, required this.marketName, required this.marketId});
 
   final String marketName;
   final String marketId;
 
   @override
-  State<ProductAddLocaleBottomsheet> createState() => _ProductAddLocaleBottomsheetState();
+  State<ProductAddCartLocaleBottomsheet> createState() => _ProductAddCartLocaleBottomsheetState();
 }
 
-class _ProductAddLocaleBottomsheetState extends State<ProductAddLocaleBottomsheet> {
+class _ProductAddCartLocaleBottomsheetState extends State<ProductAddCartLocaleBottomsheet> {
   final bloc = InnerCartBloc();
+  int _selectedIndex = 0;
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController amountController = TextEditingController();
   String? unitId;
+  String? selectProductId;
   String? unitName;
   GetAllUnitResponseData? data;
   final _formKey = GlobalKey<FormState>();
@@ -303,13 +307,152 @@ class _ProductAddLocaleBottomsheetState extends State<ProductAddLocaleBottomshee
                       children: [
                         Text("new_add_product".tr(), style: Theme.of(context).textTheme.titleMedium),
                         10.vertical,
+                        Container(
+                          decoration: BoxDecoration(
+                            color: AppColors.white,
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(color: AppColors.grey),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 6),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        _selectedIndex = 0;
+                                      });
+                                    },
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(vertical: 7),
+                                      decoration: BoxDecoration(
+                                        color: _selectedIndex == 0 ? AppColors.primaryColor : Colors.transparent,
+                                        borderRadius: BorderRadius.circular(14),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          'handwriting'.tr(),
+                                          style: TextStyle(
+                                            color: _selectedIndex == 0 ? Colors.white : Colors.black,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        _selectedIndex = 1;
+                                      });
+                                    },
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(vertical: 7),
+                                      decoration: BoxDecoration(
+                                        color: _selectedIndex == 1 ? AppColors.primaryColor : Colors.transparent,
+                                        borderRadius: BorderRadius.circular(14),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          'choose_brends'.tr(),
+                                          style: TextStyle(
+                                            color: _selectedIndex == 1 ? Colors.white : Colors.black,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        10.vertical,
 
-                        CustomTextField(
-                          isDeletable: true,
-                          validator: _validateProductName,
-                          labelText: "product_name".tr(),
-                          controller: nameController,
-                          hintText: "product_name_example".tr(),
+                        Builder(
+                          builder: (context) {
+                            if (_selectedIndex == 0) {
+                              return CustomTextField(
+                                isDeletable: true,
+                                validator: _validateProductName,
+                                labelText: "product_name".tr(),
+                                controller: nameController,
+                                hintText: "product_name_example".tr(),
+                              );
+                            } else {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "product_name".tr(),
+                                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w400, fontSize: 14),
+                                  ),
+                                  8.vertical,
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          showCupertinoModalBottomSheet(context: context, builder: (context)=>CategoriesPage(isCart: true,)).then((v){
+                                            if(v!=null){
+                                              BrendsResponseDataItemsProducts data=v;
+                                              final currentLocale = context.locale.languageCode;
+
+                                              // Tilga qarab title-ni tanlash
+                                              String getTitle() {
+                                                switch (currentLocale) {
+                                                  case 'uz':
+                                                    return data.titleUz ?? "";
+                                                  case 'ky':
+                                                    return data.titleUzk ?? "";
+                                                  case 'ru':
+                                                    return data.titleRu ?? "";
+                                                  case 'en':
+                                                    return data.titleEn ?? "";
+                                                  default:
+                                                    return data.titleUz ?? "";
+                                                }
+                                              }
+                                              nameController.text=getTitle();
+                                              selectProductId=data.id??"";
+                                              setState(() {
+
+                                              });
+                                            }
+
+                                          });
+                                        },
+                                        child: Container(
+                                          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                                          decoration: BoxDecoration(
+                                            color: AppColors.white,
+                                            borderRadius: BorderRadius.circular(12),
+                                            border: Border.all(width: 2, color: CupertinoColors.systemGroupedBackground),
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                nameController.text.isEmpty ? "Dena" : nameController.text,
+                                                style: TextStyle(fontSize: 16, color: AppColors.black),
+                                              ),
+                                              Icon(Icons.keyboard_arrow_down, color: AppColors.black),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              );
+                            }
+                          },
                         ),
 
                         20.vertical,
@@ -332,7 +475,7 @@ class _ProductAddLocaleBottomsheetState extends State<ProductAddLocaleBottomshee
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(widget.marketName ?? "select_market".tr(), style: TextStyle(fontSize: 16, color:Colors.grey)),
+                                    Text(widget.marketName ?? "select_market".tr(), style: TextStyle(fontSize: 16, color: Colors.grey)),
                                     Icon(Icons.keyboard_arrow_down, color: Colors.grey),
                                   ],
                                 ),
@@ -365,16 +508,12 @@ class _ProductAddLocaleBottomsheetState extends State<ProductAddLocaleBottomshee
 
                                     controller: amountController,
                                     decoration: InputDecoration(
-
                                       hintText: "amount_example".tr(),
                                       hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 15),
                                       border: InputBorder.none,
                                       contentPadding: const EdgeInsets.only(left: 16, top: 11, bottom: 11),
                                     ),
-                                    inputFormatters: [
-                                      FilteringTextInputFormatter.digitsOnly,
-                                      NumberFormatter()
-                                    ],
+                                    inputFormatters: [FilteringTextInputFormatter.digitsOnly, NumberFormatter()],
                                   ),
                                 ),
                               ),
@@ -420,7 +559,6 @@ class _ProductAddLocaleBottomsheetState extends State<ProductAddLocaleBottomshee
                           isLoading: state.statusAddProduct == Status.loading,
                           text: "add_to_cart".tr(),
                           onTap: () async {
-
                             if (!_formKey.currentState!.validate()) {
                               showCustomToast(title: "Please fill all required field".tr(), type: ToastificationType.error);
                               return;
@@ -431,7 +569,7 @@ class _ProductAddLocaleBottomsheetState extends State<ProductAddLocaleBottomshee
                             }
                             bloc.add(
                               AddNewProduct(
-                                productId: null,
+                                productId: selectProductId,
                                 marketId: widget.marketId,
                                 productName: nameController.text,
                                 quantity: double.parse(getUnformattedValue(amountController.text) ?? "").toString(),

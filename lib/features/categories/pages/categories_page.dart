@@ -10,12 +10,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'inner_brend_children/brends_children.dart';
 
 class CategoriesPage extends StatefulWidget {
-  const CategoriesPage({super.key});
+  const CategoriesPage({super.key, this.isCart});
+
+  final bool? isCart;
 
   @override
   State<CategoriesPage> createState() => _CategoriesPageState();
@@ -47,7 +50,6 @@ class _CategoriesPageState extends State<CategoriesPage> {
           if (state.status != Status.loading) {
             _refreshController.refreshCompleted();
           }
-
         },
         builder: (context, state) {
           return Scaffold(
@@ -99,10 +101,20 @@ class _CategoriesPageState extends State<CategoriesPage> {
                                 itemCount: state.items?.length,
                                 itemBuilder: (context, index) {
                                   return GestureDetector(
-                                    onTap: (){
-                                      Navigator.of(context).push(CupertinoPageRoute(builder: (context)=>BrendsChildrenScreen(title: state.items?[index].titleUz??"",
-                                      products: state.items?[index].products??[] ,
-                                      children: state.items?[index].children??[],)));
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                        CupertinoPageRoute(
+                                          builder:
+                                              (context) => BrendsChildrenScreen(
+                                                isCart: widget.isCart,
+                                                title: state.items?[index].titleUz ?? "",
+                                                products: state.items?[index].products ?? [],
+                                                children: state.items?[index].children ?? [],
+                                              ),
+                                        ),
+                                      ).then((v){
+                                        context.pop(v);
+                                      });
                                     },
                                     child: Container(
                                       margin: EdgeInsets.symmetric(vertical: 4, horizontal: 4),
@@ -136,7 +148,6 @@ class _CategoriesPageState extends State<CategoriesPage> {
                                                     Expanded(
                                                       child: Builder(
                                                         builder: (context) {
-
                                                           final currentLocale = context.locale.languageCode;
 
                                                           // Tilga qarab title-ni tanlash
@@ -154,6 +165,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                                                                 return state.items?[index].titleUz ?? "";
                                                             }
                                                           }
+
                                                           return Text(
                                                             overflow: TextOverflow.ellipsis,
                                                             getTitle() ?? "",
@@ -161,7 +173,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                                                               context,
                                                             ).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600, fontSize: 16),
                                                           );
-                                                        }
+                                                        },
                                                       ),
                                                     ),
                                                   ],

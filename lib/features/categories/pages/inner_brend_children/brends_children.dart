@@ -8,15 +8,17 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 import 'brend_product_children_screen.dart';
 
 class BrendsChildrenScreen extends StatefulWidget {
-  const BrendsChildrenScreen({super.key, required this.children, required this.title, required this.products});
+  const BrendsChildrenScreen({super.key, required this.children, required this.title, required this.products, this.isCart});
 
   final List<BrendsResponseDataItemsChildren> children;
   final List<BrendsResponseDataItemsProducts> products;
   final String title;
+  final bool? isCart;
 
   @override
   State<BrendsChildrenScreen> createState() => _BrendsChildrenScreenState();
@@ -60,9 +62,15 @@ class _BrendsChildrenScreenState extends State<BrendsChildrenScreen> {
                                 Navigator.of(context).push(
                                   CupertinoPageRoute(
                                     builder:
-                                        (context) => BrendProductChildrenScreen(products: widget.children[index].products ?? [], title: widget.title),
+                                        (context) => BrendProductChildrenScreen(
+                                            isCart: widget.isCart,
+                                            products: widget.children[index].products ?? [], title: widget.title),
                                   ),
-                                );
+                                ).then((v){
+                                  if(v!=null){
+                                  context.pop(v);
+                                  }
+                                });
                               },
                               child: Container(
                                 margin: EdgeInsets.symmetric(vertical: 4, horizontal: 4),
@@ -95,7 +103,6 @@ class _BrendsChildrenScreenState extends State<BrendsChildrenScreen> {
                                               Expanded(
                                                 child: Builder(
                                                   builder: (context) {
-
                                                     final currentLocale = context.locale.languageCode;
 
                                                     // Tilga qarab title-ni tanlash
@@ -113,12 +120,15 @@ class _BrendsChildrenScreenState extends State<BrendsChildrenScreen> {
                                                           return widget.children[index].titleUz ?? "";
                                                       }
                                                     }
+
                                                     return Text(
                                                       overflow: TextOverflow.ellipsis,
                                                       getTitle() ?? "",
-                                                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600, fontSize: 16),
+                                                      style: Theme.of(
+                                                        context,
+                                                      ).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600, fontSize: 16),
                                                     );
-                                                  }
+                                                  },
                                                 ),
                                               ),
                                             ],
@@ -157,23 +167,27 @@ class _BrendsChildrenScreenState extends State<BrendsChildrenScreen> {
                           itemBuilder: (context, index) {
                             return GestureDetector(
                               onTap: () async {
-                                final result = await ProductAddModal.show(
-                                  context,
-                                  model: ProductModel(
-                                    titleUz: widget.products[index].titleUz,
-                                    titleEn: widget.products[index].titleEn,
-                                    titleRu: widget.products[index].titleRu,
-                                    image: widget.products[index].images,
-                                    id: widget.products[index].id,
-                                     category: ProductModel(
+                                if (widget.isCart == true) {
+                                  context.pop(widget.products[index]);
+                                } else {
+                                  final result = await ProductAddModal.show(
+                                    context,
+                                    model: ProductModel(
                                       titleUz: widget.products[index].titleUz,
                                       titleEn: widget.products[index].titleEn,
                                       titleRu: widget.products[index].titleRu,
                                       image: widget.products[index].images,
                                       id: widget.products[index].id,
+                                      category: ProductModel(
+                                        titleUz: widget.products[index].titleUz,
+                                        titleEn: widget.products[index].titleEn,
+                                        titleRu: widget.products[index].titleRu,
+                                        image: widget.products[index].images,
+                                        id: widget.products[index].id,
+                                      ),
                                     ),
-                                  ),
-                                );
+                                  );
+                                }
                               },
                               child: Container(
                                 margin: EdgeInsets.symmetric(vertical: 4, horizontal: 4),
@@ -206,7 +220,6 @@ class _BrendsChildrenScreenState extends State<BrendsChildrenScreen> {
                                               Expanded(
                                                 child: Builder(
                                                   builder: (context) {
-
                                                     final currentLocale = context.locale.languageCode;
 
                                                     // Tilga qarab title-ni tanlash
@@ -224,12 +237,15 @@ class _BrendsChildrenScreenState extends State<BrendsChildrenScreen> {
                                                           return widget.products[index].titleUz ?? "";
                                                       }
                                                     }
+
                                                     return Text(
                                                       overflow: TextOverflow.ellipsis,
-                                                      getTitle()?? "",
-                                                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600, fontSize: 16),
+                                                      getTitle() ?? "",
+                                                      style: Theme.of(
+                                                        context,
+                                                      ).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600, fontSize: 16),
                                                     );
-                                                  }
+                                                  },
                                                 ),
                                               ),
                                             ],

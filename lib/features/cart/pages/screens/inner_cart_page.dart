@@ -23,6 +23,7 @@ import 'components/delete_product_bottomsheet.dart';
 import 'components/end_market_bottomsheet.dart';
 import 'components/info_product_bottomsheet.dart';
 import 'components/product_add.dart';
+import 'components/product_add_cart.dart';
 import 'components/un_buy_product.dart';
 
 class InnerCartScreen extends StatefulWidget {
@@ -61,7 +62,7 @@ class _InnerCartScreenState extends State<InnerCartScreen> {
                         showCupertinoModalBottomSheet(
                           context: context,
                           builder:
-                              (context) => ProductAddLocaleBottomsheet(marketName: widget.cartData.name ?? "", marketId: widget.cartData.id ?? ""),
+                              (context) => ProductAddCartLocaleBottomsheet(marketName: widget.cartData.name ?? "", marketId: widget.cartData.id ?? ""),
                         ).then((v) {
                           if (v != null) {
                             MarketLists vData = v;

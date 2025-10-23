@@ -195,7 +195,10 @@
   "completed_markets": "Tugallangan bozorliklar",
   "invitation_number": "Raqam orqali taklif qilish",
   "user_phone": "*Foydalanuvchi raqami",
-  "save": "Saqlash"
+  "save": "Saqlash",
+
+  "handwriting": "Qo'lda yozish",
+  "choose_brends": "Brendlardan tanlash"
 
 
 }

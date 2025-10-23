@@ -7,12 +7,14 @@ import 'package:bozorlik/features/products/widgets/product_add_modal.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 class BrendProductChildrenScreen extends StatefulWidget {
-  const BrendProductChildrenScreen({super.key, required this.products, required this.title});
+  const BrendProductChildrenScreen({super.key, required this.products, required this.title, this.isCart});
 
   final List<BrendsResponseDataItemsProducts> products;
   final String title;
+  final bool? isCart;
   @override
   State<BrendProductChildrenScreen> createState() => _BrendProductChildrenScreenState();
 }
@@ -43,6 +45,11 @@ class _BrendProductChildrenScreenState extends State<BrendProductChildrenScreen>
                     onTap: () async {
                       // showCupertinoModalBottomSheet(context: context, builder: (context)=>CreateMarketBottomsheet());
 
+                      if(widget.isCart==true){
+                          context.pop(widget.products[index]);
+
+                      }else{
+
                       final result = await ProductAddModal.show(
                         context,
                         model: ProductModel(
@@ -60,6 +67,8 @@ class _BrendProductChildrenScreenState extends State<BrendProductChildrenScreen>
                           ),
                         ),
                       );
+                      }
+
                       // if (result != null && result is bool && result == true) {
                       //   final model =CategoryModel();
                       //

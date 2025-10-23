@@ -1,3 +1,5 @@
+import 'package:bozorlik/features/cart/models/cart_response.dart';
+
 class PostProductResponse {
   String? message;
   int? statusCode;
@@ -27,10 +29,10 @@ class PostProductResponseData {
   String? createdAt;
   String? updatedAt;
   Market? market;
-  Null? product;
+  Product? product;
   String? productName;
   int? quantity;
-  Null? price;
+  double? price;
   String? calculationType;
   bool? isBuying;
   String? description;
@@ -60,7 +62,7 @@ class PostProductResponseData {
     updatedAt = json['updatedAt'];
     market =
     json['market'] != null ? Market.fromJson(json['market']) : null;
-    product = json['product'];
+    product = json['product']!=null?Product.fromJson(json["product"]):null;
     productName = json['productName'];
     quantity = json['quantity'];
     price = json['price'];
