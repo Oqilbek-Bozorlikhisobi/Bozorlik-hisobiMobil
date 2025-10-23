@@ -59,7 +59,10 @@ class _HistoryNewState extends State<HistoryNew> {
         builder: (context, state) {
           return Scaffold(
             backgroundColor: AppColors.backGround,
-            appBar: AppBar(title: Text('history').tr()),
+            appBar: AppBar(
+                backgroundColor: AppColors.backGround,
+
+                title: Text('history').tr()),
             body:
                 state.status == Status.loading
                     ? Center(child: LoadingWidget())
@@ -74,7 +77,7 @@ class _HistoryNewState extends State<HistoryNew> {
                           children: [
                             SvgPicture.asset(AppIcons.emptyMarket, height: 200, width: 200),
                             12.vertical,
-                            Text("cart_empty".tr(), textAlign: TextAlign.center, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
+                            Text("cart_empty".tr(), textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 18, fontWeight: FontWeight.w700)),
                             10.vertical,
                             Text(
                               "start_adding_products".tr(),

@@ -265,11 +265,11 @@ class PendingUsers {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['fullName'] = this.fullName;
-    data['phoneNumber'] = this.phoneNumber;
-    data['createdAt'] = this.createdAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['fullName'] = fullName;
+    data['phoneNumber'] = phoneNumber;
+    data['createdAt'] = createdAt;
     return data;
   }
 }

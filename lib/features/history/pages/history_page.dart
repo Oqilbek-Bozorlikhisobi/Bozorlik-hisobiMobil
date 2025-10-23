@@ -1,3 +1,4 @@
+import 'package:bozorlik/app/theme.dart';
 import 'package:bozorlik/common/extension/number_extension.dart';
 import 'package:bozorlik/common/widgets/custom_error_widget.dart';
 import 'package:bozorlik/common/widgets/loading_widget.dart';
@@ -19,7 +20,11 @@ class HistoryPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final history = ref.watch(historyNotifierProvider);
     return Scaffold(
-      appBar: AppBar(title: Text('history').tr()),
+      backgroundColor: AppColors.backGround,
+      appBar: AppBar(
+          backgroundColor: AppColors.backGround,
+
+          title: Text('history').tr()),
       body: history.when(
         data: (data) {
           return data.isEmpty

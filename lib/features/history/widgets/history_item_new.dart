@@ -38,7 +38,7 @@ class HistoryItemNew extends StatelessWidget {
                 ),
                 Text(
                   (shopping.name ?? "O").substring(0, 1).toUpperCase(),
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.black),
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
                 ),
               ],
             ),
@@ -58,7 +58,7 @@ class HistoryItemNew extends StatelessWidget {
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
-                          color: AppColors.black,
+                          color: AppColors.textPrimary,
                         ),
                       ),
                       TextSpan(

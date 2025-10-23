@@ -23,11 +23,12 @@ class DeleteProductEvent extends InnerCartEvent {
 class AddNewProduct extends InnerCartEvent {
   final String marketId;
   final String productName;
+  final String? productId;
   final String quantity;
   final String unitId;
   final String description;
 
-  AddNewProduct({required this.marketId, required this.productName, required this.quantity, required this.unitId, required this.description});
+  AddNewProduct( {this.productId,required this.marketId, required this.productName, required this.quantity, required this.unitId, required this.description});
 }
 
 class AddNewProductLocalEvent extends InnerCartEvent {

@@ -29,57 +29,35 @@ class _ShoppingsState extends ConsumerState<Shoppings> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        ProviderScope.containerOf(
-          context,
-        ).read(indexNotifierProvider.notifier).changeIndex(2);
-
+      onTap: () {
+        ProviderScope.containerOf(context).read(indexNotifierProvider.notifier).changeIndex(2);
       },
       child: BlocConsumer<HomeBloc, HomeState>(
         listener: (context, state) {},
         builder: (context, state) {
           return Container(
             margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: AppColors.white,
-            ),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: AppColors.white),
             child: Column(
               children: [
                 GestureDetector(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 12,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          "shoppings".tr(),
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.black,
-                          ),
-                        ),
+                        Text("shoppings".tr(), style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
                         InkWell(
                           onTap: () {
-                            ProviderScope.containerOf(
-                              context,
-                            ).read(indexNotifierProvider.notifier).changeIndex(2);
+                            ProviderScope.containerOf(context).read(indexNotifierProvider.notifier).changeIndex(2);
                           },
                           child: Container(
                             padding: EdgeInsets.all(6),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
-                              color: AppColors.grey.withOpacity(0.2),
+                              color: context.isDarkMode ? AppColors.textPrimary : AppColors.grey.withOpacity(0.2),
                             ),
-                            child: Icon(
-                              Icons.arrow_forward_ios_rounded,
-                              color: AppColors.black,
-                              size: 16,
-                            ),
+                            child: Icon(Icons.arrow_forward_ios_rounded, color: AppColors.black, size: 16),
                           ),
                         ),
                       ],
@@ -107,13 +85,7 @@ class _ShoppingsState extends ConsumerState<Shoppings> {
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Icon(Icons.refresh),
-                                        Text(
-                                          state.errorMessageMarket ?? "Xatolik",
-                                          style:
-                                              Theme.of(
-                                                context,
-                                              ).textTheme.titleMedium,
-                                        ),
+                                        Text(state.errorMessageMarket ?? "Xatolik", style: Theme.of(context).textTheme.titleMedium),
                                       ],
                                     ),
                                   ),
@@ -124,11 +96,7 @@ class _ShoppingsState extends ConsumerState<Shoppings> {
                           : state.statusMarket == Status.success
                           ? ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            padding: EdgeInsets.only(
-                              left: 16,
-                              right: 16,
-                              bottom: 16,
-                            ),
+                            padding: EdgeInsets.only(left: 16, right: 16, bottom: 16),
                             itemCount: state.marketData?.length,
                             itemBuilder: (context, index) {
                               final shopping = state.marketData?[index];
@@ -171,12 +139,7 @@ class _ShoppingsState extends ConsumerState<Shoppings> {
                                   decoration: BoxDecoration(
                                     color: AppColors.backGround,
                                     borderRadius: BorderRadius.circular(12),
-                                    border: Border.all(
-                                      color: AppColors.grey.withValues(
-                                        alpha: 0.2,
-                                      ),
-                                      width: 1,
-                                    ),
+                                    border: Border.all(color: AppColors.grey.withValues(alpha: 0.2), width: 1),
                                   ),
                                   child: Row(
                                     children: [
@@ -190,22 +153,13 @@ class _ShoppingsState extends ConsumerState<Shoppings> {
                                               AppIcons.star,
                                               width: 56,
                                               height: 56,
-                                              colorFilter: ColorFilter.mode(
-                                                Color.fromRGBO(255, 194, 102, 1),
-                                                BlendMode.srcIn,
-                                              ),
+                                              colorFilter: ColorFilter.mode(Color.fromRGBO(255, 194, 102, 1), BlendMode.srcIn),
                                             ),
                                             Text(
-                                              ((shopping?.name?.isEmpty ?? false)
-                                                      ? "not_found".tr()
-                                                      : shopping?.name ?? "O")
+                                              ((shopping?.name?.isEmpty ?? false) ? "not_found".tr() : shopping?.name ?? "O")
                                                   .substring(0, 1)
                                                   .toUpperCase(),
-                                              style: TextStyle(
-                                                fontSize: 24,
-                                                fontWeight: FontWeight.bold,
-                                                color: AppColors.black,
-                                              ),
+                                              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
                                             ),
                                           ],
                                         ),
@@ -213,41 +167,26 @@ class _ShoppingsState extends ConsumerState<Shoppings> {
                                       SizedBox(width: 12),
                                       Expanded(
                                         child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             RichText(
                                               overflow: TextOverflow.ellipsis,
                                               text: TextSpan(
                                                 children: [
                                                   TextSpan(
-                                                    text:
-                                                        "${shopping?.name ?? ""}: ",
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyMedium!
-                                                        .copyWith(
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color: AppColors.black,
-                                                        ),
+                                                    text: "${shopping?.name ?? ""}: ",
+                                                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                                      fontSize: 16,
+                                                      fontWeight: FontWeight.w600,
+                                                      color: AppColors.textPrimary,
+                                                    ),
                                                   ),
                                                   TextSpan(
-                                                    text:
-                                                        "#${shopping?.marketType?.titleUz ?? shopping?.name ?? ""}",
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyMedium!
-                                                        .copyWith(
-                                                          color:
-                                                              AppColors
-                                                                  .primaryColor,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
+                                                    text: "#${shopping?.marketType?.titleUz ?? shopping?.name ?? ""}",
+                                                    style: Theme.of(
+                                                      context,
+                                                    ).textTheme.bodyMedium!.copyWith(color: AppColors.primaryColor, fontWeight: FontWeight.w500),
                                                   ),
                                                 ],
                                               ),
@@ -280,92 +219,46 @@ class _ShoppingsState extends ConsumerState<Shoppings> {
                                             Row(
                                               children: [
                                                 // Members
-                                                SvgPicture.asset(
-                                                  AppIcons.receipt,
-                                                  height: 18,
-                                                  width: 18,
-                                                ),
+                                                SvgPicture.asset(AppIcons.receipt, height: 18, width: 18),
                                                 SizedBox(width: 4),
                                                 Text(
                                                   "${state.marketData?.length}",
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyMedium!
-                                                      .copyWith(
-                                                        fontSize: 12,
-                                                        color: Color.fromRGBO(
-                                                          75,
-                                                          75,
-                                                          75,
-                                                          1,
-                                                        ),
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
+                                                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                                    fontSize: 12,
+                                                    color: Color.fromRGBO(75, 75, 75, 1),
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
                                                 ),
                                                 SizedBox(width: 8),
                                                 Text("|"),
                                                 SizedBox(width: 8),
-                                                SvgPicture.asset(
-                                                  AppIcons.wallet,
-                                                  height: 18,
-                                                  width: 18,
-                                                ),
+                                                SvgPicture.asset(AppIcons.wallet, height: 18, width: 18),
                                                 SizedBox(width: 4),
                                                 Text(
                                                   // PriceFormatterService.formatPrice(shopping?.totalPrice.toString()??""),
-                                                  NumberFormat('#,###', 'en_US')
-                                                      .format(
-                                                        shopping?.totalPrice ?? 0,
-                                                      )
-                                                      .replaceAll(',', ' '),
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyMedium!
-                                                      .copyWith(
-                                                        fontSize: 12,
-                                                        color: Color.fromRGBO(
-                                                          75,
-                                                          75,
-                                                          75,
-                                                          1,
-                                                        ),
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
+                                                  NumberFormat('#,###', 'en_US').format(shopping?.totalPrice ?? 0).replaceAll(',', ' '),
+                                                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                                    fontSize: 12,
+                                                    color: Color.fromRGBO(75, 75, 75, 1),
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
                                                 ),
                                                 SizedBox(width: 8),
                                                 Text("|"),
                                                 SizedBox(width: 8),
-                                                SvgPicture.asset(
-                                                  AppIcons.calendar,
-                                                  height: 18,
-                                                  width: 18,
-                                                ),
+                                                SvgPicture.asset(AppIcons.calendar, height: 18, width: 18),
                                                 // Date
                                                 // Icon(Icons.calendar_today_outlined, size: 16, color: AppColors.grey),
                                                 SizedBox(width: 4),
                                                 Expanded(
                                                   child: Text(
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    formatDate(
-                                                      shopping?.createdAt ?? "",
+                                                    overflow: TextOverflow.ellipsis,
+                                                    formatDate(shopping?.createdAt ?? ""),
+                                                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                                      fontSize: 12,
+                                                      color: Color.fromRGBO(75, 75, 75, 1),
+                                                      fontWeight: FontWeight.w500,
                                                     ),
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyMedium!
-                                                        .copyWith(
-                                                          fontSize: 12,
-                                                          color: Color.fromRGBO(
-                                                            75,
-                                                            75,
-                                                            75,
-                                                            1,
-                                                          ),
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
                                                   ),
                                                 ),
                                               ],
@@ -382,20 +275,9 @@ class _ShoppingsState extends ConsumerState<Shoppings> {
                           : state.statusMarket == Status.empty
                           ? Column(
                             children: [
-                              SvgPicture.asset(
-                                AppIcons.emptyMarket,
-                                height: 40,
-                                width: 40,
-                              ),
+                              SvgPicture.asset(AppIcons.emptyMarket, height: 40, width: 40),
                               12.vertical,
-                              Text(
-                                "cart_empty".tr(),
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
+                              Text("cart_empty".tr(), textAlign: TextAlign.center, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
                             ],
                           )
                           : SizedBox(),
@@ -417,12 +299,5 @@ class ShoppingsItem {
   final String date;
   final Color color;
 
-  ShoppingsItem({
-    required this.color,
-    required this.title,
-    required this.tag,
-    required this.members,
-    required this.price,
-    required this.date,
-  });
+  ShoppingsItem({required this.color, required this.title, required this.tag, required this.members, required this.price, required this.date});
 }

@@ -316,7 +316,7 @@ class _CartPageState extends State<CartPage> {
                             Text(
                               "start_adding_products".tr(),
                               textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                              style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 14, fontWeight: FontWeight.w400),
                             ),
                             10.vertical,
 

@@ -170,6 +170,7 @@ class MarketLists {
   String? updatedAt;
   Product? product;
   String? productName;
+  String? calculationType;
   num? quantity;
   int? price;
   bool? isBuying;
@@ -187,6 +188,7 @@ class MarketLists {
     this.price,
     this.isBuying,
     this.description,
+    this.calculationType,
     this.user,
     this.unit,
   });
@@ -201,6 +203,7 @@ class MarketLists {
     price = json['price'];
     isBuying = json['isBuying'];
     description = json['description'];
+    calculationType = json['calculationType'];
     product = json['product'] != null ? Product.fromJson(json['product']) : null;
     user = json['user'] != null ? Users.fromJson(json['user']) : null;
     unit = json['unit'] != null ? Unit.fromJson(json['unit']) : null;
@@ -216,6 +219,7 @@ class MarketLists {
     data['quantity'] = quantity;
     data['price'] = price;
     data['isBuying'] = isBuying;
+    data['calculationType'] = calculationType;
     data['description'] = description;
     if (user != null) {
       data['user'] = user!.toJson();

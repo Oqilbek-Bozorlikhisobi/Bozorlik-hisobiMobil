@@ -39,7 +39,7 @@ class CartItemNew extends StatelessWidget {
                 ),
                 Text(
                   ((shopping?.name?.isEmpty??false)?"not_found".tr():shopping?.name ?? "OO").substring(0, 1).toUpperCase(),
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.black),
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
                 ),
               ],
             ),
@@ -56,7 +56,7 @@ class CartItemNew extends StatelessWidget {
                     children: [
                       TextSpan(
                         text: "${shopping?.name ?? ""}: ",
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.black),
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.textPrimary),
                       ),
                       TextSpan(
                         text: "#${shopping?.marketType?.titleUz ?? shopping?.name ?? ""}",

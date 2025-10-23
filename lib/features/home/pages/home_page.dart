@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
                     context.push(AppRoutes.search);
                   },
                   child: Container(
-                    decoration: BoxDecoration(shape: BoxShape.circle, color: AppColors.white),
+                    decoration: BoxDecoration(shape: BoxShape.circle, color:context.isDarkMode?AppColors.textPrimary:AppColors.white),
                     child: Transform.scale(scale: 0.5, child: SvgPicture.asset(AppIcons.search)),
                   ),
                 ),
@@ -72,7 +72,7 @@ class _HomePageState extends State<HomePage> {
                     // context.push(AppRoutes.search);
                   },
                   child: Container(
-                    decoration: BoxDecoration(shape: BoxShape.circle, color: AppColors.white),
+                    decoration: BoxDecoration(shape: BoxShape.circle, color: context.isDarkMode?AppColors.textPrimary:AppColors.white),
                     child: Padding(padding: EdgeInsets.all(8.0), child: SvgPicture.asset(AppIcons.notification)),
                   ),
                 ),

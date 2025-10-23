@@ -18,13 +18,15 @@ class BuyProduct extends StatelessWidget {
       children: [
         Row(
           children: [
-            Image.asset(AppImages.cartItem),
+            state.buyProducts?[index].product?.images == null
+                ? Image.asset(AppImages.cartItem)
+                : Image.network(state.buyProducts?[index].product?.images ?? "", height: 36, width: 36),
             5.horizontal,
             Text(
+              maxLines: 2,
               state.buyProducts?[index].quantity.toString() ?? "",
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600, fontSize: 16),
             ),
-
             Text(
               " ${state.buyProducts?[index].unit?.name.toString() ?? "dona"}",
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600, fontSize: 16),
@@ -34,23 +36,31 @@ class BuyProduct extends StatelessWidget {
             10.horizontal,
             Expanded(
               child: Text(
-                maxLines: 2,
+                // maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                state.buyProducts?[index].productName.toString() ??"",
+                state.buyProducts?[index].productName.toString() ?? "",
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w500, fontSize: 16, color: AppColors.darkGreyText),
               ),
             ),
             20.horizontal,
             Expanded(
+              flex: 3,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text("${"total".tr()}:"),
-                  Text(
-                    PriceFormatterService.formatPrice(
-                      ((state.buyProducts?[index].price ?? 0) * (state.buyProducts?[index].quantity ?? 0)).toString(),
-                    ),
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600, color: AppColors.primaryColor),
+                  Builder(
+                    builder: (context) {
+                      // var total= state.buyProducts?[index].calculationType=="one"?   ((state.buyProducts?[index].price ?? 0) * (state.buyProducts?[index].quantity ?? 0)):state.buyProducts?[index].t;
+                      return Text(
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        PriceFormatterService.formatPrice(
+                          ((state.buyProducts?[index].price ?? 0) * (state.buyProducts?[index].quantity ?? 0)).toString(),
+                        ),
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600, color: AppColors.primaryColor),
+                      );
+                    },
                   ),
                 ],
               ),

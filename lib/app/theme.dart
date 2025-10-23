@@ -437,6 +437,10 @@ class AppColors {
       ? const Color(0xFF121212)
       : const Color.fromRGBO(249, 249, 249, 1);
 
+  // static Color get textColor => _isDark
+  //     ? const Color.fromRGBO(249, 249, 249, 1)
+  //     : const Color(0xFF191919);
+
   static Color get grayNormal => const Color(0xFF8491A5);
 
   static Color get grey => _isDark
@@ -453,7 +457,7 @@ class AppColors {
 
   static Color get red600 => const Color(0xFFDC2626);
   static Color get red => const Color.fromRGBO(211, 47, 47, 1);
-  static Color get black => Colors.black;
+  static Color get black => _isDark?Colors.white:Colors.black;
 
   // STATIC ranglar ThemeData uchun
   static const primaryColorStatic = Color.fromRGBO(6, 178, 182, 1);

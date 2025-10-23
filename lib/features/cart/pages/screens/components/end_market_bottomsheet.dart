@@ -12,7 +12,7 @@ import 'package:go_router/go_router.dart';
 import 'package:toastification/toastification.dart';
 
 class EndMarketBottomsheet extends StatefulWidget {
-  const EndMarketBottomsheet({super.key,required this.marketTypeId,required this.marketId});
+  const EndMarketBottomsheet({super.key, required this.marketTypeId, required this.marketId});
 
   final String? marketTypeId;
   final String? marketId;
@@ -43,7 +43,7 @@ class _EndMarketBottomsheetState extends State<EndMarketBottomsheet> {
           },
           builder: (context, state) {
             return Padding(
-              padding: EdgeInsets.only(left: 16, right: 16, bottom: 40),
+              padding: EdgeInsets.only(left: 16, right: 16, bottom: MediaQuery.of(context).viewInsets.bottom+40),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
@@ -63,7 +63,7 @@ class _EndMarketBottomsheetState extends State<EndMarketBottomsheet> {
                   CustomTextField(isDeletable: true, labelText: "make_market".tr(), controller: nameController, hintText: "make_market_hint".tr()),
                   16.vertical,
                   CustomButton(
-                    isLoading: state.status==Status.loading,
+                    isLoading: state.status == Status.loading,
                     text: "confirmation".tr(),
                     onTap: () {
                       bloc.add(

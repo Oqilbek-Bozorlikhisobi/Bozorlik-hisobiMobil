@@ -30,9 +30,13 @@ class UnBuyProduct extends StatelessWidget {
           children: [
             Image.asset(AppImages.cartItem),
             5.horizontal,
-            Text(
-              state.unBuyProducts?[index].quantity.toString() ?? "",
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600, fontSize: 16),
+            Expanded(
+              child: Text(
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                state.unBuyProducts?[index].quantity.toString() ?? "",
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600, fontSize: 16),
+              ),
             ),
 
             Text(
@@ -44,43 +48,48 @@ class UnBuyProduct extends StatelessWidget {
             10.horizontal,
             Expanded(
               child: Text(
+                maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 state.unBuyProducts?[index].productName.toString() ?? "",
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w500, fontSize: 16, color: AppColors.darkGreyText),
               ),
             ),
             20.horizontal,
-            GestureDetector(
-              onTap: () {
-                onTapInfo();
-              },
-              child: Container(
-                decoration: BoxDecoration(color: AppColors.grey, borderRadius: BorderRadius.circular(12)),
-                child: Padding(padding: const EdgeInsets.all(8.0), child: SvgPicture.asset(AppIcons.information)),
-              ),
-            ),
-            8.horizontal,
-            GestureDetector(
-              onTap: () {
-                onTapBuy();
-              },
-              child: Container(
-                decoration: BoxDecoration(color: AppColors.primaryColor, borderRadius: BorderRadius.circular(12)),
-                child: Padding(padding: const EdgeInsets.all(8.0), child: Icon(Icons.check, color: AppColors.white)),
-              ),
-            ),
-            8.horizontal,
-            GestureDetector(
-              onTap: () {
-                onTapDelete();
-              },
-              child: Container(
-                decoration: BoxDecoration(color: AppColors.red, borderRadius: BorderRadius.circular(12)),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SvgPicture.asset(AppIcons.delete, colorFilter: ColorFilter.mode(AppColors.white, BlendMode.srcIn)),
+            Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    onTapInfo();
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(color: AppColors.grey, borderRadius: BorderRadius.circular(12)),
+                    child: Padding(padding: const EdgeInsets.all(8.0), child: SvgPicture.asset(AppIcons.information)),
+                  ),
                 ),
-              ),
+                8.horizontal,
+                GestureDetector(
+                  onTap: () {
+                    onTapBuy();
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(color: AppColors.primaryColor, borderRadius: BorderRadius.circular(12)),
+                    child: Padding(padding: const EdgeInsets.all(8.0), child: Icon(Icons.check, color: AppColors.white)),
+                  ),
+                ),
+                8.horizontal,
+                GestureDetector(
+                  onTap: () {
+                    onTapDelete();
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(color: AppColors.red, borderRadius: BorderRadius.circular(12)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SvgPicture.asset(AppIcons.delete, colorFilter: ColorFilter.mode(AppColors.white, BlendMode.srcIn)),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),

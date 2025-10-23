@@ -105,9 +105,15 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
                             return GestureDetector(
                               onTap: () {
                                 if(notification.isGlobal==true){
-                                showCupertinoModalBottomSheet(context: context, builder: (context) => NotificationInfoBottomsheet(data: notification,));
+                                showCupertinoModalBottomSheet(context: context, builder: (context) => NotificationInfoBottomsheet(data: notification,)).then((v){
+                                  bloc.add(GetNotificationEvent());
+
+                                });
                                 }else{
-                                showCupertinoModalBottomSheet(context: context, builder: (context) => NotificationInfoBottomsheet(data: notification,));
+                                showCupertinoModalBottomSheet(context: context, builder: (context) => NotificationInfoBottomsheet(data: notification,)).then((v){
+                                  bloc.add(GetNotificationEvent());
+
+                                });
 
                                 }
                               },
@@ -143,7 +149,22 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
                           itemCount: state.itemsUnRead?.length,
                           itemBuilder: (context, index) {
                             final notification = state.itemsUnRead?[index];
-                            return _buildNotificationCard(notification!);
+                            return GestureDetector(
+                                onTap: () {
+                                  if(notification.isGlobal==true){
+                                    showCupertinoModalBottomSheet(context: context, builder: (context) => NotificationInfoBottomsheet(data: notification,)).then((v){
+                                      bloc.add(GetUnReadNotificationEvent());
+
+                                    });
+                                  }else{
+                                    showCupertinoModalBottomSheet(context: context, builder: (context) => NotificationInfoBottomsheet(data: notification,)).then((v){
+                                      bloc.add(GetUnReadNotificationEvent());
+
+                                    });
+
+                                  }
+                                },
+                                child: _buildNotificationCard(notification!));
                           },
                         ),
                       );
@@ -174,7 +195,22 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
                           itemCount: state.itemsRead?.length,
                           itemBuilder: (context, index) {
                             final notification = state.itemsRead?[index];
-                            return _buildNotificationCard(notification!);
+                            return GestureDetector(
+                                onTap: () {
+                                  if(notification.isGlobal==true){
+                                    showCupertinoModalBottomSheet(context: context, builder: (context) => NotificationInfoBottomsheet(data: notification,)).then((v){
+                                      // bloc.add(GetReadNotificationEvent());
+
+                                    });
+                                  }else{
+                                    showCupertinoModalBottomSheet(context: context, builder: (context) => NotificationInfoBottomsheet(data: notification,)).then((v){
+                                      // bloc.add(GetReadNotificationEvent());
+
+                                    });
+
+                                  }
+                                },
+                                child: _buildNotificationCard(notification!));
                           },
                         ),
                       );

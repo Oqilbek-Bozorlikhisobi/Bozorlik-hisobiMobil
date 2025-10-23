@@ -64,14 +64,14 @@ class _DepartmentCardState extends State<DepartmentCard> {
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
-                            color: AppColors.black,
+                            color: AppColors.textPrimary,
                           ),
                         ),
                         Container(
                           padding: EdgeInsets.all(6),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
-                            color: AppColors.grey.withOpacity(0.2),
+                            color:context.isDarkMode?AppColors.textPrimary: AppColors.grey.withOpacity(0.2),
                           ),
                           child: Icon(
                             Icons.arrow_forward_ios_rounded,
@@ -178,7 +178,7 @@ class _DepartmentCardState extends State<DepartmentCard> {
                                         style: TextStyle(
                                           fontSize: 24,
                                           fontWeight: FontWeight.bold,
-                                          color: AppColors.black,
+                                          color: AppColors.textPrimary,
                                         ),
                                       ),
                                     ),
@@ -186,7 +186,7 @@ class _DepartmentCardState extends State<DepartmentCard> {
                                     Positioned(
                                       bottom: 16,
                                       left: 16,
-                                      child: SvgPicture.asset(AppIcons.logo),
+                                      child: SvgPicture.asset(context.isDarkMode?AppIcons.logoDark:AppIcons.logo),
                                     ),
                                   ],
                                 ),

@@ -12,17 +12,23 @@ class CartRepository2 {
 
     return response;
   }
+  Future<Map<String, dynamic>> deleteCartById({required String id}) async {
+    final response = await requestHelper.deleteWithAuth("/market-list/$id");
+
+    return response;
+  }
 
   Future<Map<String, dynamic>> addProduct({
     required String marketId,
     required String productName,
+    required String? productId,
     required String quantity,
     required String unitId,
     required String description,
   }) async {
     final response = await requestHelper.postWithAuth("/market-list", {
       "marketId": marketId,
-      // "productId": productName,
+      "productId": productId,
       "productName": productName,
       "quantity": quantity,
       "unitId": unitId,

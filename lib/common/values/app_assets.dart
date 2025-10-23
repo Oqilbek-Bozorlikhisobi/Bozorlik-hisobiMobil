@@ -1,5 +1,7 @@
 class AppIcons {
   static const String logo = "assets/svg/logo.svg";
+  static const String splashLogo = "assets/svg/splash_logo.svg";
+  static const String logoDark = "assets/svg/logo_dark.svg";
   static const String splash = "assets/svg/splash.svg";
   static const String main = "assets/svg/main.svg";
   static const String mainFilled = "assets/svg/main_filled.svg";

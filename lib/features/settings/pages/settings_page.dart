@@ -75,7 +75,10 @@ class SettingsPage extends HookConsumerWidget {
                             height: 60,
                             width: 60,
                             decoration: BoxDecoration(shape: BoxShape.circle, color: AppColors.white, border: Border.all(color: AppColors.greyText)),
-                            child: Padding(padding: const EdgeInsets.all(8.0), child: SvgPicture.asset(AppIcons.logo)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SvgPicture.asset(context.isDarkMode ? AppIcons.logoDark : AppIcons.logo),
+                            ),
                           ),
                           8.horizontal,
                           Expanded(
@@ -130,7 +133,7 @@ class SettingsPage extends HookConsumerWidget {
                         svg: AppIcons.editPassword,
                         title: 'edit_password'.tr(),
                         onTap: () {
-                          Navigator.of(context).push(CupertinoPageRoute(builder: (context)=>ForgotPasswordPage()));
+                          Navigator.of(context).push(CupertinoPageRoute(builder: (context) => ForgotPasswordPage()));
                           // showComingSoon(context: context);
                         },
                       ),

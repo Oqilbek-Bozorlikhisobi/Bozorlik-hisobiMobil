@@ -7,6 +7,7 @@ import 'package:bozorlik/features/cart/bloc/inner_cart/inner_cart_bloc.dart';
 import 'package:bozorlik/features/cart/models/get_all_units_response.dart' hide MarketLists;
 import 'package:bozorlik/features/cart/pages/screens/components/select_unit_bottomsheet.dart';
 import 'package:bozorlik/utils/enums.dart';
+import 'package:bozorlik/utils/textfield_summ_formatter.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -302,7 +303,7 @@ class _ProductAddLocaleBottomsheetState extends State<ProductAddLocaleBottomshee
             return Form(
               key: _formKey,
               child: Container(
-                decoration: BoxDecoration(color: CupertinoColors.white, borderRadius: BorderRadius.vertical(top: Radius.circular(12))),
+                decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.vertical(top: Radius.circular(12))),
                 padding: EdgeInsets.only(left: 8, right: 8, top: 12, bottom: MediaQuery.of(context).viewInsets.bottom),
                 child: SingleChildScrollView(
                   child: Padding(
@@ -342,7 +343,7 @@ class _ProductAddLocaleBottomsheetState extends State<ProductAddLocaleBottomshee
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(widget.marketName ?? "select_market".tr(), style: TextStyle(fontSize: 16, color: Colors.black87)),
+                                    Text(widget.marketName ?? "select_market".tr(), style: TextStyle(fontSize: 16, color:Colors.grey)),
                                     Icon(Icons.keyboard_arrow_down, color: Colors.grey),
                                   ],
                                 ),
@@ -383,7 +384,7 @@ class _ProductAddLocaleBottomsheetState extends State<ProductAddLocaleBottomshee
                                     ),
                                     inputFormatters: [
                                       FilteringTextInputFormatter.digitsOnly,
-
+                                      NumberFormatter()
                                     ],
                                   ),
                                 ),
@@ -430,24 +431,21 @@ class _ProductAddLocaleBottomsheetState extends State<ProductAddLocaleBottomshee
                           isLoading: state.statusAddProduct == Status.loading,
                           text: "add_to_cart".tr(),
                           onTap: () async {
-                            // if (nameController.text.isEmpty) {
-                            //   showCustomToast(title: "Empty field", type: ToastificationType.error);
-                            //   return;
-                            // }
+
                             if (!_formKey.currentState!.validate()) {
                               showCustomToast(title: "Please fill all required field".tr(), type: ToastificationType.error);
                               return;
                             }
-// Check unit
                             if (unitId == null || unitId!.isEmpty) {
                               showCustomToast(title: "Please fill all required field".tr(), type: ToastificationType.error);
                               return;
                             }
                             bloc.add(
                               AddNewProduct(
+                                productId: null,
                                 marketId: widget.marketId,
                                 productName: nameController.text,
-                                quantity: double.parse(amountController.text ?? "").toString(),
+                                quantity: double.parse(getUnformattedValue(amountController.text) ?? "").toString(),
                                 unitId: data?.id ?? "",
                                 description: descriptionController.text,
                               ),

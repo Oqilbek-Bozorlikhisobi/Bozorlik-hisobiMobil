@@ -54,7 +54,7 @@ class _CreateMarketBottomsheetState extends State<CreateMarketBottomsheet> {
         builder: (context, state) {
           return Material(
             child: Container(
-              decoration: BoxDecoration(color: CupertinoColors.white, borderRadius: BorderRadius.vertical(top: Radius.circular(12))),
+              decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.vertical(top: Radius.circular(12))),
               padding: EdgeInsets.only(left: 16, right: 16, top: 12, bottom: MediaQuery.of(context).viewInsets.bottom),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,11 +63,11 @@ class _CreateMarketBottomsheetState extends State<CreateMarketBottomsheet> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(height: 5, width: 36, decoration: BoxDecoration(color: AppColors.grey, borderRadius: BorderRadius.circular(2.5))),
+                      Container(height: 5, width: 36, decoration: BoxDecoration(color:context.isDarkMode?AppColors.textPrimary: AppColors.grey, borderRadius: BorderRadius.circular(2.5))),
                     ],
                   ),
                   12.vertical,
-                  Text("new_market_create".tr(), style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+                  Text("new_market_create".tr(), style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 18, fontWeight: FontWeight.w600,color: AppColors.textPrimary)),
                   12.vertical,
                   // Text("name_shopping_list".tr(), style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
                   // 30.vertical,

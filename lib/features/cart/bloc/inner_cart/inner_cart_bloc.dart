@@ -22,8 +22,8 @@ class InnerCartBloc extends Bloc<InnerCartEvent, InnerCartState> {
         final data = GetInnerCartResponse.fromJson(response);
 
         if (data.message == "ok") {
-           List<MarketLists> buyProducts = [];
-           List<MarketLists> unBuyProducts = [];
+          List<MarketLists> buyProducts = [];
+          List<MarketLists> unBuyProducts = [];
 
           // marketLists ni isBuying holatiga qarab ajratish
           if (data.data?.marketLists != null) {
@@ -36,11 +36,7 @@ class InnerCartBloc extends Bloc<InnerCartEvent, InnerCartState> {
             }
           }
 
-          emit(state.copyWith(
-            status: Status.success,
-            unBuyProducts: unBuyProducts,
-            buyProducts: buyProducts,
-          ));
+          emit(state.copyWith(status: Status.success, unBuyProducts: unBuyProducts, buyProducts: buyProducts));
         } else {
           emit(state.copyWith(status: Status.error, errorMessage: data.message));
         }
@@ -66,18 +62,19 @@ class InnerCartBloc extends Bloc<InnerCartEvent, InnerCartState> {
           quantity: event.quantity,
           unitId: event.unitId,
           description: event.description,
+          productId: event.productId,
         );
         final data = PostProductResponse.fromJson(response);
         if (response["statusCode"].toString() == "201") {
           var product = MarketLists(
-            id: data.data?.id??"",
+            id: data.data?.id ?? "",
             productName: data.data?.productName,
             quantity: (data.data?.quantity) ?? 1,
             unit: Unit(id: data.data?.unit?.id, name: data.data?.unit?.nameUz),
             isBuying: true,
             description: data.data?.description,
           );
-          emit(state.copyWith(statusAddProduct: Status.success,addNewProduct: product));
+          emit(state.copyWith(statusAddProduct: Status.success, addNewProduct: product));
         } else {
           emit(state.copyWith(statusAddProduct: Status.error, errorMessageAddProduct: response["message"].toString()));
         }
@@ -90,9 +87,11 @@ class InnerCartBloc extends Bloc<InnerCartEvent, InnerCartState> {
       unBuyList.add(event.buyProduct);
       emit(state.copyWith(unBuyProducts: unBuyList));
     });
-    on<DeleteProductEvent>((event, emit) {
+    on<DeleteProductEvent>((event, emit) async {
       var unBuyList = state.unBuyProducts ?? [];
       unBuyList.removeWhere((v) => v.id == event.id);
+
+      await repo.deleteCartById(id: event.id);
 
       emit(state.copyWith(unBuyProducts: unBuyList));
     });
