@@ -60,27 +60,36 @@ class MainPage extends HookConsumerWidget {
             },
             items: [
               buildBottomNavigationBarItem(
+                context: context,
+
                 iconPath: currentIndex == 0 ? AppIcons.homeFilled : AppIcons.home,
                 label: "main".tr(),
                 isActive: currentIndex == 0,
               ),
               buildBottomNavigationBarItem(
+                context: context,
+
                 iconPath: currentIndex == 1 ? AppIcons.mainFilled : AppIcons.main,
                 label: "categories".tr(),
                 isActive: currentIndex == 1,
               ),
               buildBottomNavigationBarItem(
+                context: context,
+
                 iconPath: currentIndex == 2 ? AppIcons.cartFilled : AppIcons.cart,
                 label: "cart".tr(),
                 badgeCount: cart.valueOrNull?.marketLists?.length ?? 0,
                 isActive: currentIndex == 2,
               ),
               buildBottomNavigationBarItem(
+                context: context,
                 iconPath: currentIndex == 3 ? AppIcons.historyFilled : AppIcons.history,
                 label: "history".tr(),
                 isActive: currentIndex == 3,
               ),
               buildBottomNavigationBarItem(
+                context: context,
+
                 iconPath: currentIndex == 4 ? AppIcons.mainFilled : AppIcons.main,
                 label: "menu".tr(),
                 isActive: currentIndex == 4,
@@ -97,25 +106,77 @@ class MainPage extends HookConsumerWidget {
     );
   }
 
-  BottomNavigationBarItem buildBottomNavigationBarItem({required String iconPath, required String label, required bool isActive, int? badgeCount}) {
-    {
-      return BottomNavigationBarItem(
-        icon: Container(
-          padding: EdgeInsets.symmetric(vertical: 4, horizontal: 12),
-          decoration: isActive ? BoxDecoration(borderRadius: BorderRadius.circular(10)) : null,
-          child: Badge(
-            isLabelVisible: false,
-            label: Text(badgeCount.toString()),
-            child: SvgPicture.asset(
-              iconPath,
-              height: 24,
-              width: 24,
-              colorFilter: isActive ? ColorFilter.mode(AppColors.primaryColor, BlendMode.srcIn) : null,
+  // BottomNavigationBarItem buildBottomNavigationBarItem({
+  //   required String iconPath,
+  //   required String label,
+  //   required bool isActive,
+  //   int? badgeCount,
+  //   required BuildContext context,
+  // }) {
+  //   {
+  //     return BottomNavigationBarItem(
+  //       icon: Container(
+  //         padding: EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+  //         decoration: isActive ? BoxDecoration(borderRadius: BorderRadius.circular(10)) : null,
+  //         child: Badge(
+  //           isLabelVisible: false,
+  //           label: Text(badgeCount.toString()),
+  //           child: SvgPicture.asset(
+  //             iconPath,
+  //             height: 24,
+  //             width: 24,
+  //             colorFilter: isActive ? ColorFilter.mode(AppColors.primaryColor, BlendMode.srcIn) : null,
+  //           ),
+  //         ),
+  //       ),
+  //       label: label,
+  //       backgroundColor: context.isDarkMode ? Colors.white : AppColors.black,
+  //     );
+  //   }
+  // }
+
+  BottomNavigationBarItem buildBottomNavigationBarItem({
+    required String iconPath,
+    required String label,
+    required bool isActive,
+    int? badgeCount,
+    required BuildContext context,
+  }) {
+    return BottomNavigationBarItem(
+      icon: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+            decoration: isActive ? BoxDecoration(borderRadius: BorderRadius.circular(10)) : null,
+            child: Badge(
+              isLabelVisible: badgeCount != null && badgeCount > 0,
+              label: badgeCount != null ? Text(badgeCount.toString()) : null,
+              child: SvgPicture.asset(
+                iconPath,
+                height: 24,
+                width: 24,
+                colorFilter:
+                    isActive ? ColorFilter.mode(AppColors.primaryColor, BlendMode.srcIn) : ColorFilter.mode(AppColors.grayNormal, BlendMode.srcIn),
+              ),
             ),
           ),
-        ),
-        label: label,
-      );
-    }
+          SizedBox(height: 4),
+          Builder(
+            builder: (context) {
+              Color color;
+
+              if (context.isDarkMode) {
+                color = isActive ? AppColors.primaryColor : Colors.white;
+              } else {
+                color = isActive ? AppColors.primaryColor : AppColors.grayNormal;
+              }
+              return Text(label, style: TextStyle(color: color, fontSize: 12, fontWeight: isActive ? FontWeight.w600 : FontWeight.w400));
+            },
+          ),
+        ],
+      ),
+      label: '',
+    );
   }
 }

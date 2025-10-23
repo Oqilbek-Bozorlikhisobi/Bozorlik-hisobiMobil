@@ -124,7 +124,6 @@ class CartRepository {
   }
 
   Future<dynamic> addProductToCart({
-    required String cartId,
     required String unitId,
     required String? productId,
     required String? name,

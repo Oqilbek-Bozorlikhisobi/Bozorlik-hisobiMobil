@@ -64,7 +64,6 @@ class CartNotifier extends _$CartNotifier {
       name: name,
       description: description,
       amount: amount,
-      cartId: state.value!.id!,
       unitId: unitId,
       marketId: marketId,
     );

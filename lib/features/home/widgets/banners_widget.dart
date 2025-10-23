@@ -227,15 +227,38 @@ class _OnboardingBannerState extends State<OnboardingBanner> {
                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
-                                                    Text(
-                                                      maxLines: 2,
-                                                      overflow: TextOverflow.ellipsis,
-                                                      item.nameUz ?? "",
-                                                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                                        fontSize: 16,
-                                                        fontWeight: FontWeight.w500,
-                                                        color: AppColors.white,
-                                                      ),
+                                                    Builder(
+                                                      builder: (context) {
+
+                                                        final currentLocale = context.locale.languageCode;
+
+                                                        // Tilga qarab title-ni tanlash
+                                                        String getTitle() {
+                                                          switch (currentLocale) {
+                                                            case 'uz':
+                                                              return item.nameUz ?? "";
+                                                            case 'ky':
+                                                              return item.nameUzk ?? "";
+                                                            case 'ru':
+                                                              return item.nameRu ?? "";
+                                                            case 'en':
+                                                              return item.nameEn ?? "";
+                                                            default:
+                                                              return item.nameUz ?? "";
+                                                          }
+                                                        }
+
+                                                        return Text(
+                                                          maxLines: 2,
+                                                          overflow: TextOverflow.ellipsis,
+                                                          getTitle(),
+                                                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                                            fontSize: 16,
+                                                            fontWeight: FontWeight.w500,
+                                                            color: AppColors.white,
+                                                          ),
+                                                        );
+                                                      }
                                                     ),
                                                     // 6.vertical,
                                                     // Text(

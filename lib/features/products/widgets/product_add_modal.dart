@@ -132,13 +132,9 @@ class ProductAddModal extends HookConsumerWidget {
                         child: Expanded(
                           flex: 2,
                           child: TextField(
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly,
-                              NumberFormatter(),
-                            ],
+                            inputFormatters: [FilteringTextInputFormatter.digitsOnly, NumberFormatter()],
                             controller: amountController,
                             decoration: InputDecoration(
-
                               hintText: "amount_example".tr(),
                               hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 15),
                               border: InputBorder.none,
@@ -161,7 +157,6 @@ class ProductAddModal extends HookConsumerWidget {
                           showCupertinoModalBottomSheet(context: context, builder: (context) => SelectUnitBottomsheet(id: unit.value?.id)).then((v) {
                             GetAllUnitResponseData data = v;
                             unit.value = unitNotifier.findUnitByName(name: data.nameUz!, units: units.valueOrNull ?? []);
-                          
                           });
                         },
 
@@ -174,7 +169,7 @@ class ProductAddModal extends HookConsumerWidget {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Text("${unit.value?.name ?? ""} narxi", style: TextStyle(color: Colors.black87, fontSize: 15)),
+                              Text("${unit.value?.name ?? ""} ${"price.small".tr()}", style: TextStyle(color: Colors.black87, fontSize: 15)),
                               SizedBox(width: 8),
                               Icon(Icons.keyboard_arrow_down, color: Colors.black87, size: 20),
                             ],
@@ -188,34 +183,94 @@ class ProductAddModal extends HookConsumerWidget {
                 10.vertical,
                 CustomTextField(isDeletable: true, labelText: "description".tr(), controller: descriptionController, hintText: "..."),
                 20.vertical,
+                // CustomButton(
+                //   isLoading: isLoading.value,
+                //   text: "add_to_cart".tr(),
+                //   onTap: () async {
+                //     if (nameController.text.isEmpty) {
+                //       showCustomToast(title: "Empty field", type: ToastificationType.error);
+                //       return;
+                //     }
+                //     if (!formKey.currentState!.validate()) return;
+                //
+                //     isLoading.value = true;
+                //     print("---------------------");
+                //     print("${model?.id.toString()}");
+                //     print("${descriptionController.text}");
+                //     print("name:${nameController.text}");
+                //     print("${double.tryParse(amountController.text)}");
+                //     print("${unit.value?.id}");
+                //     print("${selectMarketId.value}");
+                //     print("---------------------");
+                //     try {
+                //       var response = await ref
+                //           .read(cartNotifierProvider.notifier)
+                //           .addProductToCart(
+                //             productId: model?.id??"",
+                //             description: descriptionController.text,
+                //             name: nameController.text,
+                //             amount: double.tryParse(getUnformattedValue(amountController.text)) ?? 0,
+                //             unitId: unit.value?.id ?? "",
+                //             marketId: selectMarketId.value ?? "",
+                //           );
+                //
+                //       isLoading.value = false;
+                //       if (context.mounted) {
+                //         showCustomToast(title: "success_sent".tr(), type: ToastificationType.success);
+                //         Navigator.pop(context);
+                //       }
+                //     } catch (e, s) {
+                //       showCustomToast(title: e.toString(), type: ToastificationType.error);
+                //
+                //       print("==============");
+                //       print("${e.toString()}");
+                //       print("==============");
+                //       // Navigator.pop(context);
+                //     }
+                //   },
+                // ),
                 CustomButton(
                   isLoading: isLoading.value,
                   text: "add_to_cart".tr(),
                   onTap: () async {
                     if (nameController.text.isEmpty) {
-                      showCustomToast(title: "Empty field", type: ToastificationType.error);
+                      showCustomToast(title: "Required field market", type: ToastificationType.error);
                       return;
                     }
-                    if (!formKey.currentState!.validate()) return;
 
-                    isLoading.value = true;
+                    if (selectMarketId.value == null || selectMarketId.value!.isEmpty) {
+                      showCustomToast(title: "Required field market", type: ToastificationType.error);
+                      return;
+                    }
 
-                    print("---------------------");
-                    print("${model?.id.toString()}");
-                    print("${descriptionController.text}");
-                    print("${nameController.text}");
-                    print("${double.tryParse(amountController.text)}");
-                    print("${unit.value?.id}");
-                    print("${selectMarketId.value}");
-                    print("---------------------");
+                    if (amountController.text.isEmpty) {
+                      showCustomToast(title: "Required field amount", type: ToastificationType.error);
+                      return;
+                    }
+
+                    final amount = double.tryParse(getUnformattedValue(amountController.text));
+                    if (amount == null) {
+                      showCustomToast(title: "Required field amount", type: ToastificationType.error);
+                      return;
+                    }
+
+                    if (unit.value == null || unit.value!.id == null) {
+                      showCustomToast(title: "Required field unit", type: ToastificationType.error);
+                      return;
+                    }
+
+                    if (!formKey.currentState!.validate()) {
+                      return;
+                    }
+
                     try {
                       var response = await ref
                           .read(cartNotifierProvider.notifier)
                           .addProductToCart(
-                            productId: model?.id??"",
+                            productId: model?.id ?? "",
                             description: descriptionController.text,
                             name: nameController.text,
-                            amount: double.tryParse(getUnformattedValue(amountController.text)) ?? 0,
+                            amount: double.parse(getUnformattedValue(amount.toString() ?? "")),
                             unitId: unit.value?.id ?? "",
                             marketId: selectMarketId.value ?? "",
                           );
@@ -226,8 +281,8 @@ class ProductAddModal extends HookConsumerWidget {
                         Navigator.pop(context);
                       }
                     } catch (e, s) {
+                      isLoading.value = false;
                       showCustomToast(title: e.toString(), type: ToastificationType.error);
-                      Navigator.pop(context);
                     }
                   },
                 ),

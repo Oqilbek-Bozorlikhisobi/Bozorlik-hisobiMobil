@@ -53,7 +53,7 @@ class _DepartmentBannerState extends State<DepartmentBanner> {
                                 Text(
                                   state.errorMessageMarket ?? "Xatolik",
                                   style:
-                                      Theme.of(context).textTheme.titleMedium,
+                                      Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 16),
                                 ),
                               ],
                             ),
@@ -139,7 +139,7 @@ class _DepartmentBannerState extends State<DepartmentBanner> {
                                           child: Text(
                                             department.titleUz ?? "",
                                             style: TextStyle(
-                                              fontSize: 24,
+                                              fontSize: 16,
                                               fontWeight: FontWeight.bold,
                                               color: AppColors.black,
                                             ),

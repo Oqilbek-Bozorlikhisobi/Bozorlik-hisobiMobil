@@ -173,13 +173,37 @@ class _DepartmentCardState extends State<DepartmentCard> {
                                     Positioned(
                                       top: 20,
                                       left: 20,
-                                      child: Text(
-                                        department?.titleUz ?? "",
-                                        style: TextStyle(
-                                          fontSize: 24,
-                                          fontWeight: FontWeight.bold,
-                                          color: AppColors.textPrimary,
-                                        ),
+                                      child: Builder(
+                                        builder: (context) {
+
+                                          final currentLocale = context.locale.languageCode;
+
+                                          // Tilga qarab title-ni tanlash
+                                          String getTitle() {
+                                            switch (currentLocale) {
+                                              case 'uz':
+                                                return department?.titleUz ?? "";
+                                              case 'ky':
+                                                return department?.titleUzk ?? "";
+                                              case 'ru':
+                                                return department?.titleRu ?? "";
+                                              case 'en':
+                                                return department?.titleEn ?? "";
+                                              default:
+                                                return department?.titleUz ?? "";
+                                            }
+                                          }
+
+
+                                          return Text(
+                                            getTitle(),
+                                            style: TextStyle(
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.bold,
+                                              color: AppColors.textPrimary,
+                                            ),
+                                          );
+                                        }
                                       ),
                                     ),
                                     // Logo

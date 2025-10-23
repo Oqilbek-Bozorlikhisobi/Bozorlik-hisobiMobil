@@ -29,13 +29,7 @@ class _TabBarExampleState extends State<TabBarExample> {
             color: AppColors.white,
             borderRadius: BorderRadius.circular(15),
             border: Border.all(color: AppColors.grey),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.black.withValues(alpha: 0.05),
-                blurRadius: 10,
-                offset: Offset(0, 2),
-              ),
-            ],
+            boxShadow: [BoxShadow(color: AppColors.black.withValues(alpha: 0.05), blurRadius: 10, offset: Offset(0, 2))],
           ),
           child: Row(
             children: [
@@ -49,21 +43,13 @@ class _TabBarExampleState extends State<TabBarExample> {
                   child: Container(
                     padding: EdgeInsets.symmetric(vertical: 12),
                     decoration: BoxDecoration(
-                      color:
-                          selectedIndex == 0 ? Colors.cyan : Colors.transparent,
+                      color: selectedIndex == 0 ? AppColors.primaryColor : Colors.transparent,
                       borderRadius: BorderRadius.circular(14),
                     ),
                     child: Center(
                       child: Text(
                         'active_markets'.tr(),
-                        style: TextStyle(
-                          color:
-                              selectedIndex == 0
-                                  ? Colors.white
-                                  : Colors.grey[600],
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                        ),
+                        style: TextStyle(color: selectedIndex == 0 ? Colors.white : Colors.grey[600], fontSize: 14, fontWeight: FontWeight.w600),
                       ),
                     ),
                   ),
@@ -80,21 +66,13 @@ class _TabBarExampleState extends State<TabBarExample> {
                   child: Container(
                     padding: EdgeInsets.symmetric(vertical: 12),
                     decoration: BoxDecoration(
-                      color:
-                          selectedIndex == 1 ? Colors.cyan : Colors.transparent,
+                      color: selectedIndex == 1 ? AppColors.primaryColor : Colors.transparent,
                       borderRadius: BorderRadius.circular(14),
                     ),
                     child: Center(
                       child: Text(
                         'completed_markets'.tr(),
-                        style: TextStyle(
-                          color:
-                              selectedIndex == 1
-                                  ? Colors.white
-                                  : Colors.grey[600],
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                        ),
+                        style: TextStyle(color: selectedIndex == 1 ? Colors.white : Colors.grey[600], fontSize: 14, fontWeight: FontWeight.w600),
                       ),
                     ),
                   ),
@@ -104,12 +82,7 @@ class _TabBarExampleState extends State<TabBarExample> {
           ),
         ),
         // Content
-        Expanded(
-          child:
-              selectedIndex == 0
-                  ? ActiveMarkets()
-                  : ComplatedMarkets(),
-        ),
+        Expanded(child: selectedIndex == 0 ? ActiveMarkets() : ComplatedMarkets()),
       ],
     );
   }
