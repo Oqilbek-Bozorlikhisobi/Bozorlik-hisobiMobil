@@ -207,8 +207,9 @@ class MarketLists {
     id = json['id'];
     unit = json['unit'] != null ? Unit.fromJson(json['unit']) : null;
     user = json['user'] != null ? Users.fromJson(json['user']) : null;
-    product = json['product'] != null ? Product.fromJson(json['product']) : null;
     price = json['price'];
+    product = json['product'] != null ? Product.fromJson(json['product']) : null;
+
     // product = json['product'];
     isBuying = json['isBuying'];
     quantity = json['quantity'];

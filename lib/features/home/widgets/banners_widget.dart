@@ -135,7 +135,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class OnboardingBanner extends StatefulWidget {
-  const OnboardingBanner({super.key, required this.bloc});
+  const   OnboardingBanner({super.key, required this.bloc});
 
   final HomeBloc bloc;
 

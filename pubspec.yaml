@@ -41,6 +41,10 @@ dependencies:
   modal_bottom_sheet: ^3.0.0
   pull_to_refresh: ^2.0.0
   url_launcher: ^6.3.0
+  firebase_core: ^4.2.0
+  firebase_messaging: ^16.0.3
+  awesome_notifications: ^0.10.1
+  device_info_plus: ^12.2.0
 
 
 

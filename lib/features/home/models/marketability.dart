@@ -70,7 +70,7 @@ class MarketabilityResponseData {
       });
     }
     marketCreator = json['marketCreator'];
-    // pendingUsers =json['pendingUsers']!=null? json['pendingUsers']:null;
+    // pendingUsers = json['pendingUsers'];
     if (json['pendingUsers'] != null) {
       pendingUsers = <Users>[];
       json['pendingUsers'].forEach((v) {

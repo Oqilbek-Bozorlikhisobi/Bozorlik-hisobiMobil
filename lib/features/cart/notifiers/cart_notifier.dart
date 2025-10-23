@@ -41,10 +41,11 @@ class CartNotifier extends _$CartNotifier {
     }
   }
 
-  Future<void> shareCart({required String phoneNumber}) async {
+  Future<void> shareCart({required String phoneNumber,required String description,required String marketId}) async {
     final response = await cartRepository.shareCart(
-      cartId: state.value!.id!,
+      cartId: marketId,
       phoneNumber: phoneNumber,
+      description: description
     );
   }
 

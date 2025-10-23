@@ -22,7 +22,25 @@ class InnerCartBloc extends Bloc<InnerCartEvent, InnerCartState> {
         final data = GetInnerCartResponse.fromJson(response);
 
         if (data.message == "ok") {
-          emit(state.copyWith(status: Status.success, unBuyProducts: data.data?.marketLists, buyProducts: []));
+           List<MarketLists> buyProducts = [];
+           List<MarketLists> unBuyProducts = [];
+
+          // marketLists ni isBuying holatiga qarab ajratish
+          if (data.data?.marketLists != null) {
+            for (var product in data.data!.marketLists!) {
+              if (product.isBuying == true) {
+                buyProducts.add(product);
+              } else {
+                unBuyProducts.add(product);
+              }
+            }
+          }
+
+          emit(state.copyWith(
+            status: Status.success,
+            unBuyProducts: unBuyProducts,
+            buyProducts: buyProducts,
+          ));
         } else {
           emit(state.copyWith(status: Status.error, errorMessage: data.message));
         }
@@ -30,7 +48,6 @@ class InnerCartBloc extends Bloc<InnerCartEvent, InnerCartState> {
         emit(state.copyWith(status: Status.error, errorMessage: e.toString()));
       }
     });
-
     on<BuyProductEvent>((event, emit) {
       var list = state.buyProducts ?? [];
       list.add(event.buyProduct);
