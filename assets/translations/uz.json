@@ -194,7 +194,8 @@
   "active_markets": "Faol bozorliklar",
   "completed_markets": "Tugallangan bozorliklar",
   "invitation_number": "Raqam orqali taklif qilish",
-  "user_phone": "*Foydalanuvchi raqami"
+  "user_phone": "*Foydalanuvchi raqami",
+  "save": "Saqlash"
 
 
 }

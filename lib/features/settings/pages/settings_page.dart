@@ -7,6 +7,7 @@ import 'package:bozorlik/common/values/app_infos.dart';
 import 'package:bozorlik/common/widgets/custom_error_widget.dart';
 import 'package:bozorlik/common/widgets/custom_scaffold_loading.dart';
 import 'package:bozorlik/features/auth/pages/forgot_password_page.dart';
+import 'package:bozorlik/features/settings/pages/screens/edit_profile.dart';
 import 'package:bozorlik/features/settings/widgets/coming_soon_dialog.dart';
 import 'package:bozorlik/features/settings/widgets/feedback_modal.dart';
 import 'package:bozorlik/utils/mask.dart';
@@ -25,6 +26,7 @@ import '../../../app/router.dart';
 import '../../../common/widgets/loading_widget.dart';
 import '../../auth/notifiers/login_notifier.dart';
 import '../notifiers/profile_notifier.dart';
+import '../repositories/profile_repository.dart';
 import '../widgets/profile_item.dart';
 
 class SettingsPage extends HookConsumerWidget {
@@ -47,6 +49,9 @@ class SettingsPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    print("================");
+    print(ProfileRepository().id);
+    print("================");
     final profileNotifier = ref.watch(profileNotifierProvider);
     final isLoading = useState(false);
     return CustomScaffoldLoading(
@@ -125,7 +130,13 @@ class SettingsPage extends HookConsumerWidget {
                         svg: AppIcons.edit,
                         title: 'edit_profile'.tr(),
                         onTap: () {
-                          showComingSoon(context: context);
+                          Navigator.of(context).push(CupertinoPageRoute(builder: (context) => EditProfileScreen())).then((v){
+                            if(v==true){
+                            ref.invalidate(profileNotifierProvider);
+                            }
+
+                          });
+                          // showComingSoon(context: context);
                         },
                       ),
                       Divider(thickness: 0.5, color: AppColors.greyText.withValues(alpha: 0.5)),
