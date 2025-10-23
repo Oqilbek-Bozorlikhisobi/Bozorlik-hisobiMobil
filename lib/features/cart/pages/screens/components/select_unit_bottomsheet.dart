@@ -92,13 +92,34 @@ class _SelectUnitBottomsheetState extends State<SelectUnitBottomsheet> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  state.units?[index].nameUz ?? "",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: isSelected ? AppColors.primaryColor : Colors.black87,
-                                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-                                  ),
+                                Builder(
+                                  builder: (context) {
+                                    final currentLocale = context.locale.languageCode;
+
+                                    // Tilga qarab title-ni tanlash
+                                    String getTitle() {
+                                      switch (currentLocale) {
+                                        case 'uz':
+                                          return state.units?[index].nameUz ?? "";
+                                        case 'ky':
+                                          return state.units?[index].nameUzk ?? "";
+                                        case 'ru':
+                                          return state.units?[index].nameRu ?? "";
+                                        case 'en':
+                                          return state.units?[index].nameEn ?? "";
+                                        default:
+                                          return state.units?[index].nameUz ?? "";
+                                      }
+                                    }
+                                    return Text(
+                                      getTitle() ?? "",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: isSelected ? AppColors.primaryColor : Colors.black87,
+                                        fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+                                      ),
+                                    );
+                                  }
                                 ),
                                 if (isSelected) Icon(Icons.check_circle, color: AppColors.primaryColor, size: 24),
                               ],
@@ -118,15 +139,3 @@ class _SelectUnitBottomsheetState extends State<SelectUnitBottomsheet> {
     );
   }
 }
-
-// void showMarketBottomSheet(BuildContext context, String name) {
-//
-//   showCupertinoModalBottomSheet(
-//     context: context,
-//     // isScrollControlled: true,
-//     // backgroundColor: Colors.transparent,
-//     builder: (context) {
-//       return SelectUnitBottomsheet(name: name);
-//     },
-//   );
-// }

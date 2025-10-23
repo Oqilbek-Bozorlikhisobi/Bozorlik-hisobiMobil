@@ -87,13 +87,35 @@ class _ShowMarketDepartmentBottomsheetState extends State<ShowMarketDepartmentBo
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          state.departmentData?[index].titleUz ?? "",
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            color: isSelected ? AppColors.primaryColor : Colors.black87,
-                                            fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-                                          ),
+                                        Builder(
+                                          builder: (context) {
+
+                                            final currentLocale = context.locale.languageCode;
+
+                                            // Tilga qarab title-ni tanlash
+                                            String getTitle() {
+                                              switch (currentLocale) {
+                                                case 'uz':
+                                                  return state.departmentData?[index].titleUz ?? "";
+                                                case 'ky':
+                                                  return state.departmentData?[index].titleUzk ?? "";
+                                                case 'ru':
+                                                  return state.departmentData?[index].titleRu ?? "";
+                                                case 'en':
+                                                  return state.departmentData?[index].titleEn ?? "";
+                                                default:
+                                                  return state.departmentData?[index].titleUz ?? "";
+                                              }
+                                            }
+                                            return Text(
+                                              getTitle() ?? "",
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                color: isSelected ? AppColors.primaryColor : Colors.black87,
+                                                fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+                                              ),
+                                            );
+                                          }
                                         ),
                                         if (isSelected) Icon(Icons.check_circle, color: AppColors.primaryColor, size: 24),
                                       ],

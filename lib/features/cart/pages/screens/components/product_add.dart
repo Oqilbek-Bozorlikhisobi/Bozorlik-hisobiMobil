@@ -10,6 +10,7 @@ import 'package:bozorlik/utils/enums.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
@@ -216,7 +217,7 @@ import '../../../models/cart_response.dart';
 //     );
 //   }
 // }
-
+///--------------------------------------------------------------------
 class ProductAddLocaleBottomsheet extends StatefulWidget {
   const ProductAddLocaleBottomsheet({super.key, required this.marketName, required this.marketId});
 
@@ -236,11 +237,46 @@ class _ProductAddLocaleBottomsheetState extends State<ProductAddLocaleBottomshee
   String? unitId;
   String? unitName;
   GetAllUnitResponseData? data;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
     bloc.close();
     super.dispose();
+  }
+
+  String? _validateProductName(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Please fill all required field".tr();
+    }
+    // if (value.length < 2) {
+    //   return "product_name_min_length".tr();
+    // }
+    // if (value.length > 100) {
+    //   return "product_name_max_length".tr();
+    // }
+    return null;
+  }
+
+  String? _validateAmount(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Please fill all required field".tr();
+    }
+    // final amount = double.tryParse(value);
+    // if (amount == null) {
+    //   return "amount_invalid".tr();
+    // }
+    // if (amount <= 0) {
+    //   return "amount_must_be_positive".tr();
+    // }
+    return null;
+  }
+
+  String? _validateUnit(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Please fill all required field".tr();
+    }
+    return null;
   }
 
   @override
@@ -263,157 +299,164 @@ class _ProductAddLocaleBottomsheetState extends State<ProductAddLocaleBottomshee
             }
           },
           builder: (context, state) {
-            return Container(
-              decoration: BoxDecoration(color: CupertinoColors.white, borderRadius: BorderRadius.vertical(top: Radius.circular(12))),
-              padding: EdgeInsets.only(left: 8, right: 8, top: 12, bottom: MediaQuery.of(context).viewInsets.bottom),
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text("new_add_product".tr(), style: Theme.of(context).textTheme.titleMedium),
-                      10.vertical,
+            return Form(
+              key: _formKey,
+              child: Container(
+                decoration: BoxDecoration(color: CupertinoColors.white, borderRadius: BorderRadius.vertical(top: Radius.circular(12))),
+                padding: EdgeInsets.only(left: 8, right: 8, top: 12, bottom: MediaQuery.of(context).viewInsets.bottom),
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text("new_add_product".tr(), style: Theme.of(context).textTheme.titleMedium),
+                        10.vertical,
 
-                      CustomTextField(
-                        isDeletable: true,
-                        labelText: "product_name".tr(),
-                        controller: nameController,
-                        hintText: "product_name_example".tr(),
-                      ),
-                      10.vertical,
-                      10.vertical,
-                      Text("select_market".tr(), style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w400, fontSize: 14)),
-                      8.vertical,
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              // showCupertinoModalBottomSheet(
-                              //   context: context,
-                              //   builder: (context) {
-                              //     return ShowMarketBottomsheet(id: selectMarketId.value);
-                              //   },
-                              // ).then((v) {
-                              //   if (v != null) {
-                              //     MarketabilityResponseData data = v;
-                              //     // BU YERDA O'ZGARTIRISH: .value orqali o'zgartiramiz
-                              //     selectMarketName.value = data.name;
-                              //     selectMarketId.value = data.id;
-                              //   }
-                              // });
-                            },
-                            child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                              decoration: BoxDecoration(
-                                color: AppColors.white,
-                                borderRadius: BorderRadius.circular(12),
-                                border: Border.all(width: 2, color: CupertinoColors.systemGroupedBackground),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  // BU YERDA O'ZGARTIRISH: .value orqali o'qiymiz
-                                  Text(widget.marketName ?? "select_market".tr(), style: TextStyle(fontSize: 16, color: Colors.black87)),
-                                  Icon(Icons.keyboard_arrow_down, color: Colors.grey),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      10.vertical,
-
-                      Container(
-                        width: double.infinity,
-                        height: 44,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: AppColors.grey),
+                        CustomTextField(
+                          isDeletable: true,
+                          validator: _validateProductName,
+                          labelText: "product_name".tr(),
+                          controller: nameController,
+                          hintText: "product_name_example".tr(),
                         ),
 
-                        child: Row(
+                        20.vertical,
+                        Text(
+                          "select_market".tr(),
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w400, fontSize: 14),
+                        ),
+                        8.vertical,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Expanded(
-                              flex: 2,
-                              child: Expanded(
-                                flex: 2,
-                                child: TextField(
-                                  controller: amountController,
-                                  decoration: InputDecoration(
-                                    hintText: "amount_example".tr(),
-                                    hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 15),
-                                    border: InputBorder.none,
-                                    contentPadding: const EdgeInsets.only(left: 16, top: 11, bottom: 11),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            8.horizontal,
                             GestureDetector(
-                              onTap: () {
-                                showCupertinoModalBottomSheet(context: context, builder: (context) => SelectUnitBottomsheet(id: unitId)).then((v) {
-                                  data = v;
-                                  unitName = data?.nameUz ?? "";
-                                  unitId = data?.id ?? "";
-                                  setState(() {});
-                                });
-                              },
-
                               child: Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
+                                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
                                 decoration: BoxDecoration(
-                                  color: AppColors.grey,
-                                  borderRadius: BorderRadius.only(topRight: Radius.circular(12), bottomRight: Radius.circular(12)),
+                                  color: AppColors.white,
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(width: 2, color: CupertinoColors.systemGroupedBackground),
                                 ),
                                 child: Row(
-                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text("${unitName ?? ""} narxi", style: TextStyle(color: Colors.black87, fontSize: 15)),
-                                    SizedBox(width: 8),
-                                    Icon(Icons.keyboard_arrow_down, color: Colors.black87, size: 20),
+                                    Text(widget.marketName ?? "select_market".tr(), style: TextStyle(fontSize: 16, color: Colors.black87)),
+                                    Icon(Icons.keyboard_arrow_down, color: Colors.grey),
                                   ],
                                 ),
                               ),
                             ),
                           ],
                         ),
-                      ),
+                        20.vertical,
 
-                      10.vertical,
-                      CustomTextField(isDeletable: true, labelText: "description".tr(), controller: descriptionController, hintText: "..."),
-                      20.vertical,
-                      CustomButton(
-                        isLoading: state.statusAddProduct == Status.loading,
-                        text: "add_to_cart".tr(),
-                        onTap: () async {
-                          if (nameController.text.isEmpty) {
-                            showCustomToast(title: "Empty field", type: ToastificationType.error);
-                            return;
-                          }
+                        Container(
+                          width: double.infinity,
+                          height: 44,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(color: AppColors.grey),
+                          ),
 
-                          bloc.add(
-                            AddNewProduct(
-                              // buyProduct: MarketLists(
-                              //   productName: nameController.text,
-                              //   quantity: double.parse(amountController.text ?? ""),
-                              //   description: descriptionController.text,
-                              //   unit: Unit(id: data?.id ?? "", createdAt: data?.createdAt, updatedAt: data?.updatedAt, name: data?.nameUz),
-                              // ),
-                              marketId: widget.marketId,
-                              productName: nameController.text,
-                              quantity: double.parse(amountController.text ?? "").toString(),
-                              unitId: data?.id ?? "",
-                              description: descriptionController.text,
-                            ),
-                          );
-                        },
-                      ),
-                      30.vertical,
-                    ],
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 2,
+                                child: Expanded(
+                                  flex: 2,
+                                  child: TextFormField(
+                                    validator: _validateAmount,
+                                    onChanged: (v) {
+                                      setState(() {});
+                                    },
+
+                                    controller: amountController,
+                                    decoration: InputDecoration(
+
+                                      hintText: "amount_example".tr(),
+                                      hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 15),
+                                      border: InputBorder.none,
+                                      contentPadding: const EdgeInsets.only(left: 16, top: 11, bottom: 11),
+                                    ),
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.digitsOnly,
+
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              8.horizontal,
+                              GestureDetector(
+                                onTap: () {
+                                  showCupertinoModalBottomSheet(context: context, builder: (context) => SelectUnitBottomsheet(id: unitId)).then((v) {
+                                    data = v;
+                                    unitName = data?.nameUz ?? "";
+                                    unitId = data?.id ?? "";
+                                    setState(() {});
+                                  });
+                                },
+
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.grey,
+                                    borderRadius: BorderRadius.only(topRight: Radius.circular(12), bottomRight: Radius.circular(12)),
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text("${unitName ?? ""} narxi", style: TextStyle(color: Colors.black87, fontSize: 15)),
+                                      SizedBox(width: 8),
+                                      Icon(Icons.keyboard_arrow_down, color: Colors.black87, size: 20),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        if (unitId == null || unitId!.isEmpty)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: Text("Please fill all required field".tr(), style: TextStyle(color: Colors.red, fontSize: 12)),
+                          ),
+                        10.vertical,
+                        CustomTextField(isDeletable: true, labelText: "description".tr(), controller: descriptionController, hintText: "..."),
+                        20.vertical,
+                        CustomButton(
+                          isLoading: state.statusAddProduct == Status.loading,
+                          text: "add_to_cart".tr(),
+                          onTap: () async {
+                            // if (nameController.text.isEmpty) {
+                            //   showCustomToast(title: "Empty field", type: ToastificationType.error);
+                            //   return;
+                            // }
+                            if (!_formKey.currentState!.validate()) {
+                              showCustomToast(title: "Please fill all required field".tr(), type: ToastificationType.error);
+                              return;
+                            }
+// Check unit
+                            if (unitId == null || unitId!.isEmpty) {
+                              showCustomToast(title: "Please fill all required field".tr(), type: ToastificationType.error);
+                              return;
+                            }
+                            bloc.add(
+                              AddNewProduct(
+                                marketId: widget.marketId,
+                                productName: nameController.text,
+                                quantity: double.parse(amountController.text ?? "").toString(),
+                                unitId: data?.id ?? "",
+                                description: descriptionController.text,
+                              ),
+                            );
+                          },
+                        ),
+                        30.vertical,
+                      ],
+                    ),
                   ),
                 ),
               ),

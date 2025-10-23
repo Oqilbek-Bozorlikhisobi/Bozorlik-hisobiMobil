@@ -134,12 +134,34 @@ class _CategoriesPageState extends State<CategoriesPage> {
                                                 Row(
                                                   children: [
                                                     Expanded(
-                                                      child: Text(
-                                                        overflow: TextOverflow.ellipsis,
-                                                        state.items?[index].titleUz ?? "",
-                                                        style: Theme.of(
-                                                          context,
-                                                        ).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600, fontSize: 16),
+                                                      child: Builder(
+                                                        builder: (context) {
+
+                                                          final currentLocale = context.locale.languageCode;
+
+                                                          // Tilga qarab title-ni tanlash
+                                                          String getTitle() {
+                                                            switch (currentLocale) {
+                                                              case 'uz':
+                                                                return state.items?[index].titleUz ?? "";
+                                                              case 'ky':
+                                                                return state.items?[index].titleUzk ?? "";
+                                                              case 'ru':
+                                                                return state.items?[index].titleRu ?? "";
+                                                              case 'en':
+                                                                return state.items?[index].titleEn ?? "";
+                                                              default:
+                                                                return state.items?[index].titleUz ?? "";
+                                                            }
+                                                          }
+                                                          return Text(
+                                                            overflow: TextOverflow.ellipsis,
+                                                            getTitle() ?? "",
+                                                            style: Theme.of(
+                                                              context,
+                                                            ).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600, fontSize: 16),
+                                                          );
+                                                        }
                                                       ),
                                                     ),
                                                   ],

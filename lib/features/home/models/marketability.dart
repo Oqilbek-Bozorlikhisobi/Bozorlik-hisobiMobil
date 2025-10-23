@@ -35,7 +35,7 @@ class MarketabilityResponseData {
   bool? isAllBuy;
   List<Users>? users;
   String? marketCreator;
-  Null? pendingUsers;
+  List<Users>? pendingUsers;
   List<MarketLists>? marketLists;
   int? totalPrice;
   String? location;
@@ -70,7 +70,13 @@ class MarketabilityResponseData {
       });
     }
     marketCreator = json['marketCreator'];
-    pendingUsers = json['pendingUsers'];
+    // pendingUsers =json['pendingUsers']!=null? json['pendingUsers']:null;
+    if (json['pendingUsers'] != null) {
+      pendingUsers = <Users>[];
+      json['pendingUsers'].forEach((v) {
+        pendingUsers!.add(Users.fromJson(v));
+      });
+    }
     if (json['marketLists'] != null) {
       marketLists = <MarketLists>[];
       json['marketLists'].forEach((v) {

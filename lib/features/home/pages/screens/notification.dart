@@ -190,38 +190,28 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
     );
   }
 
-  Widget _buildTabButton(String text, int index) {
-    final isSelected = selectedTab == index;
-    return Expanded(
-      child: GestureDetector(
-        onTap: () {
-          setState(() {
-            selectedTab = index;
-          });
-        },
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 12),
-          decoration: BoxDecoration(
-            color: isSelected ? AppColors.primaryColor : Colors.white,
-            borderRadius: BorderRadius.circular(25),
-            border: Border.all(color: isSelected ? AppColors.primaryColor : Colors.grey[300]!, width: 1),
-          ),
-          child: Center(
-            child: Text(
-              text,
-              style: TextStyle(
-                color: isSelected ? Colors.white : Colors.black87,
-                fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-                fontSize: 15,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 
   Widget _buildNotificationCard(NotificationResponseDataItems notification) {
+
+    final currentLocale = context.locale.languageCode;
+
+    // Tilga qarab title-ni tanlash
+    String getTitle() {
+      switch (currentLocale) {
+        case 'uz':
+          return notification.titleUz ?? "";
+        case 'ky':
+          return notification.titleUzk ?? "";
+        case 'ru':
+          return notification.titleRu ?? "";
+        case 'en':
+          return notification.titleEn ?? "";
+        default:
+          return notification.titleUz ?? "";
+      }
+    }
+
+
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
@@ -241,7 +231,7 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  notification.titleUz ?? "",
+                  getTitle() ?? "",
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: (notification.isRead ?? false) ? FontWeight.w400 : FontWeight.w500,

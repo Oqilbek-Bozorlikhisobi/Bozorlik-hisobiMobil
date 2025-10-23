@@ -21,7 +21,7 @@ void main() async {
   runApp(
     ProviderScope(
       child: EasyLocalization(
-        supportedLocales: [Locale('uz'), Locale('ru'), Locale('en')],
+        supportedLocales: [Locale('uz'), Locale('ru'), Locale('en'), Locale("ky")],
         startLocale: Locale('uz'),
         saveLocale: true,
         path: 'assets/translations',

@@ -93,10 +93,32 @@ class _BrendsChildrenScreenState extends State<BrendsChildrenScreen> {
                                           Row(
                                             children: [
                                               Expanded(
-                                                child: Text(
-                                                  overflow: TextOverflow.ellipsis,
-                                                  widget.children[index].titleUz ?? "",
-                                                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600, fontSize: 16),
+                                                child: Builder(
+                                                  builder: (context) {
+
+                                                    final currentLocale = context.locale.languageCode;
+
+                                                    // Tilga qarab title-ni tanlash
+                                                    String getTitle() {
+                                                      switch (currentLocale) {
+                                                        case 'uz':
+                                                          return widget.children[index].titleUz ?? "";
+                                                        case 'ky':
+                                                          return widget.children[index].titleUzk ?? "";
+                                                        case 'ru':
+                                                          return widget.children[index].titleRu ?? "";
+                                                        case 'en':
+                                                          return widget.children[index].titleEn ?? "";
+                                                        default:
+                                                          return widget.children[index].titleUz ?? "";
+                                                      }
+                                                    }
+                                                    return Text(
+                                                      overflow: TextOverflow.ellipsis,
+                                                      getTitle() ?? "",
+                                                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600, fontSize: 16),
+                                                    );
+                                                  }
                                                 ),
                                               ),
                                             ],
@@ -182,10 +204,32 @@ class _BrendsChildrenScreenState extends State<BrendsChildrenScreen> {
                                           Row(
                                             children: [
                                               Expanded(
-                                                child: Text(
-                                                  overflow: TextOverflow.ellipsis,
-                                                  widget.products[index].titleUz ?? "",
-                                                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600, fontSize: 16),
+                                                child: Builder(
+                                                  builder: (context) {
+
+                                                    final currentLocale = context.locale.languageCode;
+
+                                                    // Tilga qarab title-ni tanlash
+                                                    String getTitle() {
+                                                      switch (currentLocale) {
+                                                        case 'uz':
+                                                          return widget.products[index].titleUz ?? "";
+                                                        case 'ky':
+                                                          return widget.products[index].titleUzk ?? "";
+                                                        case 'ru':
+                                                          return widget.products[index].titleRu ?? "";
+                                                        case 'en':
+                                                          return widget.products[index].titleEn ?? "";
+                                                        default:
+                                                          return widget.products[index].titleUz ?? "";
+                                                      }
+                                                    }
+                                                    return Text(
+                                                      overflow: TextOverflow.ellipsis,
+                                                      getTitle()?? "",
+                                                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600, fontSize: 16),
+                                                    );
+                                                  }
                                                 ),
                                               ),
                                             ],

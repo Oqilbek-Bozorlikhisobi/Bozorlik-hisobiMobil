@@ -33,6 +33,7 @@ class _CreateMarketBottomsheetState extends State<CreateMarketBottomsheet> {
   final bloc = HomeBloc();
   String? selectMarketName;
   String? selectMarketId;
+
   // BU YERDA O'ZGARTIRISH: useState ishlatamiz
   // final selectMarketName = useState<String?>(null);
   // final selectMarketId = useState<String?>(null);
@@ -82,7 +83,7 @@ class _CreateMarketBottomsheetState extends State<CreateMarketBottomsheet> {
                     readOnly: true,
                     suffixIcon: Transform.scale(scale: 0.6, child: SvgPicture.asset(AppIcons.down)),
                     isDeletable: false,
-                    onTap: (){
+                    onTap: () {
                       showCupertinoModalBottomSheet(
                         context: context,
                         builder: (context) {
@@ -91,16 +92,31 @@ class _CreateMarketBottomsheetState extends State<CreateMarketBottomsheet> {
                       ).then((v) {
                         if (v != null) {
                           DepartmentResponseDataItems data = v;
-                          // BU YERDA O'ZGARTIRISH: .value orqali o'zgartiramiz
-                          selectMarketName = data.titleUz;
-                          selectMarketId = data.id;
-                          marketController.text=data.titleUz??"";
-                          setState(() {
+                          final currentLocale = context.locale.languageCode;
 
-                          });
+                          // Tilga qarab title-ni tanlash
+                          String getTitle() {
+                            switch (currentLocale) {
+                              case 'uz':
+                                return data.titleUz ?? "";
+                              case 'ky':
+                                return data.titleUzk ?? "";
+                              case 'ru':
+                                return data.titleRu ?? "";
+                              case 'en':
+                                return data.titleEn ?? "";
+                              default:
+                                return data.titleUz ?? "";
+                            }
+                          }
+
+                          // BU YERDA O'ZGARTIRISH: .value orqali o'zgartiramiz
+                          selectMarketName = getTitle();
+                          selectMarketId = data.id;
+                          marketController.text = getTitle() ?? "";
+                          setState(() {});
                         }
                       });
-
                     },
                     labelText: "shopping_type".tr(),
                     controller: marketController,
