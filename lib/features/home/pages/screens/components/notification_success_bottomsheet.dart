@@ -85,7 +85,7 @@ class _NotificationSuccessBottomsheetState
                 ),
                 12.vertical,
                 Text(
-                  "${formatPhoneNumber(widget.data?.sender?.phoneNumber ?? "")} (${(widget.data?.sender?.fullName ?? "")})",
+                  "${formatPhoneNumber(widget.data?.receiver?.phoneNumber ?? "")} (${(widget.data?.receiver?.fullName ?? "")})",
                   style: Theme.of(context).textTheme.titleMedium!.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
@@ -130,7 +130,7 @@ class _NotificationSuccessBottomsheetState
                   },
                 ),
                 12.vertical,
-                widget.data?.market?.id==null?SizedBox():
+               ( widget.data?.id==null||widget.isRead==true)?SizedBox():
                 Builder(
                   builder: (context) {
                     return state.status==Status.loading?LoadingWidget():Row(

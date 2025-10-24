@@ -15,6 +15,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'bloc/notification_bloc.dart';
 import 'components/notification_info_bottomsheet.dart';
+import 'components/notification_success_bottomsheet.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -133,7 +134,7 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
                                 } else {
                                   showCupertinoModalBottomSheet(
                                     context: context,
-                                    builder: (context) => NotificationInfoBottomsheet(data: notification),
+                                    builder: (context) => NotificationSuccessBottomsheet(data: notification, isRead: false),
                                   ).then((v) {
                                     bloc.add(GetNotificationEvent());
                                   });
@@ -184,7 +185,7 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
                                 } else {
                                   showCupertinoModalBottomSheet(
                                     context: context,
-                                    builder: (context) => NotificationInfoBottomsheet(data: notification),
+                                    builder: (context) => NotificationSuccessBottomsheet(data: notification, isRead: false),
                                   ).then((v) {
                                     bloc.add(GetUnReadNotificationEvent());
                                   });
@@ -236,7 +237,7 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
                                 } else {
                                   showCupertinoModalBottomSheet(
                                     context: context,
-                                    builder: (context) => NotificationInfoBottomsheet(data: notification),
+                                    builder: (context) => NotificationSuccessBottomsheet(data: notification, isRead: true),
                                   ).then((v) {
                                     // bloc.add(GetReadNotificationEvent());
                                   });
