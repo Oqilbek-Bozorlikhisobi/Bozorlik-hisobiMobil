@@ -37,7 +37,7 @@ class HistoryItemNew extends StatelessWidget {
                   colorFilter: ColorFilter.mode(Color.fromRGBO(255, 194, 102, 1), BlendMode.srcIn),
                 ),
                 Text(
-                  (shopping.name ?? "O").substring(0, 1).toUpperCase(),
+                  (shopping.name?.isNotEmpty??false)?( (shopping.name ?? "O").substring(0, 1).toUpperCase()):"B",
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
                 ),
               ],

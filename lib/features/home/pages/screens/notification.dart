@@ -1,4 +1,6 @@
 import 'package:bozorlik/app/theme.dart';
+import 'package:bozorlik/common/extension/number_extension.dart';
+import 'package:bozorlik/common/values/app_assets.dart';
 import 'package:bozorlik/features/home/models/notification/notification.dart';
 import 'package:bozorlik/utils/custom_tab_view_ruler.dart';
 import 'package:bozorlik/utils/date_formatter.dart';
@@ -7,6 +9,7 @@ import 'package:bozorlik/utils/error_view.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -45,7 +48,13 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
     return BlocProvider.value(
       value: bloc,
       child: BlocConsumer<NotificationBloc, NotificationState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          // if (state.status != Status.loading) {
+          //   refreshControllerCommon.refreshCompleted();
+          //   refreshControllerValue.refreshCompleted();
+          //   refreshControllerPosition.refreshCompleted();
+          // }
+        },
         builder: (context, state) {
           return Scaffold(
             backgroundColor: AppColors.backGround,
@@ -56,11 +65,20 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
               title: Text("notifications".tr(), style: const TextStyle(color: Colors.black, fontWeight: FontWeight.w600)),
               centerTitle: true,
               actions: [
-                IconButton(
-                  icon: Icon(Icons.check_box_outlined, color: AppColors.primaryColor, size: 28),
-                  onPressed: () {
-                    // Mark all as read action
-                  },
+                GestureDetector(
+                  onTap:
+                      state.statusAll == Status.success
+                          ? null
+                          : () {
+                            bloc.add(AllReadEvent());
+                            bloc.add(GetNotificationEvent());
+                            bloc.add(GetReadNotificationEvent());
+                            bloc.add(GetUnReadNotificationEvent());
+                          },
+                  child: SvgPicture.asset(
+                    AppIcons.checkNotification,
+                    colorFilter: ColorFilter.mode(state.statusAll == Status.success ? AppColors.grey : AppColors.primaryColor, BlendMode.srcIn),
+                  ),
                 ),
               ],
             ),
@@ -94,7 +112,8 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
                   builder: (context) {
                     if (state.status == Status.loading) return const Center(child: CircularProgressIndicator());
                     if (state.status == Status.error) return Center(child: ErrorView(error: state.errorMessage.toString()));
-                    if (((state.itemsAll?.length ?? 0)) < 1) return const Center(child: SizedBox());
+                    if (((state.itemsAll?.length ?? 0)) < 1) return Center(child: SvgPicture.asset(AppIcons.splashLogo, height: 200, width: 200));
+
                     if (state.status == Status.success) {
                       return Expanded(
                         child: ListView.builder(
@@ -104,17 +123,20 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
                             final notification = state.itemsAll?[index];
                             return GestureDetector(
                               onTap: () {
-                                if(notification.isGlobal==true){
-                                showCupertinoModalBottomSheet(context: context, builder: (context) => NotificationInfoBottomsheet(data: notification,)).then((v){
-                                  bloc.add(GetNotificationEvent());
-
-                                });
-                                }else{
-                                showCupertinoModalBottomSheet(context: context, builder: (context) => NotificationInfoBottomsheet(data: notification,)).then((v){
-                                  bloc.add(GetNotificationEvent());
-
-                                });
-
+                                if (notification.isGlobal == true) {
+                                  showCupertinoModalBottomSheet(
+                                    context: context,
+                                    builder: (context) => NotificationInfoBottomsheet(data: notification),
+                                  ).then((v) {
+                                    bloc.add(GetNotificationEvent());
+                                  });
+                                } else {
+                                  showCupertinoModalBottomSheet(
+                                    context: context,
+                                    builder: (context) => NotificationInfoBottomsheet(data: notification),
+                                  ).then((v) {
+                                    bloc.add(GetNotificationEvent());
+                                  });
                                 }
                               },
                               child: _buildNotificationCard(notification!),
@@ -141,7 +163,8 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
                   builder: (context) {
                     if (state.status == Status.loading) return const Center(child: CircularProgressIndicator());
                     if (state.status == Status.error) return Center(child: ErrorView(error: state.errorMessage.toString()));
-                    if (((state.itemsUnRead?.length ?? 0)) < 1) return const Center(child: SizedBox());
+                    if (((state.itemsUnRead?.length ?? 0)) < 1) return Center(child: SvgPicture.asset(AppIcons.splashLogo, height: 200, width: 200));
+
                     if (state.status == Status.success) {
                       return Expanded(
                         child: ListView.builder(
@@ -150,21 +173,25 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
                           itemBuilder: (context, index) {
                             final notification = state.itemsUnRead?[index];
                             return GestureDetector(
-                                onTap: () {
-                                  if(notification.isGlobal==true){
-                                    showCupertinoModalBottomSheet(context: context, builder: (context) => NotificationInfoBottomsheet(data: notification,)).then((v){
-                                      bloc.add(GetUnReadNotificationEvent());
-
-                                    });
-                                  }else{
-                                    showCupertinoModalBottomSheet(context: context, builder: (context) => NotificationInfoBottomsheet(data: notification,)).then((v){
-                                      bloc.add(GetUnReadNotificationEvent());
-
-                                    });
-
-                                  }
-                                },
-                                child: _buildNotificationCard(notification!));
+                              onTap: () {
+                                if (notification.isGlobal == true) {
+                                  showCupertinoModalBottomSheet(
+                                    context: context,
+                                    builder: (context) => NotificationInfoBottomsheet(data: notification),
+                                  ).then((v) {
+                                    bloc.add(GetUnReadNotificationEvent());
+                                  });
+                                } else {
+                                  showCupertinoModalBottomSheet(
+                                    context: context,
+                                    builder: (context) => NotificationInfoBottomsheet(data: notification),
+                                  ).then((v) {
+                                    bloc.add(GetUnReadNotificationEvent());
+                                  });
+                                }
+                              },
+                              child: _buildNotificationCard(notification!),
+                            );
                           },
                         ),
                       );
@@ -187,7 +214,9 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
                   builder: (context) {
                     if (state.status == Status.loading) return const Center(child: CircularProgressIndicator());
                     if (state.status == Status.error) return Center(child: ErrorView(error: state.errorMessage.toString()));
-                    if (((state.itemsRead?.length ?? 0)) < 1) return const Center(child: SizedBox());
+                    if (((state.itemsRead?.length ?? 0)) < 1) {
+                      return Center(child: SvgPicture.asset(AppIcons.splashLogo, height: 200, width: 200));
+                    }
                     if (state.status == Status.success) {
                       return Expanded(
                         child: ListView.builder(
@@ -196,21 +225,25 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
                           itemBuilder: (context, index) {
                             final notification = state.itemsRead?[index];
                             return GestureDetector(
-                                onTap: () {
-                                  if(notification.isGlobal==true){
-                                    showCupertinoModalBottomSheet(context: context, builder: (context) => NotificationInfoBottomsheet(data: notification,)).then((v){
-                                      // bloc.add(GetReadNotificationEvent());
-
-                                    });
-                                  }else{
-                                    showCupertinoModalBottomSheet(context: context, builder: (context) => NotificationInfoBottomsheet(data: notification,)).then((v){
-                                      // bloc.add(GetReadNotificationEvent());
-
-                                    });
-
-                                  }
-                                },
-                                child: _buildNotificationCard(notification!));
+                              onTap: () {
+                                if (notification.isGlobal == true) {
+                                  showCupertinoModalBottomSheet(
+                                    context: context,
+                                    builder: (context) => NotificationInfoBottomsheet(data: notification),
+                                  ).then((v) {
+                                    // bloc.add(GetReadNotificationEvent());
+                                  });
+                                } else {
+                                  showCupertinoModalBottomSheet(
+                                    context: context,
+                                    builder: (context) => NotificationInfoBottomsheet(data: notification),
+                                  ).then((v) {
+                                    // bloc.add(GetReadNotificationEvent());
+                                  });
+                                }
+                              },
+                              child: _buildNotificationCard(notification!),
+                            );
                           },
                         ),
                       );
@@ -226,9 +259,7 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
     );
   }
 
-
   Widget _buildNotificationCard(NotificationResponseDataItems notification) {
-
     final currentLocale = context.locale.languageCode;
 
     // Tilga qarab title-ni tanlash
@@ -246,7 +277,6 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
           return notification.titleUz ?? "";
       }
     }
-
 
     return Container(
       margin: const EdgeInsets.only(bottom: 12),

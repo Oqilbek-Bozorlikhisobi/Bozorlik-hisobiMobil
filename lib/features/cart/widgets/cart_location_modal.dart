@@ -2,12 +2,14 @@ import 'package:bozorlik/common/extension/for_context.dart';
 import 'package:bozorlik/common/extension/number_extension.dart';
 import 'package:bozorlik/common/widgets/custom_button.dart';
 import 'package:bozorlik/common/widgets/custom_text_field.dart';
+import 'package:bozorlik/common/widgets/custom_toast.dart';
 import 'package:bozorlik/features/cart/notifiers/cart_notifier.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:toastification/toastification.dart';
 
 class CartLocationModal extends HookConsumerWidget {
   const CartLocationModal({super.key});
@@ -60,6 +62,8 @@ class CartLocationModal extends HookConsumerWidget {
             isLoading: isLoading.value,
             text: "finish".tr(),
             onTap: () async {
+              if(locationController.text.isNotEmpty){
+
               isLoading.value = true;
               try {
                 await ref
@@ -74,6 +78,10 @@ class CartLocationModal extends HookConsumerWidget {
                 }
               }
               isLoading.value = false;
+              }else{
+                showCustomToast(title: "required".tr(),type: ToastificationType.warning);
+              }
+
             },
           ),
           30.vertical,

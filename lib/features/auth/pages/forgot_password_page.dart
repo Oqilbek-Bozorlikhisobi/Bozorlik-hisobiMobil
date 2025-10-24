@@ -1,5 +1,6 @@
 import 'package:bozorlik/common/extension/number_extension.dart';
 import 'package:bozorlik/common/extension/widget_extantion.dart';
+import 'package:bozorlik/common/widgets/custom_toast.dart';
 import 'package:bozorlik/features/auth/models/otp_state.dart';
 import 'package:bozorlik/features/auth/notifiers/forgot_otp_notifier.dart';
 import 'package:bozorlik/features/auth/notifiers/register_notifier.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:toastification/toastification.dart';
 
 import '../../../app/router.dart';
 import '../../../common/values/app_assets.dart';
@@ -97,56 +99,58 @@ class ForgotPasswordPage extends HookConsumerWidget {
                 children: [
                   Form(
                     key: phoneFormKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // 16.vertical,
-                        // SvgPicture.asset(AppIcons.logo, height: 20, width: 112),
-                        12.vertical,
-                        Text(
-                          "enter_phone".tr(),
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
-                        8.vertical,
-                        Text("verify_sms".tr()),
-                        32.vertical,
-                        CustomPhoneField(
-                          validatorText: "please_enter_phone".tr(),
-                          textCapitalization: TextCapitalization.none,
-                          controller: phoneController,
-                          onChange: (value) {
-                            phoneNumber.value = value;
-                          },
-                          labelText: "phone".tr(),
-                        ),
-                        12.vertical,
-                        CustomTextField(
-                          validatorText: "please_enter_password".tr(),
-                          labelText: "enter_password".tr(),
-                          isObscure: true,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // 16.vertical,
+                          // SvgPicture.asset(AppIcons.logo, height: 20, width: 112),
+                          12.vertical,
+                          Text(
+                            "enter_phone".tr(),
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                          8.vertical,
+                          Text("verify_sms".tr()),
+                          32.vertical,
+                          CustomPhoneField(
+                            validatorText: "please_enter_phone".tr(),
+                            textCapitalization: TextCapitalization.none,
+                            controller: phoneController,
+                            onChange: (value) {
+                              phoneNumber.value = value;
+                            },
+                            labelText: "phone".tr(),
+                          ),
+                          12.vertical,
+                          CustomTextField(
+                            validatorText: "please_enter_password".tr(),
+                            labelText: "enter_password".tr(),
+                            isObscure: true,
 
-                          textInputType: TextInputType.visiblePassword,
+                            textInputType: TextInputType.visiblePassword,
 
-                          controller: passwordController,
-                          hintText: "password".tr(),
-                        ),
-                        12.vertical,
-                        CustomTextField(
-                          validator: (value) {
-                            if (value != passwordController.text) {
-                              return "passwords_not_match".tr();
-                            }
-                            return null;
-                          },
-                          controller: confirmPasswordController,
-                          labelText: "reenter_password".tr(),
-                          textInputType: TextInputType.visiblePassword,
+                            controller: passwordController,
+                            hintText: "password".tr(),
+                          ),
+                          12.vertical,
+                          CustomTextField(
+                            validator: (value) {
+                              if (value != passwordController.text) {
+                                return "passwords_not_match".tr();
+                              }
+                              return null;
+                            },
+                            controller: confirmPasswordController,
+                            labelText: "reenter_password".tr(),
+                            textInputType: TextInputType.visiblePassword,
 
-                          isObscure: true,
-                          hintText: "password".tr(),
-                        ),
-                      ],
-                    ).paddingSymmetric(horizontal: 12),
+                            isObscure: true,
+                            hintText: "password".tr(),
+                          ),
+                        ],
+                      ).paddingSymmetric(horizontal: 12),
+                    ),
                   ),
 
                   Form(
@@ -210,6 +214,7 @@ class ForgotPasswordPage extends HookConsumerWidget {
                             verificationKey: otpKey.value,
                           ),
                         );
+                    showCustomToast(title: "Success",type: ToastificationType.success);
                   }
                 }
               },
