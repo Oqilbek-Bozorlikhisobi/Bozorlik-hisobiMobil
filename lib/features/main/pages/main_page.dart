@@ -149,16 +149,12 @@ class MainPage extends HookConsumerWidget {
           Container(
             padding: EdgeInsets.symmetric(vertical: 4, horizontal: 12),
             decoration: isActive ? BoxDecoration(borderRadius: BorderRadius.circular(10)) : null,
-            child: Badge(
-              isLabelVisible: badgeCount != null && badgeCount > 0,
-              label: badgeCount != null ? Text(badgeCount.toString()) : null,
-              child: SvgPicture.asset(
-                iconPath,
-                height: 24,
-                width: 24,
-                colorFilter:
-                    isActive ? ColorFilter.mode(AppColors.primaryColor, BlendMode.srcIn) : ColorFilter.mode(AppColors.grayNormal, BlendMode.srcIn),
-              ),
+            child: SvgPicture.asset(
+              iconPath,
+              height: 24,
+              width: 24,
+              colorFilter:
+                  isActive ? ColorFilter.mode(AppColors.primaryColor, BlendMode.srcIn) : ColorFilter.mode(AppColors.grayNormal, BlendMode.srcIn),
             ),
           ),
           SizedBox(height: 4),

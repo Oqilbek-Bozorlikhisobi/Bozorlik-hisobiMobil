@@ -180,8 +180,11 @@
   "amazing": "Ажойиб",
   "save": "Саклаш",
   "handwriting": "Колда йозиш",
-  "choose_brends": "Брендлардан танлаш"
-
-
-
+  "choose_brends": "Брендлардан танлаш",
+  "edit_name": "Номни тахрирлаш",
+  "user_phone": "Фойдаланувчининг телефон рақами",
+  "invitation_number": "Ракам оркали таклиф килиш",
+  "share_market": "улашиш",
+  "active_users": "Фаол иштрокчилар",
+  "active_users2": "Таклиф жарайонида"
 }

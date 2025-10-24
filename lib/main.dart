@@ -32,7 +32,6 @@ void main() async {
     [
       NotificationChannel(
         icon: 'resource://drawable/applogo',
-        // bu yerda small icon resursi,
         channelKey: 'basic_channel',
         channelName: 'Basic Notifications',
         channelDescription: 'Bildirishnomalar',

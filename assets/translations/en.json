@@ -193,20 +193,9 @@
   "user_phone": "*User phone number",
   "save": "Save",
   "handwriting": "Handwriting",
-  "choose_brends": "Choose from brands"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  "choose_brends": "Choose from brands",
+  "edit_name": "Edit name",
+  "share_market": "share",
+  "active_users": "Active participants",
+  "active_users2": "During the bidding process"
 }

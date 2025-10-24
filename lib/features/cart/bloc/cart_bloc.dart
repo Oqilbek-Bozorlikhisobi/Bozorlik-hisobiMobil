@@ -33,5 +33,21 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         emit(state.copyWith(status: Status.error, errorMessage: e.toString()));
       }
     });
+    on<DeleteCartEvent>((event, emit) async {
+      emit(state.copyWith(statusDelete: Status.loading));
+
+      try {
+        final response = await repo.deleteCart(id: event.marketId);
+
+        if (response["message"] == "ok") {
+          emit(state.copyWith(statusDelete: Status.success));
+          add(GetCartEvent());
+        } else {
+          emit(state.copyWith(statusDelete: Status.error, errorMessage: response["message"]));
+        }
+      } on DioException catch (e) {
+        emit(state.copyWith(statusDelete: Status.error, errorMessage: e.toString()));
+      }
+    });
   }
 }

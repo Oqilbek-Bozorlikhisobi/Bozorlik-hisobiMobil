@@ -248,6 +248,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class CartPage extends StatefulWidget {
@@ -303,7 +304,7 @@ class _CartPageState extends State<CartPage> {
                     : state.status == Status.empty
                     ? Center(
                       child: Padding(
-                        padding:  EdgeInsets.symmetric(horizontal: 12.0),
+                        padding: EdgeInsets.symmetric(horizontal: 12.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -332,19 +333,29 @@ class _CartPageState extends State<CartPage> {
                     )
                     : state.status == Status.success
                     ? ListView.builder(
-                  padding: EdgeInsets.only(bottom: 80),
+                      padding: EdgeInsets.only(bottom: 80),
                       itemCount: state.data?.length,
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {
-                            Navigator.of(context).push(CupertinoPageRoute(builder: (context) => InnerCartScreen(cartData: state.data![index]))).then((v){
-                              if(v==true){
+                            Navigator.of(context).push(CupertinoPageRoute(builder: (context) => InnerCartScreen(cartData: state.data![index]))).then((
+                              v,
+                            ) {
+                              if (v == true) {
                                 bloc.add(GetCartEvent());
-
                               }
                             });
                           },
-                          child: CartItemNew(shopping: state.data?[index]),
+                          child: CartItemNew(
+                            shopping: state.data?[index],
+                            loading: () {
+                              bloc.add(GetCartEvent());
+                            },
+                            onTapDelete: () {
+                              context.pop(true);
+                              bloc.add(DeleteCartEvent(marketId: state.data?[index].id ?? ""));
+                            },
+                          ),
                         );
                       },
                     )

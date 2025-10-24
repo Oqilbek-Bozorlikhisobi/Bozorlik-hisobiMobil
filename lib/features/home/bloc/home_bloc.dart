@@ -28,6 +28,20 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       } on DioException catch (e) {
         emit(state.copyWith(status: Status.error, errorMessage: e.toString()));
       }
+    });    on<EditMarketEvent>((event, emit) async {
+      emit(state.copyWith(status: Status.loading));
+
+      try {
+        final response = await repo.editMarket(name: event.name, id: event.id);
+
+        if (response['statusCode'].toString() == "200") {
+          emit(state.copyWith(status: Status.success, errorMessage: response["message"]));
+        } else {
+          emit(state.copyWith(status: Status.error, errorMessage: response["message"].toString()));
+        }
+      } on DioException catch (e) {
+        emit(state.copyWith(status: Status.error, errorMessage: e.toString()));
+      }
     });
 
     on<GetMarketabilityEvent>((event, emit) async {

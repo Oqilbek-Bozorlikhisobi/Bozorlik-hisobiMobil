@@ -1,16 +1,25 @@
 import 'package:bozorlik/app/theme.dart';
 import 'package:bozorlik/common/values/app_assets.dart';
+import 'package:bozorlik/features/cart/components/show_item_bottomsheet.dart';
 import 'package:bozorlik/features/cart/models/cart_response.dart';
+import 'package:bozorlik/features/cart/pages/market_share/market_share_screen.dart';
 import 'package:bozorlik/features/home/models/marketability.dart';
 import 'package:bozorlik/utils/date_formatter.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+
+import 'edit_market_bottomsheet.dart';
 
 class CartItemNew extends StatelessWidget {
-  const CartItemNew({super.key, required this.shopping});
+  const CartItemNew({super.key, required this.shopping,  this.loading,  this.onTapDelete});
 
   final CartResponseData? shopping;
+  final Function()? loading;
+  final Function()? onTapDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +47,7 @@ class CartItemNew extends StatelessWidget {
                   colorFilter: ColorFilter.mode(Color.fromRGBO(255, 194, 102, 1), BlendMode.srcIn),
                 ),
                 Text(
-                  ((shopping?.name?.isEmpty??false)?"not_found".tr():shopping?.name ?? "OO").substring(0, 1).toUpperCase(),
+                  ((shopping?.name?.isEmpty ?? false) ? "not_found".tr() : shopping?.name ?? "OO").substring(0, 1).toUpperCase(),
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
                 ),
               ],
@@ -56,7 +65,9 @@ class CartItemNew extends StatelessWidget {
                     children: [
                       TextSpan(
                         text: "${shopping?.name ?? ""}: ",
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.textPrimary),
+                        style: Theme.of(
+                          context,
+                        ).textTheme.bodyMedium!.copyWith(fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.textPrimary),
                       ),
                       TextSpan(
                         text: "#${shopping?.marketType?.titleUz ?? shopping?.name ?? ""}",
@@ -106,6 +117,60 @@ class CartItemNew extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+          GestureDetector(
+            onTap: () {
+              showCupertinoModalBottomSheet(
+                context: context,
+                builder:
+                    (context) => ShowItemBottomsheet(
+                      name: shopping?.name ?? "",
+                      onTapEdit: () {
+                        showCupertinoModalBottomSheet(
+                          context: context,
+                          builder: (context) => EditMarketBottomsheet(name: shopping?.name ?? "", id: shopping?.id ?? ""),
+                        );
+                      },
+                      onTapShare: () {
+
+                        Navigator.of(context).push(CupertinoPageRoute(builder: (context)=>MarketShareScreen(shopping: shopping,)));
+                      },
+                      onTapDelete: () {
+
+                        showCupertinoModalPopup(
+                          context: context,
+                          builder: (context) {
+                            return CupertinoActionSheet(
+                              actions: [
+                                CupertinoActionSheetAction(
+                                  isDestructiveAction: true,
+                                  onPressed: () async {
+                                    onTapDelete!();
+                                    // bloc.add(DeleteUserEvent(userId: pendingUser?.id ?? "", marketId: widget.shopping?.id ?? ""));
+                                    context.pop();
+
+                                  },
+                                  child: Text("delete".tr()),
+                                ),
+                                CupertinoActionSheetAction(
+                                  onPressed: () {
+                                    Navigator.pop(context); // just close
+                                  },
+                                  child: Text("cancel".tr()),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                    ),
+              ).then((v){
+                if(v==true){
+                  loading!();
+                }
+              });
+            },
+            child: Icon(Icons.more_vert_rounded),
           ),
         ],
       ),

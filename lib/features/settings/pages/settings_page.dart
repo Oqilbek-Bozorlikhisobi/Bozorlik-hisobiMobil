@@ -229,13 +229,52 @@ class SettingsPage extends HookConsumerWidget {
                         svg: AppIcons.exitApp,
                         title: 'exit_app'.tr(),
                         onTap: () {
-                          isLoading.value = true;
-                          try {
-                            ref.read(loginNotifierProvider.notifier).logout().then((e) {
-                              context.go(AppRoutes.login);
-                            });
-                          } catch (e) {}
-                          isLoading.value = false;
+                          // isLoading.value = true;
+                          // try {
+                          //   ref.read(loginNotifierProvider.notifier).logout().then((e) {
+                          //     context.go(AppRoutes.login);
+                          //   });
+                          // } catch (e) {}
+                          // isLoading.value = false;
+
+
+                          showCupertinoModalPopup(
+                            context: context,
+                            builder: (context) {
+                              return CupertinoActionSheet(
+                                // title: Text("exit_app".tr(),style: Theme.of(context).textTheme.titleMedium),
+                                actions: [
+                                  CupertinoActionSheetAction(
+                                    isDestructiveAction: true,
+                                    onPressed: () async {
+                                      // Navigator.pop(context); // close popup
+                                      // await ref.read(loginNotifierProvider.notifier).deleteAccount();
+                                      // if (context.mounted) {
+                                      //   context.go(AppRoutes.login);
+                                      // }
+
+
+
+                                      isLoading.value = true;
+                                      try {
+                                        ref.read(loginNotifierProvider.notifier).logout().then((e) {
+                                          context.go(AppRoutes.login);
+                                        });
+                                      } catch (e) {}
+                                      isLoading.value = false;
+                                    },
+                                    child: Text("exit_app".tr()),
+                                  ),
+                                  CupertinoActionSheetAction(
+                                    onPressed: () {
+                                      Navigator.pop(context); // just close
+                                    },
+                                    child: Text("cancel".tr()),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
                         },
                         title2: "",
                       ),

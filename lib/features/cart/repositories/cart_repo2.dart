@@ -6,9 +6,22 @@ class CartRepository2 {
 
     return response;
   }
+  Future<Map<String, dynamic>> deleteCart({required String id}) async {
+    final response = await requestHelper.deleteWithAuth("/market/$id");
+
+    return response;
+  }
 
   Future<Map<String, dynamic>> getInnerCartById({required String id}) async {
     final response = await requestHelper.getWithAuth("/market/$id");
+
+    return response;
+  }
+  Future<Map<String, dynamic>> deleteUserById({required String deletedUserId,required String marketId}) async {
+    final response = await requestHelper.patchWithAuth("/market/delete/user",{
+      "deletedUserId": deletedUserId,
+      "marketId": marketId
+    });
 
     return response;
   }

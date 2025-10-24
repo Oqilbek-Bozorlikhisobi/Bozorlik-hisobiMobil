@@ -1,8 +1,10 @@
 class AppIcons {
   static const String logo = "assets/svg/logo.svg";
+  static const String send = "assets/svg/send.svg";
   static const String splashLogo = "assets/svg/splash_logo.svg";
   static const String logoDark = "assets/svg/logo_dark.svg";
   static const String splash = "assets/svg/splash.svg";
+  static const String splashback = "assets/svg/splashback.svg";
   static const String main = "assets/svg/main.svg";
   static const String mainFilled = "assets/svg/main_filled.svg";
   static const String home = "assets/svg/home.svg";
@@ -49,6 +51,8 @@ class AppIcons {
 
 class AppImages {
   static const String banner1uz = "assets/png/banner1_uz.png";
+  static const String user1 = "assets/png/user1.png";
+  static const String user2 = "assets/png/user2.png";
   static const String banner2uz = "assets/png/banner2_uz.png";
   static const String banner1ru = "assets/png/banner1_ru.png";
   static const String banner2ru = "assets/png/banner2_ru.png";

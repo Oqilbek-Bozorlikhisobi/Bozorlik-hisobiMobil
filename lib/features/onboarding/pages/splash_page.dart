@@ -1,3 +1,4 @@
+import 'package:bozorlik/app/theme.dart';
 import 'package:bozorlik/common/values/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -24,10 +25,11 @@ class SplashPage extends HookConsumerWidget {
       return null;
     }, [0]);
     return Scaffold(
+      backgroundColor: AppColors.primaryColor,
       body: Center(
         child: Stack(
           children: [
-            SvgPicture.asset(AppIcons.splash),
+            SvgPicture.asset(AppIcons.splashback,width: double.infinity,height: double.infinity,fit: BoxFit.cover,),
             Center(child: SvgPicture.asset(AppIcons.splashLogo, height: 200, width: 200)),
           ],
         ),
