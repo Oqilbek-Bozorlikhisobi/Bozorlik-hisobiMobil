@@ -73,7 +73,7 @@ class LanguageNotifier extends _$LanguageNotifier {
       // State-ni yangilash
       state = language;
 
-      print('✅ Til muvaffaqiyatli ўзгартирилди: $language');
+      print("✅ Til muvaffaqiyatli o'zgartirildi: $language");
       return language;
     } catch (e) {
       print('❌ Tilni ўзгартirish xatolik: $e');

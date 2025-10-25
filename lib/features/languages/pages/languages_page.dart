@@ -83,7 +83,10 @@ import 'package:bozorlik/app/theme.dart';
 import 'package:bozorlik/common/extension/number_extension.dart';
 import 'package:bozorlik/common/values/app_assets.dart';
 import 'package:bozorlik/common/widgets/custom_button.dart';
+import 'package:bozorlik/db/cache.dart';
+import 'package:bozorlik/features/onboarding/pages/splash_page.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -103,14 +106,25 @@ class _LanguagesPageState extends ConsumerState<LanguagesPage> {
   String selectedLanguage = 'uz';
 
   @override
-  Widget build(BuildContext context) {
-    final languageNotifier = ref.watch(languageNotifierProvider.notifier);
+  void initState() {
+    super.initState();
 
-    ref.listen(languageNotifierProvider, (previous, next) {
-      if (next != null) {
-        context.go(AppRoutes.splash);
-      }
-    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // final languageNotifier = ref.watch(languageNotifierProvider.notifier);
+    //
+    // ref.listen(languageNotifierProvider, (previous, next) {
+    //   // if (next != null) {
+    //   Navigator.of(context).push(CupertinoPageRoute(builder: (context)=>SplashPage()));
+    //     context.go(AppRoutes.splash);
+    //
+    //     setState(() {
+    //
+    //     });
+    //   // }
+    // });
 
     return Scaffold(
       backgroundColor: Colors.grey.shade50,
@@ -185,7 +199,7 @@ class _LanguagesPageState extends ConsumerState<LanguagesPage> {
                   // if (selectedLanguage == 'uz_cyrillic') {
                   //   langCode = 'uz';
                   // }
-                  languageNotifier.changeLanguage(langCode, context);
+                  changeLanguage(langCode, context);
                   // var languageNotifier = LanguageNotifier();
                   // languageNotifier.changeLanguage(selectedLanguage, context);
                   // context.go(AppRoutes.splash);
@@ -199,6 +213,47 @@ class _LanguagesPageState extends ConsumerState<LanguagesPage> {
       ),
     );
   }
+
+  Future<String> changeLanguage(String language, BuildContext context) async {
+    try {
+      Locale locale;
+
+      // Language code-ni Locale-ga aylantirish
+      switch (language) {
+        case 'ky':
+          locale = Locale("ky");
+          break;
+        case 'uz':
+          locale = Locale('uz');
+          break;
+        case 'ru':
+          locale = Locale('ru');
+          break;
+        case 'en':
+          locale = Locale('en');
+          break;
+        default:
+          locale = Locale('uz');
+      }
+
+      // Tilni o'zgartirish
+      await context.setLocale(locale);
+
+      // Cache-ga saqlash
+      await cache.setString("language", language);
+
+      // State-ni yangilash
+      selectedLanguage = language;
+      // Navigator.of(context).push(CupertinoPageRoute(builder: (context)=>SplashPage()));
+      context.go(AppRoutes.splash);
+      print("✅ Til muvaffaqiyatli o'zgartirildi: $language");
+      return language;
+    } catch (e) {
+      print('❌ Tilni ўзгартirish xatolik: $e');
+      rethrow;
+    }
+  }
+
 }
 
 class _LanguageTile extends StatelessWidget {
