@@ -15,7 +15,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'edit_market_bottomsheet.dart';
 
 class CartItemNew extends StatelessWidget {
-  const CartItemNew({super.key, required this.shopping,  this.loading,  this.onTapDelete});
+  const CartItemNew({super.key, required this.shopping, this.loading, this.onTapDelete});
 
   final CartResponseData? shopping;
   final Function()? loading;
@@ -59,22 +59,44 @@ class CartItemNew extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                RichText(
-                  overflow: TextOverflow.ellipsis,
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: "${shopping?.name ?? ""}: ",
-                        style: Theme.of(
-                          context,
-                        ).textTheme.bodyMedium!.copyWith(fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.textPrimary),
+                Builder(
+                  builder: (context) {
+                    final currentLocale = context.locale.languageCode;
+
+                    // Tilga qarab title-ni tanlash
+                    String getTitle() {
+                      switch (currentLocale) {
+                        case 'uz':
+                          return shopping?.marketType?.titleUz ?? "";
+                        case 'ky':
+                          return shopping?.marketType?.titleUzk ?? "";
+                        case 'ru':
+                          return shopping?.marketType?.titleRu ?? "";
+                        case 'en':
+                          return shopping?.marketType?.titleEn ?? "";
+                        default:
+                          return shopping?.marketType?.titleUz ?? "";
+                      }
+                    }
+
+                    return RichText(
+                      overflow: TextOverflow.ellipsis,
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "${shopping?.name ?? ""}: ",
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium!.copyWith(fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.textPrimary),
+                          ),
+                          TextSpan(
+                            text: "#${getTitle() ?? ""}",
+                            style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: AppColors.primaryColor, fontWeight: FontWeight.w500),
+                          ),
+                        ],
                       ),
-                      TextSpan(
-                        text: "#${shopping?.marketType?.titleUz ?? shopping?.name ?? ""}",
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: AppColors.primaryColor, fontWeight: FontWeight.w500),
-                      ),
-                    ],
-                  ),
+                    );
+                  },
                 ),
 
                 SizedBox(height: 8),
@@ -132,11 +154,9 @@ class CartItemNew extends StatelessWidget {
                         );
                       },
                       onTapShare: () {
-
-                        Navigator.of(context).push(CupertinoPageRoute(builder: (context)=>MarketShareScreen(shopping: shopping,)));
+                        Navigator.of(context).push(CupertinoPageRoute(builder: (context) => MarketShareScreen(shopping: shopping)));
                       },
                       onTapDelete: () {
-
                         showCupertinoModalPopup(
                           context: context,
                           builder: (context) {
@@ -148,7 +168,6 @@ class CartItemNew extends StatelessWidget {
                                     onTapDelete!();
                                     // bloc.add(DeleteUserEvent(userId: pendingUser?.id ?? "", marketId: widget.shopping?.id ?? ""));
                                     context.pop();
-
                                   },
                                   child: Text("delete".tr()),
                                 ),
@@ -164,8 +183,8 @@ class CartItemNew extends StatelessWidget {
                         );
                       },
                     ),
-              ).then((v){
-                if(v==true){
+              ).then((v) {
+                if (v == true) {
                   loading!();
                 }
               });

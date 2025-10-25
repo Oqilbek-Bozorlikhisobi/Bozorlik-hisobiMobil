@@ -197,5 +197,7 @@
   "edit_name": "Edit name",
   "share_market": "share",
   "active_users": "Active participants",
-  "active_users2": "During the bidding process"
+  "active_users2": "During the bidding process",
+  "product_count_summ": "*Product quantity and unit"
+
 }

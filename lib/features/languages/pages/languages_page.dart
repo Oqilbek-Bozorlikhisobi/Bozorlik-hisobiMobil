@@ -202,7 +202,7 @@ class _LanguagesPageState extends ConsumerState<LanguagesPage> {
                   changeLanguage(langCode, context);
                   // var languageNotifier = LanguageNotifier();
                   // languageNotifier.changeLanguage(selectedLanguage, context);
-                  // context.go(AppRoutes.splash);
+                  context.go(AppRoutes.splash);
 
                 },
               ),
@@ -245,10 +245,11 @@ class _LanguagesPageState extends ConsumerState<LanguagesPage> {
       // State-ni yangilash
       selectedLanguage = language;
       // Navigator.of(context).push(CupertinoPageRoute(builder: (context)=>SplashPage()));
-      context.go(AppRoutes.splash);
       print("✅ Til muvaffaqiyatli o'zgartirildi: $language");
       return language;
     } catch (e) {
+      context.go(AppRoutes.splash);
+
       print('❌ Tilni ўзгартirish xatolik: $e');
       rethrow;
     }

@@ -155,15 +155,20 @@ import 'package:bozorlik/app/theme.dart';
 import 'package:bozorlik/common/values/app_assets.dart';
 import 'package:bozorlik/features/history/models/get_all_history_response.dart';
 import 'package:bozorlik/features/history/models/history_response.dart';
+import 'package:bozorlik/features/history/widgets/show_bottomsheet_save_check.dart';
 import 'package:bozorlik/utils/date_formatter.dart';
 import 'package:bozorlik/utils/price_formatter.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class HistoryItemNew extends StatelessWidget {
-  const HistoryItemNew({super.key, required this.shopping});
+  const HistoryItemNew({super.key, required this.shopping, this.retry, this.check});
+
   final HistoryResponseDataData shopping;
+  final Function()? retry;
+  final Function()? check;
 
   @override
   Widget build(BuildContext context) {
@@ -206,35 +211,64 @@ class HistoryItemNew extends StatelessWidget {
             ),
           ),
           SizedBox(width: 12),
-          Flexible(
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                RichText(
-                  overflow: TextOverflow.ellipsis,
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: "${shopping.name ?? ""}: ",
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          overflow: TextOverflow.ellipsis,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.textPrimary,
-                        ),
-                      ),
-                      TextSpan(
+                Builder(
+                    builder: (context) {
+                      final currentLocale = context.locale.languageCode;
 
-                        text: "#${shopping.name ?? ""}",
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      // Tilga qarab title-ni tanlash
+                      String getTitle() {
+                        switch (currentLocale) {
+                          case 'uz':
+                            return shopping.marketType?.titleUz ?? "";
+                          case 'ky':
+                            return shopping.marketType?.titleUzk ?? "";
+                          case 'ru':
+                            return shopping.marketType?.titleRu ?? "";
+                          case 'en':
+                            return shopping.marketType?.titleEn ?? "";
+                          default:
+                            return shopping.marketType?.titleUz ?? "";
+                        }
+                      }
+                      return RichText(
                         overflow: TextOverflow.ellipsis,
-                          color: AppColors.primaryColor,
-                          fontWeight: FontWeight.w500,
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "${shopping.name ?? ""}: ",
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
+                                overflow: TextOverflow.ellipsis,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.textPrimary,
+                              ),
+                            ),
+                            TextSpan(
+
+                              text: "#${getTitle() ?? ""}",
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
+                                overflow: TextOverflow.ellipsis,
+                                color: AppColors.primaryColor,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ],
-                  ),
+                      );
+                    }
                 ),
 
                 SizedBox(height: 8),
@@ -248,7 +282,11 @@ class HistoryItemNew extends StatelessWidget {
                         SizedBox(width: 4),
                         Text(
                           "${shopping.marketLists?.length}",
-                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          style: Theme
+                              .of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(
                             fontSize: 12,
                             color: Color.fromRGBO(75, 75, 75, 1),
                             fontWeight: FontWeight.w500,
@@ -272,7 +310,11 @@ class HistoryItemNew extends StatelessWidget {
                               shopping.totalPrice.toString(),
                             ).replaceAll(',', ' '),
                             overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            style: Theme
+                                .of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
                               fontSize: 12,
                               color: Color.fromRGBO(75, 75, 75, 1),
                               fontWeight: FontWeight.w500,
@@ -294,7 +336,11 @@ class HistoryItemNew extends StatelessWidget {
                         Text(
                           overflow: TextOverflow.ellipsis,
                           formatDate(shopping.createdAt ?? ""),
-                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          style: Theme
+                              .of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(
                             fontSize: 12,
                             color: Color.fromRGBO(75, 75, 75, 1),
                             fontWeight: FontWeight.w500,
@@ -307,6 +353,12 @@ class HistoryItemNew extends StatelessWidget {
               ],
             ),
           ),
+
+          GestureDetector(
+              onTap: () {
+                showCupertinoModalBottomSheet(context: context, builder: (context) =>ShowBottomsheetSaveCheck());
+              },
+              child: Icon(Icons.more_vert_rounded))
         ],
       ),
     );

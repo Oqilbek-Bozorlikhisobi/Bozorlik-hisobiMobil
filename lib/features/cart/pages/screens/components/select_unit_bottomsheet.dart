@@ -55,11 +55,12 @@ class _SelectUnitBottomsheetState extends State<SelectUnitBottomsheet> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16),
                     child: Text("select_unit".tr(), style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
-                  ), 16.vertical,
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
-                    child: Text("unit_description".tr(), style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
                   ),
+                  // 16.vertical,
+                  // Padding(
+                  //   padding: EdgeInsets.symmetric(horizontal: 16),
+                  //   child: Text("unit_description".tr(), style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
+                  // ),
                   16.vertical,
                   Expanded(
                     child:

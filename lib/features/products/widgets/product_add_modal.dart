@@ -79,7 +79,7 @@ class ProductAddModal extends HookConsumerWidget {
                   hintText: "product_name_example".tr(),
                 ),
                 10.vertical,
-                10.vertical,
+                // 10.vertical,
                 Text("select_market".tr(), style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w400, fontSize: 14)),
                 8.vertical,
                 Column(
@@ -119,7 +119,8 @@ class ProductAddModal extends HookConsumerWidget {
                   ],
                 ),
                 10.vertical,
-
+                Text("product_count_summ".tr(), style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w400, fontSize: 14)),
+                8.vertical,
                 Container(
                   width: double.infinity,
                   height: 44,
