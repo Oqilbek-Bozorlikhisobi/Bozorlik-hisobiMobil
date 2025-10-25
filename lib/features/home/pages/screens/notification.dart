@@ -116,34 +116,32 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
                     if (((state.itemsAll?.length ?? 0)) < 1) return Center(child: SvgPicture.asset(AppIcons.splashLogo, height: 200, width: 200));
 
                     if (state.status == Status.success) {
-                      return Expanded(
-                        child: ListView.builder(
-                          padding: const EdgeInsets.all(16),
-                          itemCount: state.itemsAll?.length,
-                          itemBuilder: (context, index) {
-                            final notification = state.itemsAll?[index];
-                            return GestureDetector(
-                              onTap: () {
-                                if (notification.isGlobal == true) {
-                                  showCupertinoModalBottomSheet(
-                                    context: context,
-                                    builder: (context) => NotificationInfoBottomsheet(data: notification),
-                                  ).then((v) {
-                                    bloc.add(GetNotificationEvent());
-                                  });
-                                } else {
-                                  showCupertinoModalBottomSheet(
-                                    context: context,
-                                    builder: (context) => NotificationSuccessBottomsheet(data: notification, isRead: false),
-                                  ).then((v) {
-                                    bloc.add(GetNotificationEvent());
-                                  });
-                                }
-                              },
-                              child: _buildNotificationCard(notification!),
-                            );
-                          },
-                        ),
+                      return ListView.builder(
+                        padding: const EdgeInsets.all(16),
+                        itemCount: state.itemsAll?.length,
+                        itemBuilder: (context, index) {
+                          final notification = state.itemsAll?[index];
+                          return GestureDetector(
+                            onTap: () {
+                              if (notification.isGlobal == true) {
+                                showCupertinoModalBottomSheet(
+                                  context: context,
+                                  builder: (context) => NotificationInfoBottomsheet(data: notification),
+                                ).then((v) {
+                                  bloc.add(GetNotificationEvent());
+                                });
+                              } else {
+                                showCupertinoModalBottomSheet(
+                                  context: context,
+                                  builder: (context) => NotificationSuccessBottomsheet(data: notification, isRead: false),
+                                ).then((v) {
+                                  bloc.add(GetNotificationEvent());
+                                });
+                              }
+                            },
+                            child: _buildNotificationCard(notification!),
+                          );
+                        },
                       );
                     }
                     return SizedBox();
@@ -167,34 +165,32 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
                     if (((state.itemsUnRead?.length ?? 0)) < 1) return Center(child: SvgPicture.asset(AppIcons.splashLogo, height: 200, width: 200));
 
                     if (state.status == Status.success) {
-                      return Expanded(
-                        child: ListView.builder(
-                          padding: const EdgeInsets.all(16),
-                          itemCount: state.itemsUnRead?.length,
-                          itemBuilder: (context, index) {
-                            final notification = state.itemsUnRead?[index];
-                            return GestureDetector(
-                              onTap: () {
-                                if (notification.isGlobal == true) {
-                                  showCupertinoModalBottomSheet(
-                                    context: context,
-                                    builder: (context) => NotificationInfoBottomsheet(data: notification),
-                                  ).then((v) {
-                                    bloc.add(GetUnReadNotificationEvent());
-                                  });
-                                } else {
-                                  showCupertinoModalBottomSheet(
-                                    context: context,
-                                    builder: (context) => NotificationSuccessBottomsheet(data: notification, isRead: false),
-                                  ).then((v) {
-                                    bloc.add(GetUnReadNotificationEvent());
-                                  });
-                                }
-                              },
-                              child: _buildNotificationCard(notification!),
-                            );
-                          },
-                        ),
+                      return ListView.builder(
+                        padding: const EdgeInsets.all(16),
+                        itemCount: state.itemsUnRead?.length,
+                        itemBuilder: (context, index) {
+                          final notification = state.itemsUnRead?[index];
+                          return GestureDetector(
+                            onTap: () {
+                              if (notification.isGlobal == true) {
+                                showCupertinoModalBottomSheet(
+                                  context: context,
+                                  builder: (context) => NotificationInfoBottomsheet(data: notification),
+                                ).then((v) {
+                                  bloc.add(GetUnReadNotificationEvent());
+                                });
+                              } else {
+                                showCupertinoModalBottomSheet(
+                                  context: context,
+                                  builder: (context) => NotificationSuccessBottomsheet(data: notification, isRead: false),
+                                ).then((v) {
+                                  bloc.add(GetUnReadNotificationEvent());
+                                });
+                              }
+                            },
+                            child: _buildNotificationCard(notification!),
+                          );
+                        },
                       );
                     }
                     return const SizedBox();
@@ -219,34 +215,32 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
                       return Center(child: SvgPicture.asset(AppIcons.splashLogo, height: 200, width: 200));
                     }
                     if (state.status == Status.success) {
-                      return Expanded(
-                        child: ListView.builder(
-                          padding: const EdgeInsets.all(16),
-                          itemCount: state.itemsRead?.length,
-                          itemBuilder: (context, index) {
-                            final notification = state.itemsRead?[index];
-                            return GestureDetector(
-                              onTap: () {
-                                if (notification.isGlobal == true) {
-                                  showCupertinoModalBottomSheet(
-                                    context: context,
-                                    builder: (context) => NotificationInfoBottomsheet(data: notification),
-                                  ).then((v) {
-                                    // bloc.add(GetReadNotificationEvent());
-                                  });
-                                } else {
-                                  showCupertinoModalBottomSheet(
-                                    context: context,
-                                    builder: (context) => NotificationSuccessBottomsheet(data: notification, isRead: true),
-                                  ).then((v) {
-                                    // bloc.add(GetReadNotificationEvent());
-                                  });
-                                }
-                              },
-                              child: _buildNotificationCard(notification!),
-                            );
-                          },
-                        ),
+                      return ListView.builder(
+                        padding: const EdgeInsets.all(16),
+                        itemCount: state.itemsRead?.length,
+                        itemBuilder: (context, index) {
+                          final notification = state.itemsRead?[index];
+                          return GestureDetector(
+                            onTap: () {
+                              if (notification.isGlobal == true) {
+                                showCupertinoModalBottomSheet(
+                                  context: context,
+                                  builder: (context) => NotificationInfoBottomsheet(data: notification),
+                                ).then((v) {
+                                  // bloc.add(GetReadNotificationEvent());
+                                });
+                              } else {
+                                showCupertinoModalBottomSheet(
+                                  context: context,
+                                  builder: (context) => NotificationSuccessBottomsheet(data: notification, isRead: true),
+                                ).then((v) {
+                                  // bloc.add(GetReadNotificationEvent());
+                                });
+                              }
+                            },
+                            child: _buildNotificationCard(notification!),
+                          );
+                        },
                       );
                     }
                     return const SizedBox();

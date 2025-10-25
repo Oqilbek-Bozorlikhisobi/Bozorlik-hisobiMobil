@@ -24,60 +24,34 @@ class _DepartmentCardState extends State<DepartmentCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-
-      onTap: (){
-        Navigator.of(context).push(
-          CupertinoPageRoute(
-            builder: (context) => DepartmentScreen(),
-          ),
-        );
+      onTap: () {
+        Navigator.of(context).push(CupertinoPageRoute(builder: (context) => DepartmentScreen()));
       },
       child: BlocConsumer<HomeBloc, HomeState>(
         listener: (context, state) {},
         builder: (context, state) {
           return Container(
             margin: EdgeInsets.symmetric(horizontal: 16),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: AppColors.white,
-            ),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: AppColors.white),
             child: Column(
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.of(context).push(
-                      CupertinoPageRoute(
-                        builder: (context) => DepartmentScreen(),
-                      ),
-                    );
+                    Navigator.of(context).push(CupertinoPageRoute(builder: (context) => DepartmentScreen()));
                   },
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 12,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          "department".tr(),
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.textPrimary,
-                          ),
-                        ),
+                        Text("department".tr(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
                         Container(
                           padding: EdgeInsets.all(6),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
-                            color:context.isDarkMode?AppColors.textPrimary: AppColors.grey.withOpacity(0.2),
+                            color: context.isDarkMode ? AppColors.textPrimary : AppColors.grey.withOpacity(0.2),
                           ),
-                          child: Icon(
-                            Icons.arrow_forward_ios_rounded,
-                            color: AppColors.black,
-                            size: 16,
-                          ),
+                          child: Icon(Icons.arrow_forward_ios_rounded, color: AppColors.black, size: 16),
                         ),
                       ],
                     ),
@@ -104,13 +78,7 @@ class _DepartmentCardState extends State<DepartmentCard> {
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Icon(Icons.refresh),
-                                        Text(
-                                          state.errorMessageMarket ?? "Xatolik",
-                                          style:
-                                              Theme.of(
-                                                context,
-                                              ).textTheme.titleMedium,
-                                        ),
+                                        Text(state.errorMessageMarket ?? "Xatolik", style: Theme.of(context).textTheme.titleMedium),
                                       ],
                                     ),
                                   ),
@@ -127,43 +95,28 @@ class _DepartmentCardState extends State<DepartmentCard> {
                               final department = state.departmentData?[index];
                               return Container(
                                 width: 280,
-                                margin: EdgeInsets.symmetric(
-                                  horizontal: 4,
-                                  vertical: 8,
-                                ),
+                                margin: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
                                 decoration: BoxDecoration(
                                   color: AppColors.backGround,
                                   borderRadius: BorderRadius.circular(16),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.08),
-                                      blurRadius: 10,
-                                      offset: Offset(0, 2),
-                                    ),
-                                  ],
+                                  boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.08), blurRadius: 10, offset: Offset(0, 2))],
                                 ),
                                 child: Stack(
                                   children: [
                                     Positioned(
                                       bottom: 0,
                                       right: 0,
-                                      child: Image.network(
+                                      child: SvgPicture.network(
                                         department?.image ?? "",
                                         height: 140,
                                         fit: BoxFit.cover,
-                                        errorBuilder: (
-                                          context,
-                                          error,
-                                          stackTrace,
-                                        ) {
+                                        errorBuilder: (context, error, stackTrace) {
                                           return Container(
                                             height: 140,
                                             width: 140,
                                             decoration: BoxDecoration(
                                               color: Colors.teal.shade100,
-                                              borderRadius: BorderRadius.only(
-                                                bottomRight: Radius.circular(16),
-                                              ),
+                                              borderRadius: BorderRadius.only(bottomRight: Radius.circular(16)),
                                             ),
                                           );
                                         },
@@ -175,7 +128,6 @@ class _DepartmentCardState extends State<DepartmentCard> {
                                       left: 20,
                                       child: Builder(
                                         builder: (context) {
-
                                           final currentLocale = context.locale.languageCode;
 
                                           // Tilga qarab title-ni tanlash
@@ -194,24 +146,15 @@ class _DepartmentCardState extends State<DepartmentCard> {
                                             }
                                           }
 
-
                                           return Text(
                                             getTitle(),
-                                            style: TextStyle(
-                                              fontSize: 24,
-                                              fontWeight: FontWeight.bold,
-                                              color: AppColors.textPrimary,
-                                            ),
+                                            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
                                           );
-                                        }
+                                        },
                                       ),
                                     ),
                                     // Logo
-                                    Positioned(
-                                      bottom: 16,
-                                      left: 16,
-                                      child: SvgPicture.asset(context.isDarkMode?AppIcons.logoDark:AppIcons.logo),
-                                    ),
+                                    Positioned(bottom: 16, left: 16, child: SvgPicture.asset(context.isDarkMode ? AppIcons.logoDark : AppIcons.logo)),
                                   ],
                                 ),
                               );
@@ -220,20 +163,9 @@ class _DepartmentCardState extends State<DepartmentCard> {
                           : state.statusDepartment == Status.empty
                           ? Column(
                             children: [
-                              SvgPicture.asset(
-                                AppIcons.emptyMarket,
-                                height: 40,
-                                width: 40,
-                              ),
+                              SvgPicture.asset(AppIcons.emptyMarket, height: 40, width: 40),
                               12.vertical,
-                              Text(
-                                "cart_empty".tr(),
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
+                              Text("cart_empty".tr(), textAlign: TextAlign.center, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
                             ],
                           )
                           : SizedBox(),
