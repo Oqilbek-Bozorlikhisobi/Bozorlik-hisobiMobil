@@ -20,22 +20,25 @@ class _ShowNotificationProductsState extends State<ShowNotificationProducts> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Column(
-        children: [
-          Expanded(
-            child:
-                (widget.marketLists?.isNotEmpty ?? false)
-                    ? ListView.builder(
-                      itemCount: widget.marketLists?.length,
-                      itemBuilder: (context, index) {
-                        return BuyProductNotification(
-                          data: widget.marketLists?[index],
-                        );
-                      },
-                    )
-                    : SvgPicture.asset(AppIcons.emptyMarket),
-          ),
-        ],
+      child: Padding(
+        padding:  EdgeInsets.symmetric(horizontal: 16.0),
+        child: Column(
+          children: [
+            Expanded(
+              child:
+                  (widget.marketLists?.isNotEmpty ?? false)
+                      ? ListView.builder(
+                        itemCount: widget.marketLists?.length,
+                        itemBuilder: (context, index) {
+                          return BuyProductNotification(
+                            data: widget.marketLists?[index],
+                          );
+                        },
+                      )
+                      : SvgPicture.asset(AppIcons.emptyMarket),
+            ),
+          ],
+        ),
       ),
     );
   }
