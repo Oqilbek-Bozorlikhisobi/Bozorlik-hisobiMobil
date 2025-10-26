@@ -13,7 +13,15 @@ class HomeRepository {
 
     return (response["data"]["items"] as List).map((e) => BannerModel.fromJson(e)).toList();
   }
+  Future<Map<String, dynamic>> checkVersion({required String packageName,required String local}) async {
+    try {
+      final response = await requestHelper.getWithAuth("/version/check?package=$packageName&local=$local", );
 
+      return response;
+    } catch (e) {
+      return {"==========ERROR========": e.toString()};
+    }
+  }
   Future<Map<String, dynamic>> createMarket({required String name}) async {
     try {
       final response = await requestHelper.postWithAuth("/market", {"name": name, "userId": userId});

@@ -2,6 +2,7 @@ part of 'home_bloc.dart';
 
 class HomeState {
   final Status? status;
+  final Status? statusCheck;
   final Status? statusBanner;
   final Status? statusMarket;
   final Status? statusDepartment;
@@ -21,6 +22,7 @@ class HomeState {
     this.statusUnits,
     this.errorMessageUnits,
     this.units,
+    this.statusCheck,
     this.banner,
     this.errorMessageBanner,
     this.departmentData,
@@ -38,7 +40,7 @@ class HomeState {
     final Status? statusBanner,
     final String? errorMessage,
     final String? errorMessageBanner,
-
+    final Status? statusCheck,
     final Status? statusDepartment,
     final Status? statusMarket,
     final String? errorMessageMarket,
@@ -51,6 +53,7 @@ class HomeState {
     final Status? statusUnits,
     final String? errorMessageUnits,
   }) => HomeState(
+    statusCheck: statusCheck ?? this.statusCheck,
     status: status ?? this.status,
     errorMessage: errorMessage ?? this.errorMessage,
     statusMarket: statusMarket ?? this.statusMarket,

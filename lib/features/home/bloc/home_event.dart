@@ -16,3 +16,4 @@ class GetMarketabilityEvent extends HomeEvent{}
 class GetDepartmentEvent extends HomeEvent{}
 class GetBannerEvent extends HomeEvent{}
 class GetUnitEvent extends HomeEvent{}
+class GetVersionEvent extends HomeEvent{}

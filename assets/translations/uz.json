@@ -203,7 +203,9 @@
   "share_market": "ulashish",
   "active_users": "Faol ishtirokchilar",
   "active_users2": "Taklif jarayonida",
-  "product_count_summ": "*Mahsulot miqdori va birligi"
+  "product_count_summ": "*Mahsulot miqdori va birligi",
+  "store_check": "Ilovani toliq ishlatish uchun yangilashingiz shart!",
+  "store_check_new": "Yangilanish mavjud!"
 
 
 }
