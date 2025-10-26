@@ -155,11 +155,32 @@ class _ShoppingsState extends ConsumerState<Shoppings> {
                                               height: 56,
                                               colorFilter: ColorFilter.mode(Color.fromRGBO(255, 194, 102, 1), BlendMode.srcIn),
                                             ),
-                                            Text(
-                                              ((shopping?.name?.isEmpty ?? false) ? "not_found".tr() : shopping?.name ?? "O")
-                                                  .substring(0, 1)
-                                                  .toUpperCase(),
-                                              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                                            Builder(
+                                              builder: (context) {
+                                                final currentLocale = context.locale.languageCode;
+
+                                                // Tilga qarab title-ni tanlash
+                                                String getTitle() {
+                                                  switch (currentLocale) {
+                                                    case 'uz':
+                                                      return shopping?.marketType?.titleUz ?? "";
+                                                    case 'ky':
+                                                      return shopping?.marketType?.titleUzk ?? "";
+                                                    case 'ru':
+                                                      return shopping?.marketType?.titleRu ?? "";
+                                                    case 'en':
+                                                      return shopping?.marketType?.titleEn ?? "";
+                                                    default:
+                                                      return shopping?.marketType?.titleUz ?? "";
+                                                  }
+                                                }
+                                                return Text(
+                                                  ((getTitle().isEmpty ?? false) ? "not_found".tr() : getTitle() ?? "O")
+                                                      .substring(0, 1)
+                                                      .toUpperCase(),
+                                                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                                                );
+                                              }
                                             ),
                                           ],
                                         ),
@@ -170,26 +191,48 @@ class _ShoppingsState extends ConsumerState<Shoppings> {
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
-                                            RichText(
-                                              overflow: TextOverflow.ellipsis,
-                                              text: TextSpan(
-                                                children: [
-                                                  TextSpan(
-                                                    text: "${shopping?.name ?? ""}: ",
-                                                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                                      fontSize: 16,
-                                                      fontWeight: FontWeight.w600,
-                                                      color: AppColors.textPrimary,
-                                                    ),
+                                            Builder(
+                                              builder: (context) {
+
+                                                final currentLocale = context.locale.languageCode;
+
+                                                // Tilga qarab title-ni tanlash
+                                                String getTitle() {
+                                                  switch (currentLocale) {
+                                                    case 'uz':
+                                                      return shopping?.marketType?.titleUz ?? "";
+                                                    case 'ky':
+                                                      return shopping?.marketType?.titleUzk ?? "";
+                                                    case 'ru':
+                                                      return shopping?.marketType?.titleRu ?? "";
+                                                    case 'en':
+                                                      return shopping?.marketType?.titleEn ?? "";
+                                                    default:
+                                                      return shopping?.marketType?.titleUz ?? "";
+                                                  }
+                                                }
+                                                return RichText(
+                                                  overflow: TextOverflow.ellipsis,
+                                                  text: TextSpan(
+                                                    children: [
+                                                      TextSpan(
+                                                        text: "${getTitle() ?? ""}: ",
+                                                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                                          fontSize: 16,
+                                                          fontWeight: FontWeight.w600,
+                                                          color: AppColors.textPrimary,
+                                                        ),
+                                                      ),
+                                                      TextSpan(
+                                                        text: "#${shopping?.name ?? shopping?.name ?? ""}",
+                                                        style: Theme.of(
+                                                          context,
+                                                        ).textTheme.bodyMedium!.copyWith(color: AppColors.primaryColor, fontWeight: FontWeight.w500),
+                                                      ),
+                                                    ],
                                                   ),
-                                                  TextSpan(
-                                                    text: "#${shopping?.marketType?.titleUz ?? shopping?.name ?? ""}",
-                                                    style: Theme.of(
-                                                      context,
-                                                    ).textTheme.bodyMedium!.copyWith(color: AppColors.primaryColor, fontWeight: FontWeight.w500),
-                                                  ),
-                                                ],
-                                              ),
+                                                );
+                                              }
                                             ),
                                             // Row(
                                             //   children: [
