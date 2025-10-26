@@ -108,7 +108,7 @@ class _DepartmentBannerState extends State<DepartmentBanner> {
                                         Positioned(
                                           bottom: 0,
                                           right: 0,
-                                          child: Image.network(
+                                          child: SvgPicture.network(
                                             department.image ?? "",
                                             height: 140,
                                             fit: BoxFit.cover,

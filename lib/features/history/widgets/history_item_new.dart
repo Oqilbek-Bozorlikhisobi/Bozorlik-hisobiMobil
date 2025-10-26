@@ -197,15 +197,36 @@ class HistoryItemNew extends StatelessWidget {
                     BlendMode.srcIn,
                   ),
                 ),
-                Text(
-                  (shopping.name?.isNotEmpty ?? false)
-                      ? (shopping.name ?? "O").substring(0, 1).toUpperCase()
-                      : "B",
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.textPrimary,
-                  ),
+                Builder(
+                  builder: (context) {
+                    final currentLocale = context.locale.languageCode;
+
+                    // Tilga qarab title-ni tanlash
+                    String getTitle() {
+                      switch (currentLocale) {
+                        case 'uz':
+                          return shopping.marketType?.titleUz ?? "";
+                        case 'ky':
+                          return shopping.marketType?.titleUzk ?? "";
+                        case 'ru':
+                          return shopping.marketType?.titleRu ?? "";
+                        case 'en':
+                          return shopping.marketType?.titleEn ?? "";
+                        default:
+                          return shopping.marketType?.titleUz ?? "";
+                      }
+                    }
+                    return Text(
+                      (getTitle().isNotEmpty ?? false)
+                          ? (getTitle() ?? "O").substring(0, 1).toUpperCase()
+                          : "B",
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.textPrimary,
+                      ),
+                    );
+                  }
                 ),
               ],
             ),
@@ -240,7 +261,7 @@ class HistoryItemNew extends StatelessWidget {
                         text: TextSpan(
                           children: [
                             TextSpan(
-                              text: "${shopping.name ?? ""}: ",
+                              text: "${getTitle() ?? ""}: ",
                               style: Theme
                                   .of(context)
                                   .textTheme
@@ -254,7 +275,7 @@ class HistoryItemNew extends StatelessWidget {
                             ),
                             TextSpan(
 
-                              text: "#${getTitle() ?? ""}",
+                              text: "#${shopping.name ?? ""}",
                               style: Theme
                                   .of(context)
                                   .textTheme
