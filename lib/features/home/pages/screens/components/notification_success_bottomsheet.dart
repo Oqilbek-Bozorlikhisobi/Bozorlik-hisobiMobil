@@ -5,6 +5,7 @@ import 'package:bozorlik/common/widgets/custom_toast.dart';
 import 'package:bozorlik/common/widgets/loading_widget.dart';
 import 'package:bozorlik/features/home/models/notification/notification.dart';
 import 'package:bozorlik/features/home/pages/screens/bloc/bottomsheet_notification/bottomsheet_notification_bloc.dart';
+import 'package:bozorlik/features/home/pages/screens/components/show_notification_products.dart';
 import 'package:bozorlik/utils/date_formatter.dart';
 import 'package:bozorlik/utils/enums.dart';
 import 'package:bozorlik/utils/mask.dart';
@@ -12,6 +13,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:toastification/toastification.dart';
 
 class NotificationSuccessBottomsheet extends StatefulWidget {
@@ -115,68 +117,81 @@ class _NotificationSuccessBottomsheetState
                   ),
                 ),
                 48.vertical,
-                widget.isRead == true?SizedBox():
+                // widget.isRead == true
+                //     ? SizedBox()
+                //     :
                 CustomButton(
-                  textColor: AppColors.black,
-                  bgColor: AppColors.grey,
-                  isLoading: state.status == Status.loading,
-                  text: "re_view".tr(),
-                  onTap: () {
-                    if (widget.isRead == true) {
-                      context.pop(true);
-                    } else {
-                      bloc.add(OneReadEvent(id: widget.data?.id ?? ""));
-                    }
-                  },
-                ),
+                      textColor: AppColors.black,
+                      bgColor: AppColors.grey,
+                      isLoading: state.status == Status.loading,
+                      text: "re_view".tr(),
+                      onTap: () {
+                        // if (widget.isRead == true) {
+                        //   context.pop(true);
+                        // } else {
+                          showCupertinoModalBottomSheet(
+                            context: context,
+                            builder:
+                                (context) =>
+                                    ShowNotificationProducts(marketLists:widget.data?.market?.marketLists?? []),
+                          );
+                          // bloc.add(OneReadEvent(id: widget.data?.id ?? ""));
+                        // }
+                      },
+                    ),
                 12.vertical,
-               ( widget.data?.id==null||widget.isRead==true)?SizedBox():
-                Builder(
-                  builder: (context) {
-                    return state.status==Status.loading?LoadingWidget():Row(
-                      children: [
-                        Expanded(
-                          child: CustomButton(
-                            bgColor: AppColors.red,
-                            isLoading: state.status == Status.loading,
-                            text: "rejection".tr(),
-                            onTap: () {
-                              if (widget.isRead == true) {
-                                context.pop(true);
-                              } else {
-                                bloc.add(
-                                  RejectAcceptEvent(
-                                    marketId: widget.data?.market?.id ?? "",
-                                    accept: false,
+                (widget.data?.id == null || widget.isRead == true)
+                    ? SizedBox()
+                    : Builder(
+                      builder: (context) {
+                        return state.status == Status.loading
+                            ? LoadingWidget()
+                            : Row(
+                              children: [
+                                Expanded(
+                                  child: CustomButton(
+                                    bgColor: AppColors.red,
+                                    isLoading: state.status == Status.loading,
+                                    text: "rejection".tr(),
+                                    onTap: () {
+                                      if (widget.isRead == true) {
+                                        context.pop(true);
+                                      } else {
+                                        bloc.add(
+                                          RejectAcceptEvent(
+                                            marketId:
+                                                widget.data?.market?.id ?? "",
+                                            accept: false,
+                                          ),
+                                        );
+                                      }
+                                    },
                                   ),
-                                );
-                              }
-                            },
-                          ),
-                        ),
-                        12.horizontal,
-                        Expanded(
-                          child: CustomButton(
-                            isLoading: state.status == Status.loading,
-                            text: "acceptance".tr(),
-                            onTap: () {
-                              // if (widget.isRead == true) {
-                              //   context.pop(true);
-                              // } else {
-                                bloc.add(
-                                  RejectAcceptEvent(
-                                    marketId: widget.data?.market?.id ?? "",
-                                    accept: true,
+                                ),
+                                12.horizontal,
+                                Expanded(
+                                  child: CustomButton(
+                                    isLoading: state.status == Status.loading,
+                                    text: "acceptance".tr(),
+                                    onTap: () {
+                                      // if (widget.isRead == true) {
+                                      //   context.pop(true);
+                                      // } else {
+                                      bloc.add(
+                                        RejectAcceptEvent(
+                                          marketId:
+                                              widget.data?.market?.id ?? "",
+                                          accept: true,
+                                        ),
+                                      );
+                                      // }
+                                    },
                                   ),
-                                );
-                              // }
-                            },
-                          ),
-                        ),
-                      ],
-                    );
-                  }
-                ),
+                                ),
+                              ],
+                            );
+                      },
+                    ),
                 40.vertical,
               ],
             ),
