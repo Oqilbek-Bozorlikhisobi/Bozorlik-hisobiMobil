@@ -1,5 +1,7 @@
+import 'package:bozorlik/common/extension/number_extension.dart';
 import 'package:bozorlik/common/values/app_assets.dart';
 import 'package:bozorlik/features/history/widgets/buy_product_history.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -19,25 +21,35 @@ class ShowNotificationProducts extends StatefulWidget {
 class _ShowNotificationProductsState extends State<ShowNotificationProducts> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: 16.0),
-        child: Column(
-          children: [
-            Expanded(
-              child:
-                  (widget.marketLists?.isNotEmpty ?? false)
-                      ? ListView.builder(
-                        itemCount: widget.marketLists?.length,
-                        itemBuilder: (context, index) {
-                          return BuyProductNotification(
-                            data: widget.marketLists?[index],
-                          );
-                        },
-                      )
-                      : SvgPicture.asset(AppIcons.emptyMarket),
-            ),
-          ],
+    return Material(
+      child: Container(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              12.vertical,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [Text("products_cart".tr())],
+              ),
+              12.vertical,
+
+              Expanded(
+                child:
+                    (widget.marketLists?.isNotEmpty ?? false)
+                        ? ListView.builder(
+                          itemCount: widget.marketLists?.length,
+                          itemBuilder: (context, index) {
+                            return BuyProductNotification(
+                              data: widget.marketLists?[index],
+                            );
+                          },
+                        )
+                        : SvgPicture.asset(AppIcons.emptyMarket),
+              ),
+            ],
+          ),
         ),
       ),
     );

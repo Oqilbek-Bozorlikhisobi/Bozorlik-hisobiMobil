@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:bozorlik/features/home/models/notification/notification.dart';
 import 'package:bozorlik/features/home/repositories/notification.dart';
 import 'package:bozorlik/utils/enums.dart';
 import 'package:dio/dio.dart';
@@ -18,7 +19,8 @@ class BottomsheetNotificationBloc
       try {
         final response = await repo.onRead(id: event.id);
         if (response['message'] == "ok") {
-          emit(state.copyWith(status: Status.success));
+          final data=NotificationResponseDataItems.fromJson(response["data"]);
+          emit(state.copyWith(status: Status.success,data: data));
         }
       } on DioException catch (e) {
         emit(state.copyWith(status: Status.error, errorMessage: e.toString()));
