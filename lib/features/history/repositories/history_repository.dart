@@ -1,10 +1,12 @@
 import 'package:bozorlik/common/extension/datetime_extension.dart';
 import 'package:bozorlik/common/extension/for_context.dart';
+import 'package:bozorlik/common/widgets/custom_toast.dart';
 import 'package:bozorlik/features/cart/models/cart_model.dart';
 import 'package:bozorlik/features/history/models/get_all_history_response.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart' as material;
 import 'package:open_filex/open_filex.dart';
+import 'package:toastification/toastification.dart';
 
 import '../../../common/helpers/request_helper.dart';
 import '../../settings/repositories/profile_repository.dart';
@@ -22,6 +24,10 @@ Future<void> generateAndOpenPdf2(
     material.BuildContext buildContext, {
       required HistoryResponseDataData cart,
     }) async {
+
+  showCustomToast(title: "Loading PDF",type: ToastificationType.info);
+
+
   final logo = await rootBundle.load('assets/png/logo.png');
   final box = await rootBundle.load('assets/png/box.png');
   final logoBytes = logo.buffer.asUint8List();
@@ -235,7 +241,10 @@ Future<void> generateAndOpenPdf2(
   // Save to temp and open
   final dir = await getTemporaryDirectory();
   final file = File("${dir.path}/cart_${cart.id}.pdf");
+
   await file.writeAsBytes(await pdf.save());
+  showCustomToast(title: "Success PDF",type: ToastificationType.info);
+
   await OpenFilex.open(file.path);
 }
 Future<void> generateAndOpenPdf(

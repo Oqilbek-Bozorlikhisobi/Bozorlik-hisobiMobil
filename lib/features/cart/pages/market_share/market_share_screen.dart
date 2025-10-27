@@ -33,7 +33,6 @@ class _MarketShareScreenState extends State<MarketShareScreen> {
   @override
   void initState() {
     super.initState();
-    print(widget.shopping?.id);
     bloc.add(GetMarketShareEvent(id: widget.shopping?.id ?? ""));
   }
 

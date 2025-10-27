@@ -9,9 +9,12 @@ import 'package:bozorlik/features/history/widgets/buy_product_history.dart';
 import 'package:bozorlik/utils/enums.dart';
 import 'package:bozorlik/utils/price_formatter.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import 'market_share_screen_history.dart';
 
 class InnerHistoryScreen extends StatefulWidget {
   const InnerHistoryScreen({super.key, required this.cartData});
@@ -41,7 +44,18 @@ class _InnerHistoryScreenState extends State<InnerHistoryScreen> {
         builder: (context, state) {
           return Scaffold(
             backgroundColor: AppColors.backGround,
-            appBar: AppBar(backgroundColor: AppColors.backGround, title: Text(widget.cartData.name ?? "")),
+            appBar: AppBar(
+              backgroundColor: AppColors.backGround,
+              title: Text(widget.cartData.name ?? ""),
+              actions: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context, CupertinoPageRoute(builder: (context) => MarketShareScreenHistory(shopping: widget.cartData,)));
+                  },
+                  child: SvgPicture.asset(AppIcons.addUser),
+                ),
+              ],
+            ),
             body: Padding(
               padding: EdgeInsets.symmetric(horizontal: 12),
               child: Column(
