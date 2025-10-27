@@ -192,10 +192,7 @@ class HistoryItemNew extends StatelessWidget {
                   AppIcons.star,
                   width: 56,
                   height: 56,
-                  colorFilter: ColorFilter.mode(
-                    Color.fromRGBO(255, 194, 102, 1),
-                    BlendMode.srcIn,
-                  ),
+                  colorFilter: ColorFilter.mode(Color.fromRGBO(255, 194, 102, 1), BlendMode.srcIn),
                 ),
                 Builder(
                   builder: (context) {
@@ -216,17 +213,12 @@ class HistoryItemNew extends StatelessWidget {
                           return shopping.marketType?.titleUz ?? "";
                       }
                     }
+
                     return Text(
-                      (getTitle().isNotEmpty ?? false)
-                          ? (getTitle() ?? "O").substring(0, 1).toUpperCase()
-                          : "B",
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.textPrimary,
-                      ),
+                      (getTitle().isNotEmpty ?? false) ? (getTitle() ?? "O").substring(0, 1).toUpperCase() : "B",
+                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
                     );
-                  }
+                  },
                 ),
               ],
             ),
@@ -238,58 +230,50 @@ class HistoryItemNew extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Builder(
-                    builder: (context) {
-                      final currentLocale = context.locale.languageCode;
+                  builder: (context) {
+                    final currentLocale = context.locale.languageCode;
 
-                      // Tilga qarab title-ni tanlash
-                      String getTitle() {
-                        switch (currentLocale) {
-                          case 'uz':
-                            return shopping.marketType?.titleUz ?? "";
-                          case 'ky':
-                            return shopping.marketType?.titleUzk ?? "";
-                          case 'ru':
-                            return shopping.marketType?.titleRu ?? "";
-                          case 'en':
-                            return shopping.marketType?.titleEn ?? "";
-                          default:
-                            return shopping.marketType?.titleUz ?? "";
-                        }
+                    // Tilga qarab title-ni tanlash
+                    String getTitle() {
+                      switch (currentLocale) {
+                        case 'uz':
+                          return shopping.marketType?.titleUz ?? "";
+                        case 'ky':
+                          return shopping.marketType?.titleUzk ?? "";
+                        case 'ru':
+                          return shopping.marketType?.titleRu ?? "";
+                        case 'en':
+                          return shopping.marketType?.titleEn ?? "";
+                        default:
+                          return shopping.marketType?.titleUz ?? "";
                       }
-                      return RichText(
-                        overflow: TextOverflow.ellipsis,
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: "${getTitle() ?? ""}: ",
-                              style: Theme
-                                  .of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
-                                overflow: TextOverflow.ellipsis,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.textPrimary,
-                              ),
-                            ),
-                            TextSpan(
-
-                              text: "#${shopping.name ?? ""}",
-                              style: Theme
-                                  .of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
-                                overflow: TextOverflow.ellipsis,
-                                color: AppColors.primaryColor,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
                     }
+
+                    return RichText(
+                      overflow: TextOverflow.ellipsis,
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "${getTitle() ?? ""}: ",
+                            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              overflow: TextOverflow.ellipsis,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.textPrimary,
+                            ),
+                          ),
+                          TextSpan(
+                            text: "#${shopping.name ?? ""}",
+                            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              overflow: TextOverflow.ellipsis,
+                              color: AppColors.primaryColor,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 ),
 
                 SizedBox(height: 8),
@@ -303,15 +287,9 @@ class HistoryItemNew extends StatelessWidget {
                         SizedBox(width: 4),
                         Text(
                           "${shopping.marketLists?.length}",
-                          style: Theme
-                              .of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(
-                            fontSize: 12,
-                            color: Color.fromRGBO(75, 75, 75, 1),
-                            fontWeight: FontWeight.w500,
-                          ),
+                          style: Theme.of(
+                            context,
+                          ).textTheme.bodyMedium!.copyWith(fontSize: 12, color: Color.fromRGBO(75, 75, 75, 1), fontWeight: FontWeight.w500),
                         ),
                       ],
                     ),
@@ -327,19 +305,11 @@ class HistoryItemNew extends StatelessWidget {
                         SizedBox(width: 4),
                         Flexible(
                           child: Text(
-                            PriceFormatterService.formatPrice(
-                              shopping.totalPrice.toString(),
-                            ).replaceAll(',', ' '),
+                            PriceFormatterService.formatPrice(shopping.totalPrice.toString()).replaceAll(',', ' '),
                             overflow: TextOverflow.ellipsis,
-                            style: Theme
-                                .of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
-                              fontSize: 12,
-                              color: Color.fromRGBO(75, 75, 75, 1),
-                              fontWeight: FontWeight.w500,
-                            ),
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium!.copyWith(fontSize: 12, color: Color.fromRGBO(75, 75, 75, 1), fontWeight: FontWeight.w500),
                           ),
                         ),
                       ],
@@ -357,15 +327,9 @@ class HistoryItemNew extends StatelessWidget {
                         Text(
                           overflow: TextOverflow.ellipsis,
                           formatDate(shopping.createdAt ?? ""),
-                          style: Theme
-                              .of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(
-                            fontSize: 12,
-                            color: Color.fromRGBO(75, 75, 75, 1),
-                            fontWeight: FontWeight.w500,
-                          ),
+                          style: Theme.of(
+                            context,
+                          ).textTheme.bodyMedium!.copyWith(fontSize: 12, color: Color.fromRGBO(75, 75, 75, 1), fontWeight: FontWeight.w500),
                         ),
                       ],
                     ),
@@ -376,10 +340,23 @@ class HistoryItemNew extends StatelessWidget {
           ),
 
           GestureDetector(
-              onTap: () {
-                showCupertinoModalBottomSheet(context: context, builder: (context) =>ShowBottomsheetSaveCheck());
-              },
-              child: Icon(Icons.more_vert_rounded))
+            onTap: () {
+              showCupertinoModalBottomSheet(
+                context: context,
+                builder:
+                    (context) => ShowBottomsheetSaveCheck(
+                      data: shopping,
+                      onTapRetry: () {
+                        retry!();
+                      },
+                      onTapCheck: () {
+                        check!();
+                      },
+                    ),
+              );
+            },
+            child: Icon(Icons.more_vert_rounded),
+          ),
         ],
       ),
     );

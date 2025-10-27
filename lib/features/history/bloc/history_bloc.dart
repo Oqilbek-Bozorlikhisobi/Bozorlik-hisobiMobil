@@ -17,6 +17,20 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     int totalPage = 0;
     List<HistoryResponseDataData> loadData = [];
 
+    on<RetryMarketEvent>((event, emit) async {
+      emit(state.copyWith(statusRetry: Status.loading));
+
+      try {
+        final response = await repo.retryMarket(historyId: event.historyId);
+
+        if (response["message"] == "ok") {
+          emit(state.copyWith(statusRetry: Status.success));
+        }
+      } on DioException catch (e) {
+        emit(state.copyWith(statusRetry: Status.error, errorMessage: e.toString()));
+      }
+    });
+
     on<GetHistoryEvent>((event, emit) async {
       emit(state.copyWith(status: Status.loading));
 

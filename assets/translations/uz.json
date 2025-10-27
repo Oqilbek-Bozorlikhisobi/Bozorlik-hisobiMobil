@@ -205,7 +205,9 @@
   "active_users2": "Taklif jarayonida",
   "product_count_summ": "*Mahsulot miqdori va birligi",
   "store_check": "Ilovani toliq ishlatish uchun yangilashingiz shart!",
-  "store_check_new": "Yangilanish mavjud!"
+  "store_check_new": "Yangilanish mavjud!",
+  "retry_market": "Bozorlikni takrorlash",
+  "market_check": "Bozorlikni cheki"
 
 
 }

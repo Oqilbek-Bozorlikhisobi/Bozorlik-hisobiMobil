@@ -3,14 +3,19 @@ import 'package:bozorlik/common/extension/number_extension.dart';
 import 'package:bozorlik/common/values/app_assets.dart';
 import 'package:bozorlik/common/widgets/custom_button.dart';
 import 'package:bozorlik/common/widgets/loading_widget.dart';
+import 'package:bozorlik/features/cart/models/cart_model.dart';
 import 'package:bozorlik/features/history/bloc/history_bloc.dart';
+import 'package:bozorlik/features/history/repositories/history_repository.dart';
 import 'package:bozorlik/features/history/widgets/history_item_new.dart';
+import 'package:bozorlik/features/products/models/product_model.dart';
+import 'package:bozorlik/features/settings/models/profile_model.dart';
 import 'package:bozorlik/utils/enums.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'inner_history_page.dart';
@@ -101,11 +106,19 @@ class _HistoryNewState extends State<HistoryNew> {
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () {
-                              Navigator.of(
-                                context,
-                              ).push(CupertinoPageRoute(builder: (context) => InnerHistoryScreen(cartData: state.items![index])));
+                              Navigator.of(context).push(CupertinoPageRoute(builder: (context) => InnerHistoryScreen(cartData: state.items![index])));
                             },
-                            child: HistoryItemNew(shopping: state.items![index]),
+                            child: HistoryItemNew(
+                              shopping: state.items![index],
+                              check: () async {
+                                var data = state.items![index];
+                                await generateAndOpenPdf2(context, cart: data);
+                              },
+                              retry: () {
+                                context.pop();
+                                bloc.add(RetryMarketEvent(historyId: state.items?[index].id ?? ''));
+                              },
+                            ),
                           );
                         },
                       ),

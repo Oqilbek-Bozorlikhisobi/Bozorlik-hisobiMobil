@@ -200,5 +200,10 @@
   "active_users2": "During the bidding process",
   "product_count_summ": "*Product quantity and unit",
   "store_check": "You must update the app to use it fully!!",
-  "store_check_new": "Update available!"
+  "store_check_new": "Update available!",
+  "retry_market": "Market repetition",
+  "market_check": "Check the market"
+
+
+
 }

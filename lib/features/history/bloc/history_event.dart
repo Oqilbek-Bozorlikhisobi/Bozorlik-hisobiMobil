@@ -11,3 +11,8 @@ class GetByIdHistoryEvent extends HistoryEvent {
 }
 
 class NextGetHistoryEvent extends HistoryEvent {}
+class RetryMarketEvent extends HistoryEvent {
+  final String historyId;
+
+  RetryMarketEvent({required this.historyId});
+}
