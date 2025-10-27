@@ -207,7 +207,8 @@
   "store_check": "Ilovani toliq ishlatish uchun yangilashingiz shart!",
   "store_check_new": "Yangilanish mavjud!",
   "retry_market": "Bozorlikni takrorlash",
-  "market_check": "Bozorlikni cheki"
+  "market_check": "Bozorlikni cheki",
+  "quantity": "dona"
 
 
 }

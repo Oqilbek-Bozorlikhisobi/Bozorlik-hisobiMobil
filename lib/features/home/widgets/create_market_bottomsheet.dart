@@ -24,7 +24,8 @@ class CreateMarketBottomsheet extends StatefulWidget {
   const CreateMarketBottomsheet({super.key});
 
   @override
-  State<CreateMarketBottomsheet> createState() => _CreateMarketBottomsheetState();
+  State<CreateMarketBottomsheet> createState() =>
+      _CreateMarketBottomsheetState();
 }
 
 class _CreateMarketBottomsheetState extends State<CreateMarketBottomsheet> {
@@ -44,18 +45,32 @@ class _CreateMarketBottomsheetState extends State<CreateMarketBottomsheet> {
       child: BlocConsumer<HomeBloc, HomeState>(
         listener: (context, state) {
           if (state.status == Status.error) {
-            showCustomToast(title: state.errorMessage ?? "", type: ToastificationType.error);
+            showCustomToast(
+              title: state.errorMessage ?? "",
+              type: ToastificationType.error,
+            );
           }
           if (state.status == Status.success) {
-            showCustomToast(title: state.errorMessage ?? "", type: ToastificationType.success);
+            showCustomToast(
+              title: state.errorMessage ?? "",
+              type: ToastificationType.success,
+            );
             context.pop();
           }
         },
         builder: (context, state) {
           return Material(
             child: Container(
-              decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.vertical(top: Radius.circular(12))),
-              padding: EdgeInsets.only(left: 16, right: 16, top: 12, bottom: MediaQuery.of(context).viewInsets.bottom),
+              decoration: BoxDecoration(
+                color: AppColors.white,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+              ),
+              padding: EdgeInsets.only(
+                left: 16,
+                right: 16,
+                top: 12,
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
@@ -63,11 +78,28 @@ class _CreateMarketBottomsheetState extends State<CreateMarketBottomsheet> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(height: 5, width: 36, decoration: BoxDecoration(color:context.isDarkMode?AppColors.textPrimary: AppColors.grey, borderRadius: BorderRadius.circular(2.5))),
+                      Container(
+                        height: 5,
+                        width: 36,
+                        decoration: BoxDecoration(
+                          color:
+                              context.isDarkMode
+                                  ? AppColors.textPrimary
+                                  : AppColors.grey,
+                          borderRadius: BorderRadius.circular(2.5),
+                        ),
+                      ),
                     ],
                   ),
                   12.vertical,
-                  Text("new_market_create".tr(), style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 18, fontWeight: FontWeight.w600,color: AppColors.textPrimary)),
+                  Text(
+                    "new_market_create".tr(),
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
                   12.vertical,
                   // Text("name_shopping_list".tr(), style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
                   // 30.vertical,
@@ -81,13 +113,18 @@ class _CreateMarketBottomsheetState extends State<CreateMarketBottomsheet> {
 
                   CustomTextField(
                     readOnly: true,
-                    suffixIcon: Transform.scale(scale: 0.6, child: SvgPicture.asset(AppIcons.down)),
+                    suffixIcon: Transform.scale(
+                      scale: 0.6,
+                      child: SvgPicture.asset(AppIcons.down),
+                    ),
                     isDeletable: false,
                     onTap: () {
                       showCupertinoModalBottomSheet(
                         context: context,
                         builder: (context) {
-                          return ShowMarketDepartmentBottomsheet(id: selectMarketId);
+                          return ShowMarketDepartmentBottomsheet(
+                            id: selectMarketId,
+                          );
                         },
                       ).then((v) {
                         if (v != null) {
@@ -129,9 +166,17 @@ class _CreateMarketBottomsheetState extends State<CreateMarketBottomsheet> {
                     text: "create".tr(),
                     onTap: () async {
                       if (nameController.text.isNotEmpty) {
-                        bloc.add(CreateMarketEvent(name: nameController.text));
+                        bloc.add(
+                          CreateMarketEvent(
+                            name: nameController.text,
+                            marketId: selectMarketId??"",
+                          ),
+                        );
                       } else {
-                        showCustomToast(title: "required".tr(), type: ToastificationType.warning);
+                        showCustomToast(
+                          title: "required".tr(),
+                          type: ToastificationType.warning,
+                        );
                       }
                     },
                   ),
@@ -147,5 +192,9 @@ class _CreateMarketBottomsheetState extends State<CreateMarketBottomsheet> {
 }
 
 Future showCreateMarketCart(BuildContext context) async {
-  return showCupertinoModalBottomSheet(backgroundColor: Colors.transparent, context: context, builder: (context) => CreateMarketBottomsheet());
+  return showCupertinoModalBottomSheet(
+    backgroundColor: Colors.transparent,
+    context: context,
+    builder: (context) => CreateMarketBottomsheet(),
+  );
 }

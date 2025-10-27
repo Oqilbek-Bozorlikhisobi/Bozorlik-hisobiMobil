@@ -147,9 +147,10 @@ class _NotificationSuccessBottomsheetState
                   },
                 ),
                 12.vertical,
-                (state.data?.id == null || state.data?.isRead == true)
-                    ? SizedBox()
-                    : Builder(
+                // (state.data?.id == null || state.data?.isRead == true)
+                //     ? SizedBox()
+                //     :
+                Builder(
                       builder: (context) {
                         return state.status == Status.loading
                             ? LoadingWidget()

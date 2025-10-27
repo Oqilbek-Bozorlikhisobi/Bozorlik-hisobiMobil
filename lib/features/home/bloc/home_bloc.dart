@@ -39,7 +39,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       emit(state.copyWith(status: Status.loading));
 
       try {
-        final response = await repo.createMarket(name: event.name);
+        final response = await repo.createMarket(
+          name: event.name,
+          marketId: event.marketId,
+        );
 
         if (response['statusCode'].toString() == "201") {
           emit(

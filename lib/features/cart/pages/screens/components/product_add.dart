@@ -341,13 +341,16 @@ class _ProductAddLocaleBottomsheetState extends State<ProductAddLocaleBottomshee
                           ],
                         ),
                         20.vertical,
-
+                        Text(
+                          "product_count_summ".tr(),
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w400, fontSize: 14),
+                        ),
                         Container(
                           width: double.infinity,
                           height: 44,
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(16),
+                            borderRadius: BorderRadius.circular(12),
                             border: Border.all(color: AppColors.grey),
                           ),
 
@@ -398,7 +401,7 @@ class _ProductAddLocaleBottomsheetState extends State<ProductAddLocaleBottomshee
                                   child: Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Text("${unitName ?? ""} narxi", style: TextStyle(color: Colors.black87, fontSize: 15)),
+                                      Text("${unitName ?? ""} ${"quantity".tr()}", style: TextStyle(color: Colors.black87, fontSize: 15)),
                                       SizedBox(width: 8),
                                       Icon(Icons.keyboard_arrow_down, color: Colors.black87, size: 20),
                                     ],

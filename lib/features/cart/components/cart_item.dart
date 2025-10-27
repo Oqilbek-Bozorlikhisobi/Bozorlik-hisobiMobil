@@ -15,7 +15,12 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'edit_market_bottomsheet.dart';
 
 class CartItemNew extends StatelessWidget {
-  const CartItemNew({super.key, required this.shopping, this.loading, this.onTapDelete});
+  const CartItemNew({
+    super.key,
+    required this.shopping,
+    this.loading,
+    this.onTapDelete,
+  });
 
   final CartResponseData? shopping;
   final Function()? loading;
@@ -30,7 +35,10 @@ class CartItemNew extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.grey.withValues(alpha: 0.2), width: 1),
+        border: Border.all(
+          color: AppColors.grey.withValues(alpha: 0.2),
+          width: 1,
+        ),
       ),
       child: Row(
         children: [
@@ -40,11 +48,64 @@ class CartItemNew extends StatelessWidget {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                SvgPicture.asset(
-                  AppIcons.star,
-                  width: 56,
-                  height: 56,
-                  colorFilter: ColorFilter.mode(Color.fromRGBO(255, 194, 102, 1), BlendMode.srcIn),
+                Builder(
+                  builder: (context) {
+                    String getTitle =
+                        shopping
+                            ?.marketType
+                            ?.titleUz ??
+                            "";
+                    var x =
+                    ((getTitle.isEmpty ?? false)
+                        ? "not_found".tr()
+                        : getTitle ?? "OO")
+                        .substring(0, 2)
+                        .toUpperCase();
+                    var colorSvg =
+                    x == "OI"
+                        ? Color.fromRGBO(
+                      255,
+                      194,
+                      102,
+                      1,
+                    )
+                        : x == "DA"
+                        ? Color.fromRGBO(
+                      102,
+                      255,
+                      140,
+                      1,
+                    )
+                        : x == "RE"
+                        ? Color.fromRGBO(
+                      102,
+                      227,
+                      255,
+                      1,
+                    )
+                        : x == "DO"
+                        ? Color.fromRGBO(
+                      217,
+                      102,
+                      255,
+                      1,
+                    )
+                        : Color.fromRGBO(
+                      255,
+                      194,
+                      102,
+                      1,
+                    );
+                    return SvgPicture.asset(
+                      AppIcons.star,
+                      width: 56,
+                      height: 56,
+                      colorFilter: ColorFilter.mode(
+                        colorSvg,
+                        BlendMode.srcIn,
+                      ),
+                    );
+                  },
                 ),
                 Builder(
                   builder: (context) {
@@ -67,10 +128,18 @@ class CartItemNew extends StatelessWidget {
                     }
 
                     return Text(
-                      ((getTitle()?.isEmpty ?? false) ? "not_found".tr() : getTitle() ?? "OO").substring(0, 1).toUpperCase(),
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                      ((getTitle()?.isEmpty ?? false)
+                              ? "not_found".tr()
+                              : getTitle() ?? "OO")
+                          .substring(0, 1)
+                          .toUpperCase(),
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.textPrimary,
+                      ),
                     );
-                  }
+                  },
                 ),
               ],
             ),
@@ -109,11 +178,20 @@ class CartItemNew extends StatelessWidget {
                             text: "${getTitle() ?? ""}: ",
                             style: Theme.of(
                               context,
-                            ).textTheme.bodyMedium!.copyWith(fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.textPrimary),
+                            ).textTheme.bodyMedium!.copyWith(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.textPrimary,
+                            ),
                           ),
                           TextSpan(
                             text: "#${shopping?.name ?? ""}",
-                            style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: AppColors.primaryColor, fontWeight: FontWeight.w500),
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium!.copyWith(
+                              color: AppColors.primaryColor,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ],
                       ),
@@ -129,9 +207,11 @@ class CartItemNew extends StatelessWidget {
                     SizedBox(width: 4),
                     Text(
                       "${shopping?.marketLists?.length}",
-                      style: Theme.of(
-                        context,
-                      ).textTheme.bodyMedium!.copyWith(fontSize: 12, color: Color.fromRGBO(75, 75, 75, 1), fontWeight: FontWeight.w500),
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        fontSize: 12,
+                        color: Color.fromRGBO(75, 75, 75, 1),
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                     SizedBox(width: 8),
                     Text("|"),
@@ -139,10 +219,15 @@ class CartItemNew extends StatelessWidget {
                     SvgPicture.asset(AppIcons.wallet, height: 18, width: 18),
                     SizedBox(width: 4),
                     Text(
-                      NumberFormat('#,###', 'en_US').format(shopping?.totalPrice ?? 0).replaceAll(',', ' '),
-                      style: Theme.of(
-                        context,
-                      ).textTheme.bodyMedium!.copyWith(fontSize: 12, color: Color.fromRGBO(75, 75, 75, 1), fontWeight: FontWeight.w500),
+                      NumberFormat(
+                        '#,###',
+                        'en_US',
+                      ).format(shopping?.totalPrice ?? 0).replaceAll(',', ' '),
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        fontSize: 12,
+                        color: Color.fromRGBO(75, 75, 75, 1),
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                     SizedBox(width: 8),
                     Text("|"),
@@ -152,10 +237,14 @@ class CartItemNew extends StatelessWidget {
                     // Icon(Icons.calendar_today_outlined, size: 16, color: AppColors.grey),
                     SizedBox(width: 4),
                     Text(
-                      formatDate(shopping?.createdAt ?? DateTime.now().toString()),
-                      style: Theme.of(
-                        context,
-                      ).textTheme.bodyMedium!.copyWith(fontSize: 12, color: Color.fromRGBO(75, 75, 75, 1), fontWeight: FontWeight.w500),
+                      formatDate(
+                        shopping?.createdAt ?? DateTime.now().toString(),
+                      ),
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        fontSize: 12,
+                        color: Color.fromRGBO(75, 75, 75, 1),
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ],
                 ),
@@ -172,11 +261,21 @@ class CartItemNew extends StatelessWidget {
                       onTapEdit: () {
                         showCupertinoModalBottomSheet(
                           context: context,
-                          builder: (context) => EditMarketBottomsheet(name: shopping?.name ?? "", id: shopping?.id ?? ""),
+                          builder:
+                              (context) => EditMarketBottomsheet(
+                                name: shopping?.name ?? "",
+                                id: shopping?.id ?? "",
+                              ),
                         );
                       },
                       onTapShare: () {
-                        Navigator.of(context).push(CupertinoPageRoute(builder: (context) => MarketShareScreen(shopping: shopping)));
+                        Navigator.of(context).push(
+                          CupertinoPageRoute(
+                            builder:
+                                (context) =>
+                                    MarketShareScreen(shopping: shopping),
+                          ),
+                        );
                       },
                       onTapDelete: () {
                         showCupertinoModalPopup(

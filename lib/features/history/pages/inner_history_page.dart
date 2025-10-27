@@ -80,13 +80,46 @@ class _InnerHistoryScreenState extends State<InnerHistoryScreen> {
                               ),
                               5.horizontal,
                               Expanded(
-                                child: Text(
-                                  maxLines: 1,
-                                  textAlign: TextAlign.end,
+                                child: Builder(
+                                  builder: (context) {
+                                    final currentLocale =
+                                        context.locale.languageCode;
 
-                                  overflow: TextOverflow.ellipsis,
-                                  widget.cartData.name ?? "",
-                                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w500, fontSize: 16),
+                                    // Tilga qarab title-ni tanlash
+                                    String getTitle() {
+                                      switch (currentLocale) {
+                                        case 'uz':
+                                          return widget.cartData.marketType
+                                              ?.titleUz ??
+                                              "";
+                                        case 'ky':
+                                          return widget.cartData.marketType
+                                              ?.titleUzk ??
+                                              "";
+                                        case 'ru':
+                                          return widget.cartData.marketType
+                                              ?.titleRu ??
+                                              "";
+                                        case 'en':
+                                          return widget.cartData.marketType
+                                              ?.titleEn ??
+                                              "";
+                                        default:
+                                          return widget.cartData.marketType
+                                              ?.titleUz ??
+                                              "";
+                                      }
+                                    }
+
+                                    return Text(
+                                      maxLines: 1,
+                                      textAlign: TextAlign.end,
+
+                                      overflow: TextOverflow.ellipsis,
+                                      getTitle() ?? "",
+                                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w500, fontSize: 16),
+                                    );
+                                  }
                                 ),
                               ),
                             ],

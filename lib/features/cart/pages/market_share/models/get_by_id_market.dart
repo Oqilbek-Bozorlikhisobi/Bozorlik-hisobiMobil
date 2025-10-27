@@ -173,7 +173,7 @@ class MarketLists {
   Product? product;
   String? productName;
   int? quantity;
-  double? price;
+  num? price;
   String? calculationType;
   bool? isBuying;
   String? description;
@@ -205,7 +205,13 @@ class MarketLists {
     calculationType = json['calculationType'];
     isBuying = json['isBuying'];
     description = json['description'];
-    user = json['user'];
+    user = json['user']!=null?Users.fromJson(json["user"]):null;
+    // if (json['user'] != null) {
+    //   user = <Users>[];
+    //   json['user']?.forEach((v) {
+    //     user!.add(Users.fromJson(v));
+    //   });
+    // }
     unit = json['unit'] != null ? Unit.fromJson(json['unit']) : null;
   }
 

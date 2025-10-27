@@ -135,7 +135,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class OnboardingBanner extends StatefulWidget {
-  const   OnboardingBanner({super.key, required this.bloc});
+  const OnboardingBanner({super.key, required this.bloc});
 
   final HomeBloc bloc;
 
@@ -145,15 +145,14 @@ class OnboardingBanner extends StatefulWidget {
 
 class _OnboardingBannerState extends State<OnboardingBanner> {
   int _current = 0;
+
   Future<void> _openLink(String link) async {
     final Uri url = Uri.parse(link);
-    if (!await launchUrl(
-      url,
-      mode: LaunchMode.externalApplication,
-    )) {
+    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
       throw Exception('URL ochilmadi');
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeBloc, HomeState>(
@@ -178,7 +177,10 @@ class _OnboardingBannerState extends State<OnboardingBanner> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(Icons.refresh),
-                              Text(state.errorMessageMarket ?? "Xatolik", style: Theme.of(context).textTheme.titleMedium),
+                              Text(
+                                state.errorMessageMarket ?? "Xatolik",
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
                             ],
                           ),
                         ),
@@ -196,7 +198,9 @@ class _OnboardingBannerState extends State<OnboardingBanner> {
                         viewportFraction: 0.9,
                         aspectRatio: 2.0,
                         height: 170,
-                        autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                        autoPlayAnimationDuration: const Duration(
+                          milliseconds: 800,
+                        ),
                         initialPage: 0,
                         onPageChanged: (index, reason) {
                           setState(() {
@@ -216,7 +220,15 @@ class _OnboardingBannerState extends State<OnboardingBanner> {
                                     child: Stack(
                                       children: [
                                         // Positioned.fill(child: SvgPicture.asset(AppIcons.splash, fit: BoxFit.fitWidth)),
-                                        Positioned.fill(child: Opacity(opacity: 0.9, child: Image.network(item.image ?? "", fit: BoxFit.fitWidth))),
+                                        Positioned.fill(
+                                          child: Opacity(
+                                            opacity: 0.9,
+                                            child: Image.network(
+                                              item.image ?? "",
+                                              fit: BoxFit.fitWidth,
+                                            ),
+                                          ),
+                                        ),
                                         Padding(
                                           padding: const EdgeInsets.all(20.0),
                                           child: Row(
@@ -224,41 +236,66 @@ class _OnboardingBannerState extends State<OnboardingBanner> {
                                               Expanded(
                                                 flex: 5,
                                                 child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     Builder(
                                                       builder: (context) {
-
-                                                        final currentLocale = context.locale.languageCode;
+                                                        final currentLocale =
+                                                            context
+                                                                .locale
+                                                                .languageCode;
 
                                                         // Tilga qarab title-ni tanlash
                                                         String getTitle() {
                                                           switch (currentLocale) {
                                                             case 'uz':
-                                                              return item.nameUz ?? "";
+                                                              return item
+                                                                      .nameUz ??
+                                                                  "";
                                                             case 'ky':
-                                                              return item.nameUzk ?? "";
+                                                              return item
+                                                                      .nameUzk ??
+                                                                  "";
                                                             case 'ru':
-                                                              return item.nameRu ?? "";
+                                                              return item
+                                                                      .nameRu ??
+                                                                  "";
                                                             case 'en':
-                                                              return item.nameEn ?? "";
+                                                              return item
+                                                                      .nameEn ??
+                                                                  "";
                                                             default:
-                                                              return item.nameUz ?? "";
+                                                              return item
+                                                                      .nameUz ??
+                                                                  "";
                                                           }
                                                         }
 
                                                         return Text(
                                                           maxLines: 2,
-                                                          overflow: TextOverflow.ellipsis,
+                                                          overflow:
+                                                              TextOverflow
+                                                                  .ellipsis,
                                                           getTitle(),
-                                                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                                            fontSize: 16,
-                                                            fontWeight: FontWeight.w500,
-                                                            color: AppColors.white,
-                                                          ),
+                                                          style: Theme.of(
+                                                                context,
+                                                              )
+                                                              .textTheme
+                                                              .bodyMedium!
+                                                              .copyWith(
+                                                                fontSize: 16,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                color:
+                                                                    Colors
+                                                                        .white,
+                                                              ),
                                                         );
-                                                      }
+                                                      },
                                                     ),
                                                     // 6.vertical,
                                                     // Text(
@@ -275,8 +312,10 @@ class _OnboardingBannerState extends State<OnboardingBanner> {
                                                     // const SizedBox(height: 5),
                                                     Spacer(),
                                                     GestureDetector(
-                                                      onTap: () async{
-                                                        _openLink(item.link??"");
+                                                      onTap: () async {
+                                                        _openLink(
+                                                          item.link ?? "",
+                                                        );
                                                         // final Uri url = Uri.parse('${item.link}');
                                                         // if (await canLaunchUrl(url)) {
                                                         // await launchUrl(url, mode: LaunchMode.externalApplication);
@@ -287,16 +326,37 @@ class _OnboardingBannerState extends State<OnboardingBanner> {
                                                         // }
                                                       },
                                                       child: Container(
-                                                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                                                        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8)),
+                                                        padding:
+                                                            const EdgeInsets.symmetric(
+                                                              horizontal: 10,
+                                                              vertical: 4,
+                                                            ),
+                                                        decoration: BoxDecoration(
+                                                          color: Colors.white,
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                8,
+                                                              ),
+                                                        ),
                                                         child: Text(
-                                                          overflow: TextOverflow.ellipsis,
+                                                          overflow:
+                                                              TextOverflow
+                                                                  .ellipsis,
                                                           "details".tr(),
-                                                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                                            color: AppColors.primaryColor,
-                                                            fontWeight: FontWeight.w500,
-                                                            fontSize: 12,
-                                                          ),
+                                                          style: Theme.of(
+                                                                context,
+                                                              )
+                                                              .textTheme
+                                                              .bodyMedium!
+                                                              .copyWith(
+                                                                color:
+                                                                    AppColors
+                                                                        .primaryColor,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                fontSize: 12,
+                                                              ),
                                                         ),
                                                       ),
                                                     ),
@@ -340,7 +400,10 @@ class _OnboardingBannerState extends State<OnboardingBanner> {
                               margin: const EdgeInsets.symmetric(horizontal: 4),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(5),
-                                color: _current == entry.key ? AppColors.primaryColor : CupertinoColors.systemGrey5,
+                                color:
+                                    _current == entry.key
+                                        ? AppColors.primaryColor
+                                        : CupertinoColors.systemGrey5,
                               ),
                             );
                           }).toList(),
@@ -367,7 +430,11 @@ class DiagonalLinesPainter extends CustomPainter {
 
     const spacing = 20.0;
     for (double i = -size.height; i < size.width + size.height; i += spacing) {
-      canvas.drawLine(Offset(i, 0), Offset(i + size.height, size.height), paint);
+      canvas.drawLine(
+        Offset(i, 0),
+        Offset(i + size.height, size.height),
+        paint,
+      );
     }
   }
 

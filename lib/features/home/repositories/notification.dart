@@ -6,9 +6,18 @@ class NotificationRepository {
     required bool? isRead,
   }) async {
     try {
-      final response = await requestHelper.getWithAuth(
+      var response;
+    if(  isRead==null){
+       response = await requestHelper.getWithAuth(
+        "/notification/user/?page=$page&limit=10",
+      );
+    }else{
+       response = await requestHelper.getWithAuth(
         "/notification/user/?page=$page&limit=10&isRead=$isRead",
       );
+    }
+
+
 
       return response;
     } catch (e) {

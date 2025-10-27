@@ -11,20 +11,36 @@ class HomeRepository {
   Future<List<BannerModel>> getBanners() async {
     final response = await requestHelper.getWithAuth("/bunner");
 
-    return (response["data"]["items"] as List).map((e) => BannerModel.fromJson(e)).toList();
+    return (response["data"]["items"] as List)
+        .map((e) => BannerModel.fromJson(e))
+        .toList();
   }
-  Future<Map<String, dynamic>> checkVersion({required String packageName,required String local}) async {
+
+  Future<Map<String, dynamic>> checkVersion({
+    required String packageName,
+    required String local,
+  }) async {
     try {
-      final response = await requestHelper.getWithAuth("/version/check?package=$packageName&local=$local", );
+      final response = await requestHelper.getWithAuth(
+        "/version/check?package=$packageName&local=$local",
+      );
 
       return response;
     } catch (e) {
       return {"==========ERROR========": e.toString()};
     }
   }
-  Future<Map<String, dynamic>> createMarket({required String name}) async {
+
+  Future<Map<String, dynamic>> createMarket({
+    required String name,
+    required String marketId,
+  }) async {
     try {
-      final response = await requestHelper.postWithAuth("/market", {"name": name, "userId": userId});
+      final response = await requestHelper.postWithAuth("/market", {
+        "name": name,
+        "userId": userId,
+        "marketTypeId": marketId,
+      });
 
       return response;
     } catch (e) {
@@ -32,10 +48,13 @@ class HomeRepository {
     }
   }
 
-  Future<Map<String, dynamic>> editMarket({required String name, required String id}) async {
+  Future<Map<String, dynamic>> editMarket({
+    required String name,
+    required String id,
+  }) async {
     try {
       final response = await requestHelper.patchWithAuth("/market/$id", {
-        "name":name
+        "name": name,
       });
 
       return response;
@@ -97,7 +116,10 @@ class HomeRepository {
     }
 
     try {
-      final response = await requestHelper.patchWithAuth("/user/get-fcm-token", {"fcmToken": token});
+      final response = await requestHelper.patchWithAuth(
+        "/user/get-fcm-token",
+        {"fcmToken": token},
+      );
 
       return response;
     } catch (e) {

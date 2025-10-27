@@ -188,12 +188,66 @@ class HistoryItemNew extends StatelessWidget {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                SvgPicture.asset(
-                  AppIcons.star,
-                  width: 56,
-                  height: 56,
-                  colorFilter: ColorFilter.mode(Color.fromRGBO(255, 194, 102, 1), BlendMode.srcIn),
+                Builder(
+                  builder: (context) {
+                    String getTitle =
+                        shopping
+                            .marketType
+                            ?.titleUz ??
+                            "";
+                    var x =
+                    ((getTitle.isEmpty ?? false)
+                        ? "not_found".tr()
+                        : getTitle ?? "OO")
+                        .substring(0, 2)
+                        .toUpperCase();
+                    var colorSvg =
+                    x == "OI"
+                        ? Color.fromRGBO(
+                      255,
+                      194,
+                      102,
+                      1,
+                    )
+                        : x == "DA"
+                        ? Color.fromRGBO(
+                      102,
+                      255,
+                      140,
+                      1,
+                    )
+                        : x == "RE"
+                        ? Color.fromRGBO(
+                      102,
+                      227,
+                      255,
+                      1,
+                    )
+                        : x == "DO"
+                        ? Color.fromRGBO(
+                      217,
+                      102,
+                      255,
+                      1,
+                    )
+                        : Color.fromRGBO(
+                      255,
+                      194,
+                      102,
+                      1,
+                    );
+                    return SvgPicture.asset(
+                      AppIcons.star,
+                      width: 56,
+                      height: 56,
+                      colorFilter: ColorFilter.mode(
+                        colorSvg,
+                        BlendMode.srcIn,
+                      ),
+                    );
+                  },
                 ),
+
                 Builder(
                   builder: (context) {
                     final currentLocale = context.locale.languageCode;

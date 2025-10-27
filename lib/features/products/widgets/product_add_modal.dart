@@ -124,7 +124,7 @@ class ProductAddModal extends HookConsumerWidget {
                 Container(
                   width: double.infinity,
                   height: 44,
-                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16), border: Border.all(color: AppColors.grey)),
+                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12), border: Border.all(color: AppColors.grey)),
 
                   child: Row(
                     children: [
@@ -170,7 +170,7 @@ class ProductAddModal extends HookConsumerWidget {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Text("${unit.value?.name ?? ""} ${"price.small".tr()}", style: TextStyle(color: Colors.black87, fontSize: 15)),
+                              Text("${unit.value?.name ?? ""} ${"quantity".tr()}", style: TextStyle(color: Colors.black87, fontSize: 15)),
                               SizedBox(width: 8),
                               Icon(Icons.keyboard_arrow_down, color: Colors.black87, size: 20),
                             ],
