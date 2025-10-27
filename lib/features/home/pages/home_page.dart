@@ -119,7 +119,7 @@ class _HomePageState extends State<HomePage> {
       child: BlocConsumer<HomeBloc, HomeState>(
         listener: (context, state) {
           if(state.statusCheck==Status.success){
-            // _showUpdateDialog();
+            _showUpdateDialog();
           }
 
         },
