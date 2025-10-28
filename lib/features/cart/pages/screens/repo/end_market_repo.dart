@@ -6,12 +6,12 @@ class EndMarketRepository {
   Future<Map<String, dynamic>> endMarket({
     required String marketId,
     required String location,
-    required String name,
+    // required String name,
     required String marketTypeId,
   }) async {
     final response = await requestHelper.patchWithAuth("/market/$marketId", {
       "location": location,
-      "name": name,
+      // "name": name,
       "marketTypeId": marketTypeId,
     });
 

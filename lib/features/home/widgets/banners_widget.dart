@@ -223,9 +223,43 @@ class _OnboardingBannerState extends State<OnboardingBanner> {
                                         Positioned.fill(
                                           child: Opacity(
                                             opacity: 0.9,
-                                            child: Image.network(
-                                              item.image ?? "",
-                                              fit: BoxFit.fitWidth,
+                                            child: Builder(
+                                              builder: (context) {
+                                                final currentLocale =
+                                                    context
+                                                        .locale
+                                                        .languageCode;
+
+                                                // Tilga qarab title-ni tanlash
+                                                String getTitle() {
+                                                  switch (currentLocale) {
+                                                    case 'uz':
+                                                      return item
+                                                          .imageUz ??
+                                                          "";
+                                                    case 'ky':
+                                                      return item
+                                                          .imageUzk ??
+                                                          "";
+                                                    case 'ru':
+                                                      return item
+                                                          .imageRu ??
+                                                          "";
+                                                    case 'en':
+                                                      return item
+                                                          .imageEn ??
+                                                          "";
+                                                    default:
+                                                      return item
+                                                          .imageUz ??
+                                                          "";
+                                                  }
+                                                }
+                                                return Image.network(
+                                                  getTitle() ?? "",
+                                                  fit: BoxFit.fitWidth,
+                                                );
+                                              }
                                             ),
                                           ),
                                         ),
@@ -243,43 +277,14 @@ class _OnboardingBannerState extends State<OnboardingBanner> {
                                                   children: [
                                                     Builder(
                                                       builder: (context) {
-                                                        final currentLocale =
-                                                            context
-                                                                .locale
-                                                                .languageCode;
 
-                                                        // Tilga qarab title-ni tanlash
-                                                        String getTitle() {
-                                                          switch (currentLocale) {
-                                                            case 'uz':
-                                                              return item
-                                                                      .nameUz ??
-                                                                  "";
-                                                            case 'ky':
-                                                              return item
-                                                                      .nameUzk ??
-                                                                  "";
-                                                            case 'ru':
-                                                              return item
-                                                                      .nameRu ??
-                                                                  "";
-                                                            case 'en':
-                                                              return item
-                                                                      .nameEn ??
-                                                                  "";
-                                                            default:
-                                                              return item
-                                                                      .nameUz ??
-                                                                  "";
-                                                          }
-                                                        }
 
                                                         return Text(
                                                           maxLines: 2,
                                                           overflow:
                                                               TextOverflow
                                                                   .ellipsis,
-                                                          getTitle(),
+                                                          "",
                                                           style: Theme.of(
                                                                 context,
                                                               )

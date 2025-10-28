@@ -170,7 +170,7 @@ class ProductAddModal extends HookConsumerWidget {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Text("${unit.value?.name ?? ""} ${"quantity".tr()}", style: TextStyle(color: Colors.black87, fontSize: 15)),
+                              Text("${unit.value?.name ?? "${"quantity".tr()}"}", style: TextStyle(color: Colors.black87, fontSize: 15)),
                               SizedBox(width: 8),
                               Icon(Icons.keyboard_arrow_down, color: Colors.black87, size: 20),
                             ],

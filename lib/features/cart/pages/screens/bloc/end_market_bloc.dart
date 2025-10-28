@@ -20,7 +20,7 @@ class EndMarketBloc extends Bloc<EndMarketEvent, EndMarketState> {
       emit(state.copyWith(status: Status.loading));
 
       try {
-        final response = await repo.endMarket(marketId: event.marketId, location: event.location, name: event.name, marketTypeId: event.marketTypeId);
+        final response = await repo.endMarket(marketId: event.marketId, location: event.location,  marketTypeId: event.marketTypeId);
         final response3 = await repo2.getInnerCartById(id: event.marketId);
         final response2 = await repo.history(marketId: event.marketId,);
 

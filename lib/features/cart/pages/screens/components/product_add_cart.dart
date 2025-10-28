@@ -523,56 +523,56 @@ class _ProductAddCartLocaleBottomsheetState
                           },
                         ),
 
-                        20.vertical,
-                        Text(
-                          "select_market".tr(),
-                          style: Theme.of(
-                            context,
-                          ).textTheme.bodyMedium?.copyWith(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 14,
-                          ),
-                        ),
-                        8.vertical,
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            GestureDetector(
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 8,
-                                  vertical: 10,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: AppColors.white,
-                                  borderRadius: BorderRadius.circular(12),
-                                  border: Border.all(
-                                    width: 2,
-                                    color:
-                                        CupertinoColors.systemGroupedBackground,
-                                  ),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      widget.marketName ?? "select_market".tr(),
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                    Icon(
-                                      Icons.keyboard_arrow_down,
-                                      color: Colors.grey,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                        // 20.vertical,
+                        // Text(
+                        //   "select_market".tr(),
+                        //   style: Theme.of(
+                        //     context,
+                        //   ).textTheme.bodyMedium?.copyWith(
+                        //     fontWeight: FontWeight.w400,
+                        //     fontSize: 14,
+                        //   ),
+                        // ),
+                        // 8.vertical,
+                        // Column(
+                        //   crossAxisAlignment: CrossAxisAlignment.start,
+                        //   children: [
+                        //     GestureDetector(
+                        //       child: Container(
+                        //         padding: EdgeInsets.symmetric(
+                        //           horizontal: 8,
+                        //           vertical: 10,
+                        //         ),
+                        //         decoration: BoxDecoration(
+                        //           color: AppColors.white,
+                        //           borderRadius: BorderRadius.circular(12),
+                        //           border: Border.all(
+                        //             width: 2,
+                        //             color:
+                        //                 CupertinoColors.systemGroupedBackground,
+                        //           ),
+                        //         ),
+                        //         child: Row(
+                        //           mainAxisAlignment:
+                        //               MainAxisAlignment.spaceBetween,
+                        //           children: [
+                        //             Text(
+                        //               widget.marketName ?? "select_market".tr(),
+                        //               style: TextStyle(
+                        //                 fontSize: 16,
+                        //                 color: Colors.grey,
+                        //               ),
+                        //             ),
+                        //             Icon(
+                        //               Icons.keyboard_arrow_down,
+                        //               color: Colors.grey,
+                        //             ),
+                        //           ],
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
                         20.vertical,
                         Text(
                           "product_count_summ".tr(),
@@ -590,7 +590,7 @@ class _ProductAddCartLocaleBottomsheetState
                           height: 44,
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(16),
+                            borderRadius: BorderRadius.circular(12),
                             border: Border.all(color: AppColors.grey),
                           ),
 
@@ -659,7 +659,7 @@ class _ProductAddCartLocaleBottomsheetState
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Text(
-                                        "${unitName ?? ""} ${"quantity".tr()}",
+                                        "${unitName ?? "${"quantity".tr()}"} ",
                                         style: TextStyle(
                                           color: Colors.black87,
                                           fontSize: 15,

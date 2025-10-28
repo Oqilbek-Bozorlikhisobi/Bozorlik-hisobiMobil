@@ -70,7 +70,7 @@ class _EndMarketBottomsheetState extends State<EndMarketBottomsheet> {
                         EndMarketButton(
                           marketId: widget.marketId ?? "",
                           location: nameController.text,
-                          name: nameController.text,
+                          // name: nameController.text,
                           marketTypeId: widget.marketTypeId ?? "",
                         ),
                       );

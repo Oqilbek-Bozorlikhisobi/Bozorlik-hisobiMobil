@@ -58,10 +58,10 @@ class BannerResponseDataItems {
   String? id;
   String? createdAt;
   String? updatedAt;
-  String? nameEn;
-  String? nameRu;
-  String? nameUz;
-  String? nameUzk;
+  String? imageEn;
+  String? imageRu;
+  String? imageUz;
+  String? imageUzk;
   String? image;
   String? link;
 
@@ -69,10 +69,10 @@ class BannerResponseDataItems {
       {this.id,
         this.createdAt,
         this.updatedAt,
-        this.nameEn,
-        this.nameRu,
-        this.nameUz,
-        this.nameUzk,
+        this.imageEn,
+        this.imageRu,
+        this.imageUz,
+        this.imageUzk,
         this.image,
         this.link});
 
@@ -80,10 +80,10 @@ class BannerResponseDataItems {
     id = json['id'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
-    nameEn = json['nameEn'];
-    nameRu = json['nameRu'];
-    nameUz = json['nameUz'];
-    nameUzk = json['nameUzk'];
+    imageEn = json['imageEn'];
+    imageRu = json['imageRu'];
+    imageUz = json['imageUz'];
+    imageUzk = json['imageUzk'];
     image = json['image'];
     link = json['link'];
   }
@@ -93,10 +93,10 @@ class BannerResponseDataItems {
     data['id'] = id;
     data['createdAt'] = createdAt;
     data['updatedAt'] = updatedAt;
-    data['nameEn'] = nameEn;
-    data['nameRu'] = nameRu;
-    data['nameUz'] = nameUz;
-    data['nameUzk'] = nameUzk;
+    data['imageEn'] = imageEn;
+    data['imageRu'] = imageRu;
+    data['imageUz'] = imageUz;
+    data['imageUzk'] = imageUzk;
     data['image'] = image;
     data['link'] = link;
     return data;

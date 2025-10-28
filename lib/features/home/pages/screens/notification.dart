@@ -261,15 +261,15 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
     String getTitle() {
       switch (currentLocale) {
         case 'uz':
-          return notification.titleUz ?? "";
+          return notification.messageUz ?? "";
         case 'ky':
-          return notification.titleUzk ?? "";
+          return notification.messageUzk ?? "";
         case 'ru':
-          return notification.titleRu ?? "";
+          return notification.messageRu ?? "";
         case 'en':
-          return notification.titleEn ?? "";
+          return notification.messageEn ?? "";
         default:
-          return notification.titleUz ?? "";
+          return notification.messageUz ?? "";
       }
     }
 
