@@ -203,7 +203,9 @@
   "store_check_new": "Update available!",
   "retry_market": "Market repetition",
   "market_check": "Check the market",
-  "quantity": "piece"
+  "quantity": "piece",
+  "success": "Successful"
+
 
 
 

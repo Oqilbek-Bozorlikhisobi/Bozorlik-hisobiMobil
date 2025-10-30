@@ -204,7 +204,9 @@
   "store_check_new": "Доступно обновление!",
   "retry_market": "Повторение рынка",
   "market_check": "Проверьте рынок.",
-  "quantity": "кусок"
+  "quantity": "кусок",
+  "success": "Успешный"
+
 
 
 

@@ -214,7 +214,7 @@ class ForgotPasswordPage extends HookConsumerWidget {
                             verificationKey: otpKey.value,
                           ),
                         );
-                    showCustomToast(title: "Success",type: ToastificationType.success);
+                    showCustomToast(title: "success".tr(),type: ToastificationType.success);
                   }
                 }
               },

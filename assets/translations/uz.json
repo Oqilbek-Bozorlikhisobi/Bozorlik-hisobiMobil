@@ -208,7 +208,8 @@
   "store_check_new": "Yangilanish mavjud!",
   "retry_market": "Bozorlikni takrorlash",
   "market_check": "Bozorlikni cheki",
-  "quantity": "dona"
+  "quantity": "dona",
+  "success": "Muvaffaqiyatli"
 
 
 }

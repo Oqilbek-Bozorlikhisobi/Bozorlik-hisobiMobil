@@ -50,7 +50,7 @@ class _EditMarketBottomsheetState extends State<EditMarketBottomsheet> {
             showCustomToast(title: state.errorMessage ?? "", type: ToastificationType.error);
           }
           if (state.status == Status.success) {
-            showCustomToast(title: "Success", type: ToastificationType.success);
+            showCustomToast(title: "showCustomToast".tr(), type: ToastificationType.success);
             context.pop();
             context.pop(true);
           }
