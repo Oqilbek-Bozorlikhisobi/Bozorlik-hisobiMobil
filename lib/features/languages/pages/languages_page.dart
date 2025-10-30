@@ -28,7 +28,7 @@ class _LanguagesPageState extends ConsumerState<LanguagesPage> {
   @override
   void initState() {
     super.initState();
-    selectedLanguage = cache.getString("language") ?? context.locale.languageCode;
+    selectedLanguage = cache.getString("language") ?? "uz";
 
   }
 

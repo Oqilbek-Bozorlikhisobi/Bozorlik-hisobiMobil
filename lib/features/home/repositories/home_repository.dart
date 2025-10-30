@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bozorlik/features/home/models/banner_model.dart';
 import 'package:bozorlik/features/settings/repositories/profile_repository.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -97,6 +99,10 @@ class HomeRepository {
     try {
       final response = await requestHelper.getWithAuth("/bunner");
       await firebase();
+
+      print("##########");
+      print("${response.toString()}");
+      print("##########");
       return response;
     } catch (e) {
       return {"==========ERROR========": e.toString()};
@@ -108,13 +114,22 @@ class HomeRepository {
     FirebaseMessaging messaging = FirebaseMessaging.instance;
 
     NotificationSettings settings = await messaging.requestPermission();
+    print('📱 Ruxsat holati: ${settings.authorizationStatus}');
+
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      token = await messaging.getToken();
+
+      if (Platform.isIOS) {
+        token= await messaging.getAPNSToken();
+        print('APNS Token: $token');
+        await Future.delayed(Duration(seconds: 2));
+      }else{
+
+        token = await messaging.getToken();
+      }
       print('Device Token: $token');
     } else {
       print('Push notificationga ruxsat berilmadi');
     }
-
     try {
       final response = await requestHelper.patchWithAuth(
         "/user/get-fcm-token",

@@ -189,7 +189,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         final response = await repo.getBunner();
 
         final data = BannerResponse.fromJson(response);
+        print("--------------");
+        print("${response}");
+        print("--------------");
         if (data.message == "ok") {
+          print("=============");
+          print("ok");
+          print("=============");
           if (data.data?.items?.isNotEmpty ?? false) {
             emit(
               state.copyWith(
@@ -201,6 +207,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             emit(state.copyWith(statusBanner: Status.empty));
           }
         } else {
+          print("=============");
+          print("error1");
+          print("${data.message}");
+          print("=============");
           emit(
             state.copyWith(
               statusBanner: Status.error,
@@ -209,6 +219,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           );
         }
       } on DioException catch (e) {
+        print("=============");
+        print("error1");
+        print("${e.toString()}");
+        print("=============");
         emit(
           state.copyWith(
             statusBanner: Status.error,
