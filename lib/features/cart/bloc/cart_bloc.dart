@@ -16,7 +16,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       emit(state.copyWith(status: Status.loading));
 
       try {
-        final response = await repo.getAllCarts();
+        final response = await repo.getAllCarts(marketTypeId: event.marketId);
 
         final data = CartResponse.fromJson(response);
 

@@ -321,7 +321,7 @@ as bool?,
 /// @nodoc
 mixin _$CartItem {
 
-@JsonKey(name: 'id') String? get id;@JsonKey(name: 'createdAt') String? get createdAt;@JsonKey(name: 'updatedAt') String? get updatedAt;@JsonKey(name: 'product') ProductModel? get product;@JsonKey(name: 'productType') String? get productType;@JsonKey(name: 'productName') String? get productName;@JsonKey(name: 'quantity') double? get quantity;@JsonKey(name: 'price') double? get price;@JsonKey(name: 'isBuying') bool? get isBuying;@JsonKey(name: 'user') ProfileModel? get user;@JsonKey(name: 'unit') UnitModel? get unit;
+@JsonKey(name: 'id') String? get id;@JsonKey(name: 'createdAt') String? get createdAt;@JsonKey(name: 'updatedAt') String? get updatedAt;@JsonKey(name: 'product') ProductModel? get product;@JsonKey(name: 'productType') String? get productType;@JsonKey(name: 'calculationType') String? get calculationType;@JsonKey(name: 'productName') String? get productName;@JsonKey(name: 'quantity') double? get quantity;@JsonKey(name: 'price') double? get price;@JsonKey(name: 'isBuying') bool? get isBuying;@JsonKey(name: 'user') ProfileModel? get user;@JsonKey(name: 'unit') UnitModel? get unit;
 /// Create a copy of CartItem
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -334,16 +334,16 @@ $CartItemCopyWith<CartItem> get copyWith => _$CartItemCopyWithImpl<CartItem>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CartItem&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.product, product) || other.product == product)&&(identical(other.productType, productType) || other.productType == productType)&&(identical(other.productName, productName) || other.productName == productName)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.price, price) || other.price == price)&&(identical(other.isBuying, isBuying) || other.isBuying == isBuying)&&(identical(other.user, user) || other.user == user)&&(identical(other.unit, unit) || other.unit == unit));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CartItem&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.product, product) || other.product == product)&&(identical(other.productType, productType) || other.productType == productType)&&(identical(other.calculationType, calculationType) || other.calculationType == calculationType)&&(identical(other.productName, productName) || other.productName == productName)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.price, price) || other.price == price)&&(identical(other.isBuying, isBuying) || other.isBuying == isBuying)&&(identical(other.user, user) || other.user == user)&&(identical(other.unit, unit) || other.unit == unit));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,createdAt,updatedAt,product,productType,productName,quantity,price,isBuying,user,unit);
+int get hashCode => Object.hash(runtimeType,id,createdAt,updatedAt,product,productType,calculationType,productName,quantity,price,isBuying,user,unit);
 
 @override
 String toString() {
-  return 'CartItem(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, product: $product, productType: $productType, productName: $productName, quantity: $quantity, price: $price, isBuying: $isBuying, user: $user, unit: $unit)';
+  return 'CartItem(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, product: $product, productType: $productType, calculationType: $calculationType, productName: $productName, quantity: $quantity, price: $price, isBuying: $isBuying, user: $user, unit: $unit)';
 }
 
 
@@ -354,7 +354,7 @@ abstract mixin class $CartItemCopyWith<$Res>  {
   factory $CartItemCopyWith(CartItem value, $Res Function(CartItem) _then) = _$CartItemCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: 'id') String? id,@JsonKey(name: 'createdAt') String? createdAt,@JsonKey(name: 'updatedAt') String? updatedAt,@JsonKey(name: 'product') ProductModel? product,@JsonKey(name: 'productType') String? productType,@JsonKey(name: 'productName') String? productName,@JsonKey(name: 'quantity') double? quantity,@JsonKey(name: 'price') double? price,@JsonKey(name: 'isBuying') bool? isBuying,@JsonKey(name: 'user') ProfileModel? user,@JsonKey(name: 'unit') UnitModel? unit
+@JsonKey(name: 'id') String? id,@JsonKey(name: 'createdAt') String? createdAt,@JsonKey(name: 'updatedAt') String? updatedAt,@JsonKey(name: 'product') ProductModel? product,@JsonKey(name: 'productType') String? productType,@JsonKey(name: 'calculationType') String? calculationType,@JsonKey(name: 'productName') String? productName,@JsonKey(name: 'quantity') double? quantity,@JsonKey(name: 'price') double? price,@JsonKey(name: 'isBuying') bool? isBuying,@JsonKey(name: 'user') ProfileModel? user,@JsonKey(name: 'unit') UnitModel? unit
 });
 
 
@@ -371,13 +371,14 @@ class _$CartItemCopyWithImpl<$Res>
 
 /// Create a copy of CartItem
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,Object? product = freezed,Object? productType = freezed,Object? productName = freezed,Object? quantity = freezed,Object? price = freezed,Object? isBuying = freezed,Object? user = freezed,Object? unit = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,Object? product = freezed,Object? productType = freezed,Object? calculationType = freezed,Object? productName = freezed,Object? quantity = freezed,Object? price = freezed,Object? isBuying = freezed,Object? user = freezed,Object? unit = freezed,}) {
   return _then(_self.copyWith(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as String?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as String?,product: freezed == product ? _self.product : product // ignore: cast_nullable_to_non_nullable
 as ProductModel?,productType: freezed == productType ? _self.productType : productType // ignore: cast_nullable_to_non_nullable
+as String?,calculationType: freezed == calculationType ? _self.calculationType : calculationType // ignore: cast_nullable_to_non_nullable
 as String?,productName: freezed == productName ? _self.productName : productName // ignore: cast_nullable_to_non_nullable
 as String?,quantity: freezed == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
 as double?,price: freezed == price ? _self.price : price // ignore: cast_nullable_to_non_nullable
@@ -505,10 +506,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'id')  String? id, @JsonKey(name: 'createdAt')  String? createdAt, @JsonKey(name: 'updatedAt')  String? updatedAt, @JsonKey(name: 'product')  ProductModel? product, @JsonKey(name: 'productType')  String? productType, @JsonKey(name: 'productName')  String? productName, @JsonKey(name: 'quantity')  double? quantity, @JsonKey(name: 'price')  double? price, @JsonKey(name: 'isBuying')  bool? isBuying, @JsonKey(name: 'user')  ProfileModel? user, @JsonKey(name: 'unit')  UnitModel? unit)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'id')  String? id, @JsonKey(name: 'createdAt')  String? createdAt, @JsonKey(name: 'updatedAt')  String? updatedAt, @JsonKey(name: 'product')  ProductModel? product, @JsonKey(name: 'productType')  String? productType, @JsonKey(name: 'calculationType')  String? calculationType, @JsonKey(name: 'productName')  String? productName, @JsonKey(name: 'quantity')  double? quantity, @JsonKey(name: 'price')  double? price, @JsonKey(name: 'isBuying')  bool? isBuying, @JsonKey(name: 'user')  ProfileModel? user, @JsonKey(name: 'unit')  UnitModel? unit)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CartItem() when $default != null:
-return $default(_that.id,_that.createdAt,_that.updatedAt,_that.product,_that.productType,_that.productName,_that.quantity,_that.price,_that.isBuying,_that.user,_that.unit);case _:
+return $default(_that.id,_that.createdAt,_that.updatedAt,_that.product,_that.productType,_that.calculationType,_that.productName,_that.quantity,_that.price,_that.isBuying,_that.user,_that.unit);case _:
   return orElse();
 
 }
@@ -526,10 +527,10 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.product,_that.pro
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'id')  String? id, @JsonKey(name: 'createdAt')  String? createdAt, @JsonKey(name: 'updatedAt')  String? updatedAt, @JsonKey(name: 'product')  ProductModel? product, @JsonKey(name: 'productType')  String? productType, @JsonKey(name: 'productName')  String? productName, @JsonKey(name: 'quantity')  double? quantity, @JsonKey(name: 'price')  double? price, @JsonKey(name: 'isBuying')  bool? isBuying, @JsonKey(name: 'user')  ProfileModel? user, @JsonKey(name: 'unit')  UnitModel? unit)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'id')  String? id, @JsonKey(name: 'createdAt')  String? createdAt, @JsonKey(name: 'updatedAt')  String? updatedAt, @JsonKey(name: 'product')  ProductModel? product, @JsonKey(name: 'productType')  String? productType, @JsonKey(name: 'calculationType')  String? calculationType, @JsonKey(name: 'productName')  String? productName, @JsonKey(name: 'quantity')  double? quantity, @JsonKey(name: 'price')  double? price, @JsonKey(name: 'isBuying')  bool? isBuying, @JsonKey(name: 'user')  ProfileModel? user, @JsonKey(name: 'unit')  UnitModel? unit)  $default,) {final _that = this;
 switch (_that) {
 case _CartItem():
-return $default(_that.id,_that.createdAt,_that.updatedAt,_that.product,_that.productType,_that.productName,_that.quantity,_that.price,_that.isBuying,_that.user,_that.unit);case _:
+return $default(_that.id,_that.createdAt,_that.updatedAt,_that.product,_that.productType,_that.calculationType,_that.productName,_that.quantity,_that.price,_that.isBuying,_that.user,_that.unit);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -546,10 +547,10 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.product,_that.pro
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'id')  String? id, @JsonKey(name: 'createdAt')  String? createdAt, @JsonKey(name: 'updatedAt')  String? updatedAt, @JsonKey(name: 'product')  ProductModel? product, @JsonKey(name: 'productType')  String? productType, @JsonKey(name: 'productName')  String? productName, @JsonKey(name: 'quantity')  double? quantity, @JsonKey(name: 'price')  double? price, @JsonKey(name: 'isBuying')  bool? isBuying, @JsonKey(name: 'user')  ProfileModel? user, @JsonKey(name: 'unit')  UnitModel? unit)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'id')  String? id, @JsonKey(name: 'createdAt')  String? createdAt, @JsonKey(name: 'updatedAt')  String? updatedAt, @JsonKey(name: 'product')  ProductModel? product, @JsonKey(name: 'productType')  String? productType, @JsonKey(name: 'calculationType')  String? calculationType, @JsonKey(name: 'productName')  String? productName, @JsonKey(name: 'quantity')  double? quantity, @JsonKey(name: 'price')  double? price, @JsonKey(name: 'isBuying')  bool? isBuying, @JsonKey(name: 'user')  ProfileModel? user, @JsonKey(name: 'unit')  UnitModel? unit)?  $default,) {final _that = this;
 switch (_that) {
 case _CartItem() when $default != null:
-return $default(_that.id,_that.createdAt,_that.updatedAt,_that.product,_that.productType,_that.productName,_that.quantity,_that.price,_that.isBuying,_that.user,_that.unit);case _:
+return $default(_that.id,_that.createdAt,_that.updatedAt,_that.product,_that.productType,_that.calculationType,_that.productName,_that.quantity,_that.price,_that.isBuying,_that.user,_that.unit);case _:
   return null;
 
 }
@@ -561,7 +562,7 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.product,_that.pro
 @JsonSerializable()
 
 class _CartItem implements CartItem {
-  const _CartItem({@JsonKey(name: 'id') this.id, @JsonKey(name: 'createdAt') this.createdAt, @JsonKey(name: 'updatedAt') this.updatedAt, @JsonKey(name: 'product') this.product, @JsonKey(name: 'productType') this.productType, @JsonKey(name: 'productName') this.productName, @JsonKey(name: 'quantity') this.quantity, @JsonKey(name: 'price') this.price, @JsonKey(name: 'isBuying') this.isBuying, @JsonKey(name: 'user') this.user, @JsonKey(name: 'unit') this.unit});
+  const _CartItem({@JsonKey(name: 'id') this.id, @JsonKey(name: 'createdAt') this.createdAt, @JsonKey(name: 'updatedAt') this.updatedAt, @JsonKey(name: 'product') this.product, @JsonKey(name: 'productType') this.productType, @JsonKey(name: 'calculationType') this.calculationType, @JsonKey(name: 'productName') this.productName, @JsonKey(name: 'quantity') this.quantity, @JsonKey(name: 'price') this.price, @JsonKey(name: 'isBuying') this.isBuying, @JsonKey(name: 'user') this.user, @JsonKey(name: 'unit') this.unit});
   factory _CartItem.fromJson(Map<String, dynamic> json) => _$CartItemFromJson(json);
 
 @override@JsonKey(name: 'id') final  String? id;
@@ -569,6 +570,7 @@ class _CartItem implements CartItem {
 @override@JsonKey(name: 'updatedAt') final  String? updatedAt;
 @override@JsonKey(name: 'product') final  ProductModel? product;
 @override@JsonKey(name: 'productType') final  String? productType;
+@override@JsonKey(name: 'calculationType') final  String? calculationType;
 @override@JsonKey(name: 'productName') final  String? productName;
 @override@JsonKey(name: 'quantity') final  double? quantity;
 @override@JsonKey(name: 'price') final  double? price;
@@ -589,16 +591,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CartItem&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.product, product) || other.product == product)&&(identical(other.productType, productType) || other.productType == productType)&&(identical(other.productName, productName) || other.productName == productName)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.price, price) || other.price == price)&&(identical(other.isBuying, isBuying) || other.isBuying == isBuying)&&(identical(other.user, user) || other.user == user)&&(identical(other.unit, unit) || other.unit == unit));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CartItem&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.product, product) || other.product == product)&&(identical(other.productType, productType) || other.productType == productType)&&(identical(other.calculationType, calculationType) || other.calculationType == calculationType)&&(identical(other.productName, productName) || other.productName == productName)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.price, price) || other.price == price)&&(identical(other.isBuying, isBuying) || other.isBuying == isBuying)&&(identical(other.user, user) || other.user == user)&&(identical(other.unit, unit) || other.unit == unit));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,createdAt,updatedAt,product,productType,productName,quantity,price,isBuying,user,unit);
+int get hashCode => Object.hash(runtimeType,id,createdAt,updatedAt,product,productType,calculationType,productName,quantity,price,isBuying,user,unit);
 
 @override
 String toString() {
-  return 'CartItem(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, product: $product, productType: $productType, productName: $productName, quantity: $quantity, price: $price, isBuying: $isBuying, user: $user, unit: $unit)';
+  return 'CartItem(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, product: $product, productType: $productType, calculationType: $calculationType, productName: $productName, quantity: $quantity, price: $price, isBuying: $isBuying, user: $user, unit: $unit)';
 }
 
 
@@ -609,7 +611,7 @@ abstract mixin class _$CartItemCopyWith<$Res> implements $CartItemCopyWith<$Res>
   factory _$CartItemCopyWith(_CartItem value, $Res Function(_CartItem) _then) = __$CartItemCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: 'id') String? id,@JsonKey(name: 'createdAt') String? createdAt,@JsonKey(name: 'updatedAt') String? updatedAt,@JsonKey(name: 'product') ProductModel? product,@JsonKey(name: 'productType') String? productType,@JsonKey(name: 'productName') String? productName,@JsonKey(name: 'quantity') double? quantity,@JsonKey(name: 'price') double? price,@JsonKey(name: 'isBuying') bool? isBuying,@JsonKey(name: 'user') ProfileModel? user,@JsonKey(name: 'unit') UnitModel? unit
+@JsonKey(name: 'id') String? id,@JsonKey(name: 'createdAt') String? createdAt,@JsonKey(name: 'updatedAt') String? updatedAt,@JsonKey(name: 'product') ProductModel? product,@JsonKey(name: 'productType') String? productType,@JsonKey(name: 'calculationType') String? calculationType,@JsonKey(name: 'productName') String? productName,@JsonKey(name: 'quantity') double? quantity,@JsonKey(name: 'price') double? price,@JsonKey(name: 'isBuying') bool? isBuying,@JsonKey(name: 'user') ProfileModel? user,@JsonKey(name: 'unit') UnitModel? unit
 });
 
 
@@ -626,13 +628,14 @@ class __$CartItemCopyWithImpl<$Res>
 
 /// Create a copy of CartItem
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,Object? product = freezed,Object? productType = freezed,Object? productName = freezed,Object? quantity = freezed,Object? price = freezed,Object? isBuying = freezed,Object? user = freezed,Object? unit = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,Object? product = freezed,Object? productType = freezed,Object? calculationType = freezed,Object? productName = freezed,Object? quantity = freezed,Object? price = freezed,Object? isBuying = freezed,Object? user = freezed,Object? unit = freezed,}) {
   return _then(_CartItem(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as String?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as String?,product: freezed == product ? _self.product : product // ignore: cast_nullable_to_non_nullable
 as ProductModel?,productType: freezed == productType ? _self.productType : productType // ignore: cast_nullable_to_non_nullable
+as String?,calculationType: freezed == calculationType ? _self.calculationType : calculationType // ignore: cast_nullable_to_non_nullable
 as String?,productName: freezed == productName ? _self.productName : productName // ignore: cast_nullable_to_non_nullable
 as String?,quantity: freezed == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
 as double?,price: freezed == price ? _self.price : price // ignore: cast_nullable_to_non_nullable

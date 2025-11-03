@@ -203,8 +203,18 @@
   "store_check_new": "Update available!",
   "retry_market": "Market repetition",
   "market_check": "Check the market",
-  "quantity": "piece",
-  "success": "Successful"
+  "quantity": "choose",
+  "success": "Successful",
+  "language1": "In which language shall we continue?",
+  "language2": "Choose a language that is convenient for you.",
+  "select_region1": "Select region",
+  "market_location": "Market address",
+  "update": "Update"
+
+
+
+
+
 
 
 

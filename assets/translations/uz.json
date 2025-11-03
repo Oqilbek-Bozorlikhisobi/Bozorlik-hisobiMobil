@@ -208,8 +208,13 @@
   "store_check_new": "Yangilanish mavjud!",
   "retry_market": "Bozorlikni takrorlash",
   "market_check": "Bozorlikni cheki",
-  "quantity": "dona",
-  "success": "Muvaffaqiyatli"
+  "quantity": "tanlang",
+  "success": "Muvaffaqiyatli",
+  "language1": "Qaysi tilda davom etamiz?",
+  "language2": "Ilimos o'zingizga qulay tilni tanlang",
+  "select_region1": "Hududni tanlang",
+  "market_location": "Bozor manzili",
+  "update": "Yangilash"
 
 
 }

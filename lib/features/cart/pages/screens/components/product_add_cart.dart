@@ -259,7 +259,7 @@ class _ProductAddCartLocaleBottomsheetState
 
   String? _validateProductName(String? value) {
     if (value == null || value.isEmpty) {
-      return "Please fill all required field".tr();
+      return "required_field".tr();
     }
 
     return null;
@@ -267,7 +267,7 @@ class _ProductAddCartLocaleBottomsheetState
 
   String? _validateAmount(String? value) {
     if (value == null || value.isEmpty) {
-      return "Please fill all required field".tr();
+      return "required_field".tr();
     }
 
     return null;
@@ -275,7 +275,7 @@ class _ProductAddCartLocaleBottomsheetState
 
   String? _validateUnit(String? value) {
     if (value == null || value.isEmpty) {
-      return "Please fill all required field".tr();
+      return "required_field".tr();
     }
     return null;
   }
@@ -659,7 +659,7 @@ class _ProductAddCartLocaleBottomsheetState
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Text(
-                                        "${unitName ?? "${"quantity".tr()}"} ",
+                                        "${unitName ?? "quantity".tr()} ",
                                         style: TextStyle(
                                           color: Colors.black87,
                                           fontSize: 15,
@@ -678,14 +678,14 @@ class _ProductAddCartLocaleBottomsheetState
                             ],
                           ),
                         ),
-                        if (unitId == null || unitId!.isEmpty)
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: Text(
-                              "Please fill all required field".tr(),
-                              style: TextStyle(color: Colors.red, fontSize: 12),
-                            ),
-                          ),
+                        // if (unitId == null || unitId!.isEmpty)
+                        //   Padding(
+                        //     padding: const EdgeInsets.only(top: 8.0),
+                        //     child: Text(
+                        //       "required_field".tr(),
+                        //       style: TextStyle(color: Colors.red, fontSize: 12),
+                        //     ),
+                        //   ),
                         10.vertical,
                         CustomTextField(
                           isDeletable: true,
@@ -700,14 +700,14 @@ class _ProductAddCartLocaleBottomsheetState
                           onTap: () async {
                             if (!_formKey.currentState!.validate()) {
                               showCustomToast(
-                                title: "Please fill all required field".tr(),
+                                title: "required_field".tr(),
                                 type: ToastificationType.error,
                               );
                               return;
                             }
                             if (unitId == null || unitId!.isEmpty) {
                               showCustomToast(
-                                title: "Please fill all required field".tr(),
+                                title: "required_field".tr(),
                                 type: ToastificationType.error,
                               );
                               return;

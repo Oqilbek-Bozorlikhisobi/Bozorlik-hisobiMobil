@@ -2,7 +2,11 @@ part of 'history_bloc.dart';
 
 class HistoryEvent {}
 
-class GetHistoryEvent extends HistoryEvent {}
+class GetHistoryEvent extends HistoryEvent {
+  final String? marketTypeId;
+
+  GetHistoryEvent({this.marketTypeId});
+}
 
 class GetByIdHistoryEvent extends HistoryEvent {
   final String historyId;

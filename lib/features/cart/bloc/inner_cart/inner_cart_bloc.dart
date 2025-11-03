@@ -47,6 +47,9 @@ class InnerCartBloc extends Bloc<InnerCartEvent, InnerCartState> {
     on<BuyProductEvent>((event, emit) {
       var list = state.buyProducts ?? [];
       list.add(event.buyProduct);
+
+      print("===========");
+      print(event.buyProduct.calculationType);
       var unBuyList = state.unBuyProducts ?? [];
       unBuyList.removeWhere((v) => v.id == event.buyProduct.id);
 

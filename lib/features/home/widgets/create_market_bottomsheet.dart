@@ -52,7 +52,7 @@ class _CreateMarketBottomsheetState extends State<CreateMarketBottomsheet> {
           }
           if (state.status == Status.success) {
             showCustomToast(
-              title: state.errorMessage ?? "",
+              title: "success".tr(),
               type: ToastificationType.success,
             );
             context.pop();

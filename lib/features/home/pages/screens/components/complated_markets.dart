@@ -13,9 +13,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+final ValueNotifier<bool> refreshNotifier2 = ValueNotifier(false);
 
 class ComplatedMarkets extends StatefulWidget {
-  const ComplatedMarkets({super.key});
+  const ComplatedMarkets({super.key, this.marketTypeId});
+
+  final String? marketTypeId;
 
   @override
   State<ComplatedMarkets> createState() => _ComplatedMarketsState();
@@ -28,7 +31,7 @@ class _ComplatedMarketsState extends State<ComplatedMarkets> {
   @override
   void initState() {
     super.initState();
-    bloc.add(GetHistoryEvent());
+    bloc.add(GetHistoryEvent(marketTypeId: widget.marketTypeId));
   }
 
   @override
@@ -36,6 +39,15 @@ class _ComplatedMarketsState extends State<ComplatedMarkets> {
     _refreshController.dispose();
     bloc.close();
     super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(covariant ComplatedMarkets oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.marketTypeId != widget.marketTypeId) {
+      bloc.add(GetHistoryEvent(marketTypeId: widget.marketTypeId));
+    }
   }
 
   @override
@@ -55,41 +67,41 @@ class _ComplatedMarketsState extends State<ComplatedMarkets> {
                   ? Center(child: LoadingWidget())
                   : state.status == Status.empty
                   ? Center(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 12.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        AppIcons.emptyMarket,
-                        height: 200,
-                        width: 200,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 12.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                            AppIcons.emptyMarket,
+                            height: 100,
+                            width: 100,
+                          ),
+                          12.vertical,
+                          Text(
+                            "cart_empty".tr(),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          10.vertical,
+                          Text(
+                            "start_adding_products".tr(),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          10.vertical,
+                        ],
                       ),
-                      12.vertical,
-                      Text(
-                        "cart_empty".tr(),
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      10.vertical,
-                      Text(
-                        "start_adding_products".tr(),
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      10.vertical,
-                    ],
-                  ),
-                ),
-              )
+                    ),
+                  )
                   : state.status == Status.success
                   ? SmartRefresher(
                     controller: _refreshController,
@@ -114,36 +126,34 @@ class _ComplatedMarketsState extends State<ComplatedMarkets> {
                               CupertinoPageRoute(
                                 builder:
                                     (context) => InnerHistoryScreen(
-                                  cartData: state.items![index],
-                                ),
+                                      cartData: state.items![index],
+                                    ),
                               ),
                             );
                           },
-                          child: HistoryItemNew(
-                            shopping: state.items![index],
-                          ),
+                          child: HistoryItemNew(shopping: state.items![index]),
                         );
                       },
                     ),
                   )
                   : state.status == Status.error
                   ? Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(AppIcons.noInternet),
-                    10.vertical,
-                    CustomButton(
-                      text: state.errorMessage ?? "Xatolik",
-                      onTap: () {
-                        bloc.add(GetHistoryEvent());
-                      },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(AppIcons.noInternet),
+                        10.vertical,
+                        CustomButton(
+                          text: state.errorMessage ?? "Xatolik",
+                          onTap: () {
+                            bloc.add(GetHistoryEvent());
+                          },
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              )
+                  )
                   : SizedBox();
-            }
+            },
           );
         },
       ),

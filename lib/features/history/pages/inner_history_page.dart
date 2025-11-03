@@ -142,6 +142,24 @@ class _InnerHistoryScreenState extends State<InnerHistoryScreen> {
                               ),
                             ],
                           ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "${"market_location".tr()}:",
+                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600, fontSize: 16),
+                              ),
+                              5.horizontal,
+
+                              Expanded(
+                                child: Text(
+                                  textAlign: TextAlign.end,
+                                  ( state.innerHistory?.location??""),
+                                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w500, fontSize: 16),
+                                ),
+                              ),
+                            ],
+                          ),
                           10.vertical,
                           Builder(
                             builder: (context) {

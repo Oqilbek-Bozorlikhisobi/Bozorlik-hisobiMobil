@@ -12,10 +12,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+final ValueNotifier<bool> refreshNotifier = ValueNotifier(false);
 
 class ActiveMarkets extends StatefulWidget {
-  const ActiveMarkets({super.key});
-
+  const ActiveMarkets({super.key, required this.marketId, });
+final String? marketId;
   @override
   State<ActiveMarkets> createState() => _ActiveMarketsState();
 }
@@ -26,7 +27,16 @@ class _ActiveMarketsState extends State<ActiveMarkets> {
   @override
   void initState() {
     super.initState();
-    bloc.add(GetCartEvent());
+    bloc.add(GetCartEvent(marketId: widget.marketId));
+  }
+
+  @override
+  void didUpdateWidget(covariant ActiveMarkets oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.marketId != widget.marketId) {
+      bloc.add(GetCartEvent(marketId: widget.marketId));
+    }
   }
 
   @override
@@ -34,7 +44,8 @@ class _ActiveMarketsState extends State<ActiveMarkets> {
     return BlocProvider.value(
       value: bloc,
       child: BlocConsumer<CartBloc, CartState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          },
         builder: (context, state) {
           return Builder(
             builder: (context) {
@@ -51,8 +62,8 @@ class _ActiveMarketsState extends State<ActiveMarkets> {
                     children: [
                       SvgPicture.asset(
                         AppIcons.emptyMarket,
-                        height: 200,
-                        width: 200,
+                        height: 100,
+                        width: 100,
                       ),
                       12.vertical,
                       Text(

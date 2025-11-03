@@ -29,7 +29,6 @@ class _LanguagesPageState extends ConsumerState<LanguagesPage> {
   void initState() {
     super.initState();
     selectedLanguage = cache.getString("language") ?? "uz";
-
   }
 
   @override
@@ -58,14 +57,22 @@ class _LanguagesPageState extends ConsumerState<LanguagesPage> {
             children: [
               20.vertical,
               Text(
-                "Qaysi tilda davom etamiz?",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.black87),
+                "language1".tr(),
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black87,
+                ),
                 textAlign: TextAlign.center,
               ),
               8.vertical,
               Text(
-                "Ilimos o'zingizga qulay tilni tanlang",
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.grey.shade600),
+                "language2".tr(),
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.grey.shade600,
+                ),
                 textAlign: TextAlign.center,
               ),
               30.vertical,
@@ -114,17 +121,11 @@ class _LanguagesPageState extends ConsumerState<LanguagesPage> {
               ),
               Spacer(),
               CustomButton(
-                text: "Davom etish",
+                text: "log_in".tr(),
                 onTap: () {
                   String langCode = selectedLanguage;
-                  // if (selectedLanguage == 'uz_cyrillic') {
-                  //   langCode = 'uz';
-                  // }
                   changeLanguage(langCode, context);
-                  // var languageNotifier = LanguageNotifier();
-                  // languageNotifier.changeLanguage(selectedLanguage, context);
                   context.go(AppRoutes.splash);
-
                 },
               ),
               20.vertical,
@@ -175,7 +176,6 @@ class _LanguagesPageState extends ConsumerState<LanguagesPage> {
       rethrow;
     }
   }
-
 }
 
 class _LanguageTile extends StatelessWidget {
@@ -184,7 +184,12 @@ class _LanguageTile extends StatelessWidget {
   final bool isSelected;
   final VoidCallback onTap;
 
-  const _LanguageTile({required this.flag, required this.language, required this.isSelected, required this.onTap});
+  const _LanguageTile({
+    required this.flag,
+    required this.language,
+    required this.isSelected,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -195,7 +200,10 @@ class _LanguageTile extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: isSelected ? AppColors.primaryColor : Colors.grey.shade200, width: isSelected ? 2 : 1),
+          border: Border.all(
+            color: isSelected ? AppColors.primaryColor : Colors.grey.shade200,
+            width: isSelected ? 2 : 1,
+          ),
         ),
         child: Row(
           children: [
@@ -206,13 +214,23 @@ class _LanguageTile extends StatelessWidget {
               child: Center(child: Text(flag, style: TextStyle(fontSize: 24))),
             ),
             HorizontalSpacing(16).horizontal,
-            Text(language, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black87)),
+            Text(
+              language,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: Colors.black87,
+              ),
+            ),
             Spacer(),
             if (isSelected)
               Container(
                 width: 24,
                 height: 24,
-                decoration: BoxDecoration(color: AppColors.primaryColor, shape: BoxShape.circle),
+                decoration: BoxDecoration(
+                  color: AppColors.primaryColor,
+                  shape: BoxShape.circle,
+                ),
                 child: Icon(Icons.check, color: Colors.white, size: 16),
               ),
           ],

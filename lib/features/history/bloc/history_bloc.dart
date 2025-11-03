@@ -37,7 +37,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
       try {
         loadData.clear();
         currentPage = 1;
-        final response = await repo.getHistory(page: currentPage);
+        final response = await repo.getHistory(page: currentPage,marketTypeId: event.marketTypeId);
         final data = HistoryResponse.fromJson(response);
 
         if (data.message == "ok") {

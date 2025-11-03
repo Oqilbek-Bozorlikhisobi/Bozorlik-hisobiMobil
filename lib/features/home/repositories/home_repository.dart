@@ -10,6 +10,14 @@ import '../../../common/helpers/request_helper.dart';
 class HomeRepository {
   final userId = ProfileRepository().id;
 
+  // Future<List<BannerModel>> getStatistic({required String marketTypeId}) async {
+  //   final response = await requestHelper.getWithAuth("/history/statistics",);
+  //
+  //   return (response["data"]["items"] as List)
+  //       .map((e) => BannerModel.fromJson(e))
+  //       .toList();
+  // }
+
   Future<List<BannerModel>> getBanners() async {
     final response = await requestHelper.getWithAuth("/bunner");
 

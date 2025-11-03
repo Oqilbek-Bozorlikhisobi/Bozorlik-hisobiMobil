@@ -1,11 +1,22 @@
 import 'package:bozorlik/common/helpers/request_helper.dart';
 
 class CartRepository2 {
-  Future<Map<String, dynamic>> getAllCarts() async {
-    final response = await requestHelper.getWithAuth("/market");
+  Future<Map<String, dynamic>> getAllCarts({String? marketTypeId}) async {
+    var response;
+    if(marketTypeId!=null){
+       response = await requestHelper.getWithAuth(
+        "/market?marketTypeId=$marketTypeId",
+      );
+    }else{
+      response = await requestHelper.getWithAuth(
+        "/market",
+      );
+    }
+
 
     return response;
   }
+
   Future<Map<String, dynamic>> deleteCart({required String id}) async {
     final response = await requestHelper.deleteWithAuth("/market/$id");
 
@@ -17,14 +28,19 @@ class CartRepository2 {
 
     return response;
   }
-  Future<Map<String, dynamic>> deleteUserById({required String deletedUserId,required String marketId}) async {
-    final response = await requestHelper.patchWithAuth("/market/delete/user",{
+
+  Future<Map<String, dynamic>> deleteUserById({
+    required String deletedUserId,
+    required String marketId,
+  }) async {
+    final response = await requestHelper.patchWithAuth("/market/delete/user", {
       "deletedUserId": deletedUserId,
-      "marketId": marketId
+      "marketId": marketId,
     });
 
     return response;
   }
+
   Future<Map<String, dynamic>> deleteCartById({required String id}) async {
     final response = await requestHelper.deleteWithAuth("/market-list/$id");
 
@@ -51,11 +67,18 @@ class CartRepository2 {
     return response;
   }
 
-  Future<Map<String, dynamic>> check({required String id, required num price, required String calculationType}) async {
+  Future<Map<String, dynamic>> check({
+    required String id,
+    required num price,
+    required String calculationType,
+  }) async {
     print("===================");
     print("${id}");
     print("===================");
-    final response = await requestHelper.patchWithAuth("/market-list/check-is-buying/$id", {"price": price, "calculationType": calculationType});
+    final response = await requestHelper.patchWithAuth(
+      "/market-list/check-is-buying/$id",
+      {"price": price, "calculationType": calculationType},
+    );
 
     return response;
   }

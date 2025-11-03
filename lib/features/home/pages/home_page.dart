@@ -83,7 +83,7 @@ class _HomePageState extends State<HomePage> {
                       //   );
                       // }
                     },
-                    text: "Yangilash",
+                    text: "update".tr(),
                   ),
                 ],
               ),

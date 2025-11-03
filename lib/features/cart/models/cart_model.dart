@@ -34,6 +34,7 @@ abstract class CartItem with _$CartItem {
     @JsonKey(name: 'updatedAt') String? updatedAt,
     @JsonKey(name: 'product') ProductModel? product,
     @JsonKey(name: 'productType') String? productType,
+    @JsonKey(name: 'calculationType') String? calculationType,
     @JsonKey(name: 'productName') String? productName,
     @JsonKey(name: 'quantity') double? quantity,
     @JsonKey(name: 'price') double? price,

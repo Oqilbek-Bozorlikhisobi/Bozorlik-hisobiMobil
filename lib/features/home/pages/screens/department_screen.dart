@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import 'components/active_markets.dart';
 import 'components/banners_department_widget.dart';
+import 'components/complated_markets.dart';
 import 'components/tab_department.dart';
 
 class DepartmentScreen extends StatefulWidget {
@@ -18,7 +20,7 @@ class DepartmentScreen extends StatefulWidget {
 class _DepartmentScreenState extends State<DepartmentScreen> {
   final bloc = HomeBloc();
   final RefreshController _refreshController = RefreshController();
-
+String? marketTypeId;
   @override
   void initState() {
     super.initState();
@@ -63,11 +65,19 @@ class _DepartmentScreenState extends State<DepartmentScreen> {
                 headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
                   return [
                     SliverToBoxAdapter(
-                      child: DepartmentBanner(bloc: bloc),
+                      child: DepartmentBanner(bloc: bloc, currentIndex: (String marketTypeIdA) {
+                        marketTypeId=marketTypeIdA;
+                        setState(() {
+                          refreshNotifier.value = !refreshNotifier.value;
+                          refreshNotifier2.value = !refreshNotifier.value;
+
+                        });
+
+                      },),
                     ),
                   ];
                 },
-                body: TabBarExample(),
+                body: TabBarExample(marketId: marketTypeId,),
               ),
             ),
           );

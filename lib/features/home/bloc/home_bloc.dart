@@ -18,6 +18,17 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(HomeState()) {
     final repo = HomeRepository();
 
+
+    on<GetStatisticEvent>((event,emit)async{
+      emit(state.copyWith(status: Status.loading));
+
+      try{
+        // final response=await repo.
+      }on DioException catch(e){
+        emit(state.copyWith(status: Status.error));
+      }
+
+    });
     on<GetVersionEvent>((event, emit) async {
       PackageInfo packageInfo = await PackageInfo.fromPlatform();
       String version = packageInfo.version;

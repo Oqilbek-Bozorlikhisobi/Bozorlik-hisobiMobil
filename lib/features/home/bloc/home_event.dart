@@ -18,3 +18,8 @@ class GetDepartmentEvent extends HomeEvent{}
 class GetBannerEvent extends HomeEvent{}
 class GetUnitEvent extends HomeEvent{}
 class GetVersionEvent extends HomeEvent{}
+class GetStatisticEvent extends HomeEvent{
+   final String marketTypeId;
+
+  GetStatisticEvent({required this.marketTypeId});
+}

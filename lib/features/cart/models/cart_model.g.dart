@@ -48,6 +48,7 @@ _CartItem _$CartItemFromJson(Map<String, dynamic> json) => _CartItem(
           ? null
           : ProductModel.fromJson(json['product'] as Map<String, dynamic>),
   productType: json['productType'] as String?,
+  calculationType: json['calculationType'] as String?,
   productName: json['productName'] as String?,
   quantity: (json['quantity'] as num?)?.toDouble(),
   price: (json['price'] as num?)?.toDouble(),
@@ -68,6 +69,7 @@ Map<String, dynamic> _$CartItemToJson(_CartItem instance) => <String, dynamic>{
   'updatedAt': instance.updatedAt,
   'product': instance.product,
   'productType': instance.productType,
+  'calculationType': instance.calculationType,
   'productName': instance.productName,
   'quantity': instance.quantity,
   'price': instance.price,

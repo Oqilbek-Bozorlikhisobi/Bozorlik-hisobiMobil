@@ -20,26 +20,46 @@ class BuyProduct extends StatelessWidget {
           children: [
             state.buyProducts?[index].product?.images == null
                 ? Image.asset(AppImages.cartItem)
-                : Image.network(state.buyProducts?[index].product?.images ?? "", height: 36, width: 36),
+                : Image.network(
+                  state.buyProducts?[index].product?.images ?? "",
+                  height: 36,
+                  width: 36,
+                ),
             5.horizontal,
             Text(
               maxLines: 2,
               state.buyProducts?[index].quantity.toString() ?? "",
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600, fontSize: 16),
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                fontWeight: FontWeight.w600,
+                fontSize: 16,
+              ),
             ),
             Text(
               " ${state.buyProducts?[index].unit?.name.toString() ?? "dona"}",
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600, fontSize: 16),
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                fontWeight: FontWeight.w600,
+                fontSize: 16,
+              ),
             ),
             10.horizontal,
-            Text("X", style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w500, fontSize: 10)),
+            Text(
+              "X",
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                fontWeight: FontWeight.w500,
+                fontSize: 10,
+              ),
+            ),
             10.horizontal,
             Expanded(
               child: Text(
                 // maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 state.buyProducts?[index].productName.toString() ?? "",
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w500, fontSize: 16, color: AppColors.darkGreyText),
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16,
+                  color: AppColors.darkGreyText,
+                ),
               ),
             ),
             20.horizontal,
@@ -51,14 +71,20 @@ class BuyProduct extends StatelessWidget {
                   Text("${"total".tr()}:"),
                   Builder(
                     builder: (context) {
-                      // var total= state.buyProducts?[index].calculationType=="one"?   ((state.buyProducts?[index].price ?? 0) * (state.buyProducts?[index].quantity ?? 0)):state.buyProducts?[index].t;
+                      print("${state.buyProducts?[index].calculationType}");
+                      var total =
+                          state.buyProducts?[index].calculationType == "one"
+                              ? ((state.buyProducts?[index].price ?? 0) *
+                                  (state.buyProducts?[index].quantity ?? 0))
+                              : state.buyProducts?[index].price;
                       return Text(
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
-                        PriceFormatterService.formatPrice(
-                          ((state.buyProducts?[index].price ?? 0) * (state.buyProducts?[index].quantity ?? 0)).toString(),
+                        PriceFormatterService.formatPrice(total.toString()),
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.primaryColor,
                         ),
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600, color: AppColors.primaryColor),
                       );
                     },
                   ),

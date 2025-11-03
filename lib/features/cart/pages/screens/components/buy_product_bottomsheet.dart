@@ -21,7 +21,7 @@ class BuyProductBottomsheet extends StatefulWidget {
 
   final MarketLists? product;
   final String? marketListId;
-  final Function(double price, Unit unit) save;
+  final Function(double price, Unit unit,String selectUnit) save;
 
   @override
   State<BuyProductBottomsheet> createState() => _BuyProductBottomsheetState();
@@ -55,7 +55,27 @@ class _BuyProductBottomsheetState extends State<BuyProductBottomsheet> {
             }
 
             if (state.statusCheck == Status.success) {
-              widget.save(double.parse(getUnformattedValue(controller.text ?? "")), Unit(id: unitId, name: unitName));
+              print("---------UnitName");
+              print(unitName);
+              final currentLocale = context.locale.languageCode;
+
+              // Tilga qarab title-ni tanlash
+              String getTitle() {
+                switch (currentLocale) {
+                  case 'uz':
+                    return "Jami";
+                  case 'ky':
+                    return "Жами";
+                  case 'ru':
+                    return "Итого";
+                  case 'en':
+                    return "Total";
+                  default:
+                    return "Jami";
+                }
+              }
+              widget.save(double.parse(getUnformattedValue(controller.text ?? "")), Unit(id: unitId, name: unitName),
+                  unitName == getTitle() ? "all" : "one");
             }
           },
           builder: (context, state) {
@@ -148,11 +168,29 @@ class _BuyProductBottomsheetState extends State<BuyProductBottomsheet> {
                       text: "confirmation".tr(),
                       onTap: () {
                         if (controller.text.isNotEmpty && unitId != null) {
+
+                          final currentLocale = context.locale.languageCode;
+
+                          // Tilga qarab title-ni tanlash
+                          String getTitle() {
+                            switch (currentLocale) {
+                              case 'uz':
+                                return "Jami";
+                              case 'ky':
+                                return "Жами";
+                              case 'ru':
+                                return "Итого";
+                              case 'en':
+                                return "Total";
+                              default:
+                                return "Jami";
+                            }
+                          }
                           bloc.add(
                             MarketListCheckEvent(
                               id: widget.marketListId.toString(),
                               price: num.parse(getUnformattedValue(controller.text)),
-                              calculationType: unitName == "Jami" ? "all" : "one",
+                              calculationType: unitName == getTitle() ? "all" : "one",
                             ),
                           );
                         } else {
