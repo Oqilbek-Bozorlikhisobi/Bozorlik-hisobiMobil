@@ -58,9 +58,9 @@ class _NotificationSuccessBottomsheetState
               type: ToastificationType.error,
             );
           }
-          // if (state.status == Status.success) {
-          //   context.pop(true);
-          // }
+          if (state.statusR == Status.success) {
+            context.pop(true);
+          }
         },
         builder: (context, state) {
           return Padding(
@@ -93,7 +93,7 @@ class _NotificationSuccessBottomsheetState
                 ),
                 12.vertical,
                 Text(
-                  "${formatPhoneNumber(state.data?.receiver?.phoneNumber ?? "")} (${(widget.data?.receiver?.fullName ?? "")})",
+                  "${formatPhoneNumber(state.data?.sender?.phoneNumber ?? "")} (${(widget.data?.sender?.fullName ?? "")})",
                   style: Theme.of(context).textTheme.titleMedium!.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
@@ -114,7 +114,7 @@ class _NotificationSuccessBottomsheetState
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      state.data?.messageUz ?? "",
+                      state.data?.note ?? "",
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontWeight: FontWeight.w400,
                         fontSize: 14,
@@ -151,55 +151,56 @@ class _NotificationSuccessBottomsheetState
                 //     ? SizedBox()
                 //     :
                 Builder(
-                      builder: (context) {
-                        return state.status == Status.loading
-                            ? LoadingWidget()
-                            : Row(
-                              children: [
-                                Expanded(
-                                  child: CustomButton(
-                                    bgColor: AppColors.red,
-                                    isLoading: state.status == Status.loading,
-                                    text: "rejection".tr(),
-                                    onTap: () {
-                                      if (state.data?.isRead == true) {
-                                        context.pop(true);
-                                      } else {
-                                        bloc.add(
-                                          RejectAcceptEvent(
-                                            marketId:
-                                                state.data?.market?.id ?? "",
-                                            accept: false,
-                                          ),
-                                        );
-                                      }
-                                    },
-                                  ),
-                                ),
-                                12.horizontal,
-                                Expanded(
-                                  child: CustomButton(
-                                    isLoading: state.status == Status.loading,
-                                    text: "acceptance".tr(),
-                                    onTap: () {
-                                      // if (widget.isRead == true) {
-                                      //   context.pop(true);
-                                      // } else {
-                                      bloc.add(
-                                        RejectAcceptEvent(
-                                          marketId:
-                                              widget.data?.market?.id ?? "",
-                                          accept: true,
-                                        ),
-                                      );
-                                      // }
-                                    },
-                                  ),
-                                ),
-                              ],
-                            );
-                      },
-                    ),
+                  builder: (context) {
+                    if(widget.data?.isRead==true){
+                      return SizedBox();
+                    }
+                    return state.statusR == Status.loading
+                        ? LoadingWidget()
+                        : Row(
+                          children: [
+                            Expanded(
+                              child: CustomButton(
+                                bgColor: AppColors.red,
+                                isLoading: state.status == Status.loading,
+                                text: "rejection".tr(),
+                                onTap: () {
+                                  if (state.data?.isRead == true) {
+                                    context.pop(true);
+                                  } else {
+                                    bloc.add(
+                                      RejectAcceptEvent(
+                                        marketId: state.data?.market?.id ?? "",
+                                        accept: false,
+                                      ),
+                                    );
+                                  }
+                                },
+                              ),
+                            ),
+                            12.horizontal,
+                            Expanded(
+                              child: CustomButton(
+                                isLoading: state.status == Status.loading,
+                                text: "acceptance".tr(),
+                                onTap: () {
+                                  // if (widget.isRead == true) {
+                                  //   context.pop(true);
+                                  // } else {
+                                  bloc.add(
+                                    RejectAcceptEvent(
+                                      marketId: widget.data?.market?.id ?? "",
+                                      accept: true,
+                                    ),
+                                  );
+                                  // }
+                                },
+                              ),
+                            ),
+                          ],
+                        );
+                  },
+                ),
                 40.vertical,
               ],
             ),

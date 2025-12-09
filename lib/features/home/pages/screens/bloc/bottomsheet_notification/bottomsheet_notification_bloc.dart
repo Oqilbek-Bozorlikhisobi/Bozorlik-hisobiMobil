@@ -27,7 +27,7 @@ class BottomsheetNotificationBloc
       }
     });
     on<RejectAcceptEvent>((event, emit) async {
-      emit(state.copyWith(status: Status.loading));
+      emit(state.copyWith(statusR: Status.loading));
 
       try {
         final response = await repo.acceptReject(
@@ -35,10 +35,10 @@ class BottomsheetNotificationBloc
           accept: event.accept,
         );
         if (response['statusCode'].toString() == "200") {
-          emit(state.copyWith(status: Status.success));
+          emit(state.copyWith(statusR: Status.success));
         }
       } on DioException catch (e) {
-        emit(state.copyWith(status: Status.error, errorMessage: e.toString()));
+        emit(state.copyWith(statusR: Status.error, errorMessage: e.toString()));
       }
     });
   }
