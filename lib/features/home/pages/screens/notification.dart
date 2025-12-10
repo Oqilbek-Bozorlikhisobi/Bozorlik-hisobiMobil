@@ -13,6 +13,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import '../../../../utils/mask.dart';
 import 'bloc/notification_bloc.dart';
 import 'components/notification_info_bottomsheet.dart';
 import 'components/notification_success_bottomsheet.dart';
@@ -292,13 +293,26 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  getTitle() ?? "",
+                  // getTitle() ?? "",
+                  // новый код
+                  "${formatPhoneNumber(notification.receiver?.phoneNumber ?? "")} (${(notification.receiver?.fullName ?? "")})",
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: (notification.isRead ?? false) ? FontWeight.w400 : FontWeight.w500,
                     color: Colors.black87,
                   ),
                 ),
+                const SizedBox(height: 6),
+                Text(
+                  "customer".tr(),
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: (notification.isRead ?? false) ? FontWeight.w400 : FontWeight.w500,
+                    color: Colors.black87,
+                  ),
+                ),
+                //
+
                 const SizedBox(height: 6),
                 Text(formatDate2(notification.createdAt ?? ""), style: TextStyle(fontSize: 13, color: Colors.grey[600])),
               ],
