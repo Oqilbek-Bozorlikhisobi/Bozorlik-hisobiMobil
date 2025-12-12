@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:bozorlik/features/auth/models/otp_state.dart';
 import 'package:bozorlik/features/auth/notifiers/register_otp_notifier.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../models/login_response.dart';
@@ -23,7 +22,7 @@ class ForgotOtpNotifier extends _$ForgotOtpNotifier {
     print("verifying otp: $model");
     state = state.copyWith(isLoading: true, error: null);
     try {
-      final response = await authRepository.forgotPasswordVerify(state: model);
+      await authRepository.forgotPasswordVerify(state: model);
       state = state.copyWith(isLoading: false, result: LoginResponse());
       print("Verified");
     } catch (e) {

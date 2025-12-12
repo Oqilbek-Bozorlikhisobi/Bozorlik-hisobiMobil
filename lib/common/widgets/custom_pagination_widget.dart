@@ -1,4 +1,3 @@
-import 'package:bozorlik/common/extension/number_extension.dart';
 import 'package:bozorlik/common/extension/widget_extantion.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -141,7 +140,6 @@ class _CustomPaginationWidgetState<T>
                   } else {
                     return widget.itemBuilder(item.data as T);
                   }
-                  return const SizedBox.shrink();
                 },
                 firstPageProgressIndicatorBuilder:
                     (context) => const LoadingWidget(),

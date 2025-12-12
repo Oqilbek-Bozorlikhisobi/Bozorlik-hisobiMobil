@@ -3,8 +3,6 @@ import 'package:bozorlik/common/extension/widget_extantion.dart';
 import 'package:bozorlik/common/widgets/custom_toast.dart';
 import 'package:bozorlik/features/auth/models/otp_state.dart';
 import 'package:bozorlik/features/auth/notifiers/forgot_otp_notifier.dart';
-import 'package:bozorlik/features/auth/notifiers/register_notifier.dart';
-import 'package:bozorlik/features/auth/notifiers/register_otp_notifier.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';

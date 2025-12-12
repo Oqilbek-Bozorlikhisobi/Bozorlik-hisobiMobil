@@ -506,7 +506,6 @@
 // }
 import 'package:bozorlik/common/extension/number_extension.dart';
 import 'package:bozorlik/common/extension/widget_extantion.dart';
-import 'package:bozorlik/common/widgets/custom_dropdown.dart';
 import 'package:bozorlik/common/widgets/custom_toast.dart';
 import 'package:bozorlik/common/widgets/keep_alive_page.dart';
 import 'package:bozorlik/features/auth/models/otp_state.dart';

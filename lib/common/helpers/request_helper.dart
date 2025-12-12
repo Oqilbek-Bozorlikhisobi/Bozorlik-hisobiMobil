@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:bozorlik/common/widgets/custom_toast.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -7,7 +6,6 @@ import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:logger/logger.dart';
 import 'package:bozorlik/app/router.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-import 'package:toastification/toastification.dart';
 
 import '../../db/cache.dart';
 
@@ -113,7 +111,7 @@ class RequestHelper {
           await _refreshToken();
           final response = await request();
           return response.data;
-        } catch (e, s) {
+        } catch (e) {
           throw UnauthorizedException();
         }
       } else if (e.response?.statusCode == 502) {
@@ -129,7 +127,7 @@ class RequestHelper {
         // );
       }
       throw UnknownFailure(e.response?.statusCode);
-    } catch (e, s) {
+    } catch (e) {
       _navigateToRegister();
     }
   }

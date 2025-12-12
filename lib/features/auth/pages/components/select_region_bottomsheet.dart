@@ -117,9 +117,9 @@ void showRegionBottomSheet(BuildContext context, registerNotifier, registerState
                     List<String> getTitle() {
                       switch (currentLocale) {
                         case 'uz':
-                          return regionsUz ?? [];
+                          return regionsUz;
                         case 'ky':
-                          return regionsCy??[];
+                          return regionsCy;
                         case 'ru':
                           return regionsRu;
                         case 'en':

@@ -9,12 +9,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'app/app.dart';
 import 'common/values/app_infos.dart';
+import 'features/service/push_notification_service.dart' show PushNotificationService, PushNotificationHelper;
 import 'firebase_options.dart';
-
-@pragma('vm:entry-point')
-Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
-}
 
 void main() async {
   FlutterError.onError = (details) {
@@ -27,7 +23,8 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+  PushNotificationHelper.initialized();
+
 
   await EasyLocalization.ensureInitialized();
   await AppInfo.init();

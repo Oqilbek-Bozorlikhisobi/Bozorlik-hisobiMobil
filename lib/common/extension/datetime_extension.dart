@@ -4,7 +4,7 @@ extension DatetimeExtension on DateTime {
   String formatDate() {
     try {
       return DateFormat('yyyy.MM.dd').format(this);
-    } catch (e, s) {}
+    } catch (e) {}
     return "";
   }
 }

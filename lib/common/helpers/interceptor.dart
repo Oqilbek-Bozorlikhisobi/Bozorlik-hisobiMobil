@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'dart:developer' as developer;
 
 import 'dio_exception.dart';
 
