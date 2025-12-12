@@ -6,6 +6,7 @@ import 'package:bozorlik/utils/custom_tab_view_ruler.dart';
 import 'package:bozorlik/utils/date_formatter.dart';
 import 'package:bozorlik/utils/enums.dart';
 import 'package:bozorlik/utils/error_view.dart';
+import 'package:bozorlik/utils/mask.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,6 +47,7 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("salom");
     return BlocProvider.value(
       value: bloc,
       child: BlocConsumer<NotificationBloc, NotificationState>(
@@ -291,12 +293,20 @@ class _NotificationScreenState extends State<NotificationScreen> with TickerProv
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+
                 Text(
-                  getTitle() ?? "",
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: (notification.isRead ?? false) ? FontWeight.w400 : FontWeight.w500,
-                    color: Colors.black87,
+                  "${formatPhoneNumber(notification.sender?.phoneNumber ?? "")} (${(notification.sender?.fullName ?? "")})",
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    fontWeight: FontWeight.w400,
+                      fontSize: 14
+
+                  ),
+                ),
+                Text(
+                  "customer".tr(),
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14
                   ),
                 ),
                 const SizedBox(height: 6),

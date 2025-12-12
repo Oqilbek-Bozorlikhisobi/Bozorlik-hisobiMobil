@@ -24,6 +24,7 @@ final class PrefsCache extends Cache {
     return _prefs.getInt(key);
   }
 
+
   @override
   Map<String, dynamic>? getMap(String key) {
     try {
